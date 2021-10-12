@@ -5,16 +5,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import mandatory.cinemama.Entities.Genre.Genre;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,11 +37,14 @@ public class Movie {
     @Column(nullable = false, length = 40)
     private String title;
 
-    private String genres; //  TODO: list<Geners>
+    @OneToMany(mappedBy = "movies")
+    private List<Genre> genres; //  TODO: list<Geners>
 
-    private String actors; // TODO: list<Actors>
+    @OneToMany(mappedBy = "movies")
+    private List<Actor> actors; // TODO: list<Actors>
 
-    private String directors; // TODO: list<Directors>
+  //  @OneToMany(mappedBy = "movies")
+ //   private List<Director> directors; // TODO: list<Directors>
 
 
     private int minAge;
