@@ -1,14 +1,13 @@
 package mandatory.cinemama.Entities;
 
-import lombok.Getter;
-import lombok.Setter;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -16,15 +15,16 @@ import javax.persistence.Column;
 @Table(name = "cinema_theaters", schema = "cinemama")
 public class CinemaTheater {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
 
-    @Column(name = "name", nullable = false, length = 40)
-    private String name;
+  @Column(name = "name", nullable = false, length = 40)
+  private String name;
 
-    @Column(name = "address", nullable = false, length = 50)
-    private String address;
+  @Column(name = "address", nullable = false, length = 50)
+  private String address;
 
-    // TODO: private List<Hall> halls;
+  // TODO: private List<Hall> halls;
+  private String halls;
 }
