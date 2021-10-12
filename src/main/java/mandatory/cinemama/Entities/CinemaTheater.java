@@ -15,7 +15,7 @@ public class CinemaTheater {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int CinemaTheaterId;
 
     private String name;
     private String address;
