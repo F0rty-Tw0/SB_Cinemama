@@ -27,5 +27,4 @@ public class Actor {
   private String lastName;
 
   // TODO: private List<Movie> movieList;
-  private List<String> movieList;
 }

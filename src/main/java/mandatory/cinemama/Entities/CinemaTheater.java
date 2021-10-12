@@ -26,5 +26,5 @@ public class CinemaTheater {
     @Column(name = "address", nullable = false, length = 50)
     private String address;
 
-    private String cinemaHalls; // List
+    // TODO: private List<Hall> halls;
 }

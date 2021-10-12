@@ -31,13 +31,10 @@ public class Movie {
     @Column(nullable = false, length = 40)
     private String title;
 
-    @Column(nullable = false, length = 30)
     private String genres; //  TODO: list<Geners>
 
-    @Column(nullable = false, length = 60)
     private String actors; // TODO: list<Actors>
 
-    @Column(nullable = false, length = 60)
     private String directors; // TODO: list<Directors>
 
 
