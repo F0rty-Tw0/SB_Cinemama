@@ -1,42 +1,49 @@
 package mandatory.cinemama.Entities;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Time;
+import java.time.LocalTime;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "movies", schema= "cinemama")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     public Long id;
 
+    @Column(nullable = false, length = 40)
     public String title;
-    public String genres; // list<Geners>
-    public String actors; // list<Actors>
-    public String directors; // list<Directors>
+
+    @Column(nullable = false, length = 30)
+    public String genres; //  TODO: list<Geners>
+
+    @Column(nullable = false, length = 60)
+    public String actors; // TODO: list<Actors>
+
+    @Column(nullable = false, length = 60)
+    public String directors; // TODO: list<Directors>
+
+    @Column(nullable = true)
     public int minAge;
-    public Time screenTime;
+
+    @Column(nullable = false, length = 30)
+    public LocalTime screenTime;
+
+    @Column(nullable = false, length = 60)
     public String info;
+
+    @Column(nullable = false, length = 30)
     public int raiting;
 
-    public Movie() {
-    }
 
-    public Movie(Long id, String title, String genres, String actors, String directors, int minAge, Time screenTime, String info, int raiting) {
-        this.id = id;
-        this.title = title;
-        this.genres = genres;
-        this.actors = actors;
-        this.directors = directors;
-        this.minAge = minAge;
-        this.screenTime = screenTime;
-        this.info = info;
-        this.raiting = raiting;
-    }
 }
