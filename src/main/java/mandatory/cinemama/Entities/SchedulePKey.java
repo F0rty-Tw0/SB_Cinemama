@@ -2,22 +2,26 @@ package mandatory.cinemama.Entities;
 
 import java.io.Serializable;
 import java.time.LocalTime;
-
-import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
-
+import javax.persistence.Column;
+import javax.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
-@Embeddable
 @NoArgsConstructor
 public class SchedulePKey implements Serializable {
-  @NotNull
+
+  @Column(nullable = false)
+  @Id
   private Long movieId;
 
-  @NotNull
+  @Column(nullable = false)
+  @Id
+  private Long hallId;
+
+  @Column(nullable = false)
+  @Id
   private LocalTime timeSlot;
 }
