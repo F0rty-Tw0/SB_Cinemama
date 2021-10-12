@@ -4,18 +4,18 @@ package mandatory.cinemama.Entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Time;
 
 @Entity
-@Table
 @Getter
 @Setter
+@Table(name = "movies", schema= "cinemama")
 public class Movie {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+
     public String title;
     public String genres; // list<Geners>
     public String actors; // list<Actors>
