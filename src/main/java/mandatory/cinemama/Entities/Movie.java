@@ -6,7 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import java.time.LocalTime;
 
 @Entity
@@ -19,31 +26,32 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    public Long id;
+    private Long id;
 
     @Column(nullable = false, length = 40)
-    public String title;
+    private String title;
 
     @Column(nullable = false, length = 30)
-    public String genres; //  TODO: list<Geners>
+    private String genres; //  TODO: list<Geners>
 
     @Column(nullable = false, length = 60)
-    public String actors; // TODO: list<Actors>
+    private String actors; // TODO: list<Actors>
 
     @Column(nullable = false, length = 60)
-    public String directors; // TODO: list<Directors>
+    private String directors; // TODO: list<Directors>
 
-    @Column(nullable = true)
-    public int minAge;
+
+    private int minAge;
 
     @Column(nullable = false, length = 30)
-    public LocalTime screenTime;
+    private LocalTime screenTime;
 
     @Column(nullable = false, length = 60)
-    public String info;
+    private String info;
 
-    @Column(nullable = false, length = 30)
-    public int raiting;
+    @Column(nullable = false, length = 10)
+    @Size(min = 0, max=10)
+    private int rating;
 
 
 }
