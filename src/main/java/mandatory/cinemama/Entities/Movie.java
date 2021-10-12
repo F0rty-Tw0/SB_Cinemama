@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalTime;
 
 @Entity
@@ -33,7 +34,7 @@ public class Movie {
     @Column(nullable = false, length = 60)
     public String directors; // TODO: list<Directors>
 
-    @Column(nullable = true)
+
     public int minAge;
 
     @Column(nullable = false, length = 30)
@@ -42,8 +43,9 @@ public class Movie {
     @Column(nullable = false, length = 60)
     public String info;
 
-    @Column(nullable = false, length = 30)
-    public int raiting;
+    @Column(nullable = false, length = 10)
+    @Size(min = 0, max=10)
+    public int rating;
 
 
 }
