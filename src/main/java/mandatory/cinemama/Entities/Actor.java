@@ -26,5 +26,6 @@ public class Actor {
   @Column(nullable = false)
   private String lastName;
 
-  // TODO: private List<Movie> movieList;
+  // TODO: private List<Movie> movies;
+  private String movies;
 }

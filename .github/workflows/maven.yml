@@ -23,4 +23,6 @@ jobs:
         distribution: 'adopt'
         cache: maven
     - name: Build with Maven
+      env:
+        DATABASE_URL: ${{secrets.DATABASE_URL}}      
       run: mvn -B package --file pom.xml
