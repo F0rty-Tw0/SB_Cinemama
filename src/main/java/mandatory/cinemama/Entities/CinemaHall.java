@@ -1,15 +1,19 @@
 package mandatory.cinemama.Entities;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.GenerationType;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-//@Table(name = "CinemaHalls", schema = "?")
+@Table(name = "cinema_halls", schema = "cinemama")
 public class CinemaHall {
 
     @Id
@@ -17,6 +21,6 @@ public class CinemaHall {
     private int cinemaHallId;
 
     private String name;
-    private List<MovieSchedule> movieSchedules;
+    private List<String> movieSchedules;
 
 }
