@@ -20,32 +20,32 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    public Long id;
+    private Long id;
 
     @Column(nullable = false, length = 40)
-    public String title;
+    private String title;
 
     @Column(nullable = false, length = 30)
-    public String genres; //  TODO: list<Geners>
+    private String genres; //  TODO: list<Geners>
 
     @Column(nullable = false, length = 60)
-    public String actors; // TODO: list<Actors>
+    private String actors; // TODO: list<Actors>
 
     @Column(nullable = false, length = 60)
-    public String directors; // TODO: list<Directors>
+    private String directors; // TODO: list<Directors>
 
 
-    public int minAge;
+    private int minAge;
 
     @Column(nullable = false, length = 30)
-    public LocalTime screenTime;
+    private LocalTime screenTime;
 
     @Column(nullable = false, length = 60)
-    public String info;
+    private String info;
 
     @Column(nullable = false, length = 10)
     @Size(min = 0, max=10)
-    public int rating;
+    private int rating;
 
 
 }
