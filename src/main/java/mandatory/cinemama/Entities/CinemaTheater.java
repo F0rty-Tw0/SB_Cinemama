@@ -5,12 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
-
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -22,9 +17,15 @@ public class CinemaTheater {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cinemaTheaterId;
+    private long id;
 
+    @Basic
+    @Column(name = "name", nullable = false, length = 40)
     private String name;
+
+    @Basic
+    @Column(name = "address", nullable = false, length = 50)
     private String address;
+
     private String cinemaHalls; // List
 }
