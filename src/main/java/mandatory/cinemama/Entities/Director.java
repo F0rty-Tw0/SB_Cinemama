@@ -24,6 +24,6 @@ public class Director {
 
   @Column(nullable = false)
   private String lastName;
-  // TODO: private List<Movie> movieList;
-  // private List<String> movieList;
+  // TODO: private List<Movie> movies;
+  private String movies;
 }
