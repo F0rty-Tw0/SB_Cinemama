@@ -22,6 +22,6 @@ public class CinemaHall {
   @Column(name = "name", nullable = false, length = 40)
   private String name;
 
-  // TODO: private List<Schedule> movieSchedules;
-  private String movieSchedules;
+  // TODO: private List<Schedule> schedules;
+  private String schedules;
 }
