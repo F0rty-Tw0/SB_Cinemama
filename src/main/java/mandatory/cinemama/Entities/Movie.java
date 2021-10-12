@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import java.time.LocalTime;
-
+// hi
 @Entity
 @Getter
 @Setter
