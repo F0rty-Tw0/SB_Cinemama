@@ -17,6 +17,6 @@ public class CinemaHall {
     private int id;
 
     private String name;
-    private List<movieSchedules> movieSchedules;
+    private List<MovieSchedule> movieSchedules;
 
 }
