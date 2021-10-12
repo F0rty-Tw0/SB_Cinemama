@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +14,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "directors", schema = "cinemama")
 public class Director {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -24,7 +24,6 @@ public class Director {
 
   @Column(nullable = false)
   private String lastName;
-
   // TODO: private List<Movie> movieList;
   // private List<String> movieList;
 }

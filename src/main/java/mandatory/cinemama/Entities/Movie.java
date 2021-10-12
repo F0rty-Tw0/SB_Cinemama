@@ -30,7 +30,7 @@ public class Movie {
   private String title;
 
   @Column(nullable = false, length = 30)
-  // TODO: List<Geners>
+  // TODO: List<Geners> genres;
   private String genres;
 
   @Column(nullable = false, length = 60)
