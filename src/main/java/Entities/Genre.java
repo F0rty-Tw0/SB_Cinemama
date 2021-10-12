@@ -1,14 +1,29 @@
-package entities;
+package Entities;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Actor {
+
+@Entity
+public class Genre {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
     @OneToMany(mappedBy = "Genre")
     List<Genre> genreList = new ArrayList<>();
+
+    public Genre(){
+
+
+
+    }
+
+
+
+
+
+
 }
