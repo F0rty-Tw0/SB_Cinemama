@@ -22,7 +22,7 @@ public class CinemaHall {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cinemaHallId;
+    private long id;
 
     private String name;
     private String movieSchedules; // List
