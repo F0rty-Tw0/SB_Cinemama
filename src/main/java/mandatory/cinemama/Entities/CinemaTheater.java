@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.GenerationType;
-import java.util.List;
+
 
 @Getter
 @Setter
@@ -26,5 +26,5 @@ public class CinemaTheater {
 
     private String name;
     private String address;
-    private List<CinemaHall> cinemaHalls;
+    private String cinemaHalls; // List
 }
