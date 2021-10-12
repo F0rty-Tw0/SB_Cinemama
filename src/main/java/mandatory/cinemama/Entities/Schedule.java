@@ -42,6 +42,4 @@ public class Schedule {
 
   //TODO: Change to class
   // private Hall hall;
-  @Column(nullable = false)
-  private String hall;
 }

@@ -32,13 +32,16 @@ public class Movie {
     private String title;
 
     @Column(nullable = false, length = 30)
-    private String genres; //  TODO: list<Geners>
+    //  TODO: list<Geners>
+    private String genres; 
 
     @Column(nullable = false, length = 60)
-    private String actors; // TODO: list<Actors>
+     // TODO: list<Actors>
+    private String actors;
 
     @Column(nullable = false, length = 60)
-    private String directors; // TODO: list<Directors>
+    // TODO: list<Directors>
+    private String directors; 
 
 
     private int minAge;
