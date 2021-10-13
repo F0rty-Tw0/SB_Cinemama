@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class HallServiceImpl implements HallService {
 
-  private final HallRepository hallRepository;
+  private HallRepository hallRepository;
 
   @Autowired
   public HallServiceImpl(HallRepository hallRepository) {
