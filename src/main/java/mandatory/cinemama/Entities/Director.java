@@ -29,4 +29,9 @@ public class Director {
 
   @ManyToMany
   private List<Movie> movies;
+
+  public Director(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
 }
