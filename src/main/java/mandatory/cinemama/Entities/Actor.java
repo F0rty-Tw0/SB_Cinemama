@@ -1,5 +1,6 @@
 package mandatory.cinemama.Entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,10 +32,11 @@ public class Actor {
   private String lastName;
 
   @ManyToMany
-  private List<Movie> movies;
+  private List<Movie> movies = new ArrayList<Movie>();
 
-  public Actor(String firstName, String lastName) {
+  public Actor(String firstName, String lastName, Movie movie) {
     this.firstName = firstName;
     this.lastName = lastName;
+    this.movies.add(movie);
   }
 }

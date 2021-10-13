@@ -8,11 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import mandatory.cinemama.Entities.Hall;
+import mandatory.cinemama.Entities.Movie;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "schedules", schema = "cinemama")
 @IdClass(SchedulePKey.class)
 public class Schedule {
@@ -35,10 +39,11 @@ public class Schedule {
   @Column(nullable = false)
   private LocalTime screenTime;
 
-  //TODO: Change to class
-  // private Movie movie;
-  @Column(nullable = false)
-  private String movie;
-  //TODO: Change to class
-  // private Hall hall;
+  public Schedule(LocalTime timeSlot, LocalDate date, Movie movie, Hall hall) {
+    this.timeSlot = timeSlot;
+    this.date = date;
+    this.movieId = movie.getId();
+    this.hallId = hall.getId();
+    this.screenTime = movie.getScreenTime();
+  }
 }

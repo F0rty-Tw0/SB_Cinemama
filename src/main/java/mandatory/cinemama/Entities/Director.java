@@ -1,5 +1,6 @@
 package mandatory.cinemama.Entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +31,13 @@ public class Director {
   private String lastName;
 
   @ManyToMany
-  private List<Movie> movies;
+  private List<Movie> movies = new ArrayList<Movie>();
+
+  public Director(String firstName, String lastName, Movie movie) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.movies.add(movie);
+  }
 
   public Director(String firstName, String lastName) {
     this.firstName = firstName;
