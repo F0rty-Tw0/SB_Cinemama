@@ -27,8 +27,6 @@ public class Actor {
   @Column(nullable = false)
   private String lastName;
 
- @ManyToOne
+  @ManyToOne
   private Movie movie;
-
-
 }
