@@ -10,6 +10,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+//comment
 
 @Getter
 @Setter

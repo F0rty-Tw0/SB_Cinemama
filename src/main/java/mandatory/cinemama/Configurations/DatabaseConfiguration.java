@@ -2,10 +2,13 @@ package mandatory.cinemama.Configurations;
 
 import java.time.LocalTime;
 import mandatory.cinemama.Entities.Director;
+import mandatory.cinemama.Entities.Genre.EGenre;
+import mandatory.cinemama.Entities.Genre.Genre;
 import mandatory.cinemama.Entities.Hall;
 import mandatory.cinemama.Entities.Movie;
 import mandatory.cinemama.Entities.Theater;
 import mandatory.cinemama.Repositories.DirectorRepository;
+import mandatory.cinemama.Repositories.GenreRepository;
 import mandatory.cinemama.Repositories.HallRepository;
 import mandatory.cinemama.Repositories.MovieRepository;
 import mandatory.cinemama.Repositories.TheaterRepository;
@@ -21,18 +24,21 @@ public class DatabaseConfiguration implements CommandLineRunner {
   private MovieRepository movieRepository;
   private HallRepository hallRepository;
   private TheaterRepository theaterRepository;
+  private GenreRepository genreRepository;
 
   public DatabaseConfiguration(
     DirectorRepository directorRepository,
     MovieRepository movieRepository,
     HallRepository hallRepository,
-    TheaterRepository theaterRepository
+    TheaterRepository theaterRepository,
+    GenreRepository genreRepository
   ) {
     // TODO: Add repositories
     this.movieRepository = movieRepository;
     this.directorRepository = directorRepository;
     this.hallRepository = hallRepository;
     this.theaterRepository = theaterRepository;
+    this.genreRepository = genreRepository;
   }
 
   @Override
@@ -40,10 +46,16 @@ public class DatabaseConfiguration implements CommandLineRunner {
     System.out.println("config runs");
     directorRepository.save(new Director("John", "Smith"));
 
+    if (genreRepository.findAll().size() == 0) {
+      EGenre[] genre = EGenre.values();
+      for (int i = 0; i < genre.length; i++) {
+        genreRepository.save(new Genre(genre[i]));
+      }
+    }
     if (!theaterRepository.findTheaterByName("Coco Bongo").isPresent()) {
       theaterRepository.save(new Theater("Coco Bongo", "Gammel Konge Vej 6"));
     }
-    
+
     if (!hallRepository.findHallByName("Sal 1").isPresent()) {
       hallRepository.save(new Hall("Sal 1"));
     }
