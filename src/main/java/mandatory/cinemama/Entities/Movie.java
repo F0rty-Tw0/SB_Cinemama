@@ -37,14 +37,14 @@ public class Movie {
     @Column(nullable = false, length = 40)
     private String title;
 
-    @OneToMany(mappedBy = "movies")
-    private List<Genre> genres; //  TODO: list<Geners>
+   @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<Genre> genres;
 
-    @OneToMany(mappedBy = "movies")
-    private List<Actor> actors; // TODO: list<Actors>
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<Actor> actors;
 
-  //  @OneToMany(mappedBy = "movies")
- //   private List<Director> directors; // TODO: list<Directors>
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+   private List<Director> directors;
 
 
     private int minAge;

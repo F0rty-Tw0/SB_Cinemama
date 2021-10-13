@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class Director {
 
   @Column(nullable = false)
   private String lastName;
-  // TODO: private List<Movie> movies;
-  private String movies;
+
+  @ManyToOne
+  private Movie movie;
 }
