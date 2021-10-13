@@ -39,9 +39,6 @@ public class Schedule {
   // private Movie movie;
   @Column(nullable = false)
   private String movie;
-
   //TODO: Change to class
   // private Hall hall;
-  @Column(nullable = false)
-  private String hall;
 }

@@ -12,16 +12,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "cinema_halls", schema = "cinemama")
-public class CinemaHall {
+@Table(name = "directors", schema = "cinemama")
+public class Director {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
-  @Column(name = "name", nullable = false, length = 40)
-  private String name;
+  @Column(nullable = false)
+  private String firstName;
 
-  // TODO: private List<Schedule> schedules;
-  private String schedules;
+  @Column(nullable = false)
+  private String lastName;
+  // TODO: private List<Movie> movies;
+  private String movies;
 }
