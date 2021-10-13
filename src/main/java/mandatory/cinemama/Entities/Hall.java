@@ -7,24 +7,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
-@Table(name = "cinema_theaters", schema = "cinemama")
-public class CinemaTheater {
+@Table(name = "halls", schema = "cinemama")
+public class Hall {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  @Column(name = "name", nullable = false, length = 40)
+  @Column(nullable = false, length = 40, unique = true)
   private String name;
 
-  @Column(name = "address", nullable = false, length = 50)
-  private String address;
+  // TODO: private List<Schedule> schedules;
 
-  // TODO: private List<Hall> halls;
-  private String halls;
+  public Hall(String name) {
+    this.name = name;
+  }
 }
