@@ -1,12 +1,14 @@
 package mandatory.cinemama.Configurations;
 
 import java.time.LocalTime;
+import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.Entities.Director;
 import mandatory.cinemama.Entities.Genre.EGenre;
 import mandatory.cinemama.Entities.Genre.Genre;
 import mandatory.cinemama.Entities.Hall;
 import mandatory.cinemama.Entities.Movie;
 import mandatory.cinemama.Entities.Theater;
+import mandatory.cinemama.Repositories.ActorRepository;
 import mandatory.cinemama.Repositories.DirectorRepository;
 import mandatory.cinemama.Repositories.GenreRepository;
 import mandatory.cinemama.Repositories.HallRepository;
@@ -25,13 +27,15 @@ public class DatabaseConfiguration implements CommandLineRunner {
   private HallRepository hallRepository;
   private TheaterRepository theaterRepository;
   private GenreRepository genreRepository;
+  private ActorRepository actorRepository;
 
   public DatabaseConfiguration(
     DirectorRepository directorRepository,
     MovieRepository movieRepository,
     HallRepository hallRepository,
     TheaterRepository theaterRepository,
-    GenreRepository genreRepository
+    GenreRepository genreRepository,
+    ActorRepository actorRepository
   ) {
     // TODO: Add repositories
     this.movieRepository = movieRepository;
@@ -39,12 +43,21 @@ public class DatabaseConfiguration implements CommandLineRunner {
     this.hallRepository = hallRepository;
     this.theaterRepository = theaterRepository;
     this.genreRepository = genreRepository;
+    this.actorRepository = actorRepository;
   }
 
   @Override
   public void run(String... args) throws Exception {
     System.out.println("config runs");
-    directorRepository.save(new Director("John", "Smith"));
+    if (
+      directorRepository.findDirectorsByFirstName("Christopher").size() == 0
+    ) {
+      directorRepository.save(new Director("Christopher", "Nolan"));
+    }
+
+    if (actorRepository.findActorsByFirstName("Bruce").size() == 0) {
+      actorRepository.save(new Actor("Bruce", "Willis"));
+    }
 
     if (genreRepository.findAll().size() == 0) {
       EGenre[] genre = EGenre.values();

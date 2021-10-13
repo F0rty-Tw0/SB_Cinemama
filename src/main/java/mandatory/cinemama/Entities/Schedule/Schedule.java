@@ -1,4 +1,4 @@
-package mandatory.cinemama.Entities;
+package mandatory.cinemama.Entities.Schedule;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -25,8 +25,8 @@ public class Schedule {
   @Column(nullable = false)
   private Long hallId;
 
-  @Column(nullable = false)
   @Id
+  @Column(nullable = false)
   private LocalTime timeSlot;
 
   @Column(nullable = false)

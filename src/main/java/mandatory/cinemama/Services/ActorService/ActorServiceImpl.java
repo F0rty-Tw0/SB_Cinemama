@@ -2,6 +2,7 @@ package mandatory.cinemama.Services.ActorService;
 
 import java.util.List;
 import java.util.Optional;
+
 import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.Repositories.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,11 @@ public class ActorServiceImpl implements ActorService {
   public List<Actor> findActorsByLastName(String lastName) {
     List<Actor> actors = actorRepository.findActorsByLastName(lastName);
     return actors;
+  }
+
+  @Override
+  public Actor addActor(Actor actor) {
+    Actor newActor = actorRepository.save(actor);
+    return newActor;
   }
 }

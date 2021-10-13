@@ -5,8 +5,13 @@ import java.util.List;
 import mandatory.cinemama.Entities.Actor;
 
 public interface ActorService {
-  List<Actor> findAllActors();
-  Actor findActorById(Long id);
-  List<Actor> findActorsByFirstName(String firstName);
-  List<Actor> findActorsByLastName(String lastName);
+  public Actor findActorById(Long id);
+
+  public List<Actor> findAllActors();
+
+  public List<Actor> findActorsByFirstName(String firstName);
+
+  public List<Actor> findActorsByLastName(String lastName);
+
+  public Actor addActor(Actor actor);
 }

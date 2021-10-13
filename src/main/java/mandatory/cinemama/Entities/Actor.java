@@ -9,17 +9,19 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-//comment
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "actors", schema = "cinemama")
 public class Actor {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(nullable = false)
   private Long id;
 
   @Column(nullable = false)
@@ -30,4 +32,9 @@ public class Actor {
 
   @ManyToMany
   private List<Movie> movies;
+
+  public Actor(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
 }

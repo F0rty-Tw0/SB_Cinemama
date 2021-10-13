@@ -2,9 +2,11 @@ package mandatory.cinemama.Repositories;
 
 import java.util.List;
 import java.util.Optional;
-import mandatory.cinemama.Entities.Actor;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import mandatory.cinemama.Entities.Actor;
 
 @Repository
 public interface ActorRepository extends JpaRepository<Actor, Long> {
