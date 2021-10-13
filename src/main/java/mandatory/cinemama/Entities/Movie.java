@@ -1,63 +1,61 @@
 package mandatory.cinemama.Entities;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import mandatory.cinemama.Entities.Genre.Genre;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import java.time.LocalTime;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import mandatory.cinemama.Entities.Genre.Genre;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "movies", schema= "cinemama")
+@Table(name = "movies", schema = "cinemama")
 public class Movie {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
-    private Long id;
 
-    @Column(nullable = false, length = 40)
-    private String title;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(nullable = false)
+  private Long id;
 
-   @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<Genre> genres;
+  @Column(nullable = false, length = 40)
+  private String title;
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<Actor> actors;
+  @JsonIgnore
+  @OneToMany(mappedBy = "movies", cascade = CascadeType.ALL)
+  private List<Genre> genres = new ArrayList<>();
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-   private List<Director> directors;
+  @JsonIgnore
+  @OneToMany(mappedBy = "movies", cascade = CascadeType.ALL)
+  private List<Actor> actors = new ArrayList<>();
 
+  @JsonIgnore
+  @OneToMany(mappedBy = "movies", cascade = CascadeType.ALL)
+  private List<Director> directors = new ArrayList<>();
 
-    private int minAge;
+  private int minAge;
 
-    @Column(nullable = false, length = 30)
-    private LocalTime screenTime;
+  @Column(nullable = false, length = 30)
+  private LocalTime screenTime;
 
-    @Column(nullable = false, length = 60)
-    private String info;
+  @Column(nullable = false, length = 60)
+  private String info;
 
-    @Column(nullable = false, length = 10)
-    @Size(min = 0, max=10)
-    private int rating;
-
-
+  @Column(nullable = false, length = 10)
+  @Size(min = 0, max = 10)
+  private int rating;
 }
