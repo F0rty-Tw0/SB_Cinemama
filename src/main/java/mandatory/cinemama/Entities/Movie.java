@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -37,15 +37,15 @@ public class Movie {
   private String title;
 
   @JsonIgnore
-  @OneToMany(mappedBy = "movies", cascade = CascadeType.ALL)
+  @ManyToMany(mappedBy = "movies", cascade = CascadeType.ALL)
   private List<Genre> genres = new ArrayList<>();
 
   @JsonIgnore
-  @OneToMany(mappedBy = "movies", cascade = CascadeType.ALL)
+  @ManyToMany(mappedBy = "movies", cascade = CascadeType.ALL)
   private List<Actor> actors = new ArrayList<>();
 
   @JsonIgnore
-  @OneToMany(mappedBy = "movies", cascade = CascadeType.ALL)
+  @ManyToMany(mappedBy = "movies", cascade = CascadeType.ALL)
   private List<Director> directors = new ArrayList<>();
 
   private int minAge;
@@ -73,5 +73,10 @@ public class Movie {
     this.screenTime = screenTime;
     this.info = info;
     this.rating = rating;
+  }
+
+  public void addDirector(Director director) {
+    directors.add(director);
+    director.getMovies().add(this);
   }
 }

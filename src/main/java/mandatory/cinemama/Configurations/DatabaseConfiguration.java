@@ -1,18 +1,22 @@
 package mandatory.cinemama.Configurations;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.Entities.Director;
 import mandatory.cinemama.Entities.Genre.EGenre;
 import mandatory.cinemama.Entities.Genre.Genre;
 import mandatory.cinemama.Entities.Hall;
 import mandatory.cinemama.Entities.Movie;
+import mandatory.cinemama.Entities.Schedule.Schedule;
 import mandatory.cinemama.Entities.Theater;
 import mandatory.cinemama.Repositories.ActorRepository;
 import mandatory.cinemama.Repositories.DirectorRepository;
 import mandatory.cinemama.Repositories.GenreRepository;
 import mandatory.cinemama.Repositories.HallRepository;
 import mandatory.cinemama.Repositories.MovieRepository;
+import mandatory.cinemama.Repositories.ScheduleRepository;
 import mandatory.cinemama.Repositories.TheaterRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -28,6 +32,7 @@ public class DatabaseConfiguration implements CommandLineRunner {
   private TheaterRepository theaterRepository;
   private GenreRepository genreRepository;
   private ActorRepository actorRepository;
+  private ScheduleRepository scheduleRepository;
 
   public DatabaseConfiguration(
     DirectorRepository directorRepository,
@@ -35,7 +40,8 @@ public class DatabaseConfiguration implements CommandLineRunner {
     HallRepository hallRepository,
     TheaterRepository theaterRepository,
     GenreRepository genreRepository,
-    ActorRepository actorRepository
+    ActorRepository actorRepository,
+    ScheduleRepository scheduleRepository
   ) {
     // TODO: Add repositories
     this.movieRepository = movieRepository;
@@ -44,36 +50,23 @@ public class DatabaseConfiguration implements CommandLineRunner {
     this.theaterRepository = theaterRepository;
     this.genreRepository = genreRepository;
     this.actorRepository = actorRepository;
+    this.scheduleRepository = scheduleRepository;
   }
 
   @Override
   public void run(String... args) throws Exception {
     System.out.println("config runs");
-    if (
-      directorRepository.findDirectorsByFirstName("Christopher").size() == 0
-    ) {
-      directorRepository.save(new Director("Christopher", "Nolan"));
-    }
-
-    if (actorRepository.findActorsByFirstName("Bruce").size() == 0) {
-      actorRepository.save(new Actor("Bruce", "Willis"));
-    }
-
-    if (genreRepository.findAll().size() == 0) {
-      EGenre[] genre = EGenre.values();
-      for (int i = 0; i < genre.length; i++) {
-        genreRepository.save(new Genre(genre[i]));
-      }
-    }
-    if (!theaterRepository.findTheaterByName("Coco Bongo").isPresent()) {
+    if (theaterRepository.findAll().isEmpty()) {
       theaterRepository.save(new Theater("Coco Bongo", "Gammel Konge Vej 6"));
     }
 
-    if (!hallRepository.findHallByName("Sal 1").isPresent()) {
-      hallRepository.save(new Hall("Sal 1"));
+    if (hallRepository.findAll().isEmpty()) {
+      hallRepository.save(
+        new Hall("Sal 1", theaterRepository.findAll().get(0))
+      );
     }
 
-    if (!movieRepository.findMovieByTitle("Lord of the Rings 2").isPresent()) {
+    if (movieRepository.findAll().isEmpty()) {
       movieRepository.save(
         new Movie(
           "Lord of the Rings 2",
@@ -81,6 +74,38 @@ public class DatabaseConfiguration implements CommandLineRunner {
           LocalTime.of(2, 30),
           "The Lord of the Rings is the saga of a group of sometimes reluctant heroes who set forth to save their world from consummate evil. Its many worlds and creatures were drawn from Tolkien's extensive knowledge of philology and folklore.",
           9
+        )
+      );
+    }
+
+    if (directorRepository.findAll().isEmpty()) {
+      directorRepository.save(
+        new Director("Christopher", "Nolan", movieRepository.findAll().get(0))
+      );
+    }
+
+    if (actorRepository.findAll().isEmpty()) {
+      actorRepository.save(
+        new Actor("Bruce", "Willis", movieRepository.findAll().get(0))
+      );
+    }
+
+    if (genreRepository.findAll().isEmpty()) {
+      EGenre[] genre = EGenre.values();
+      for (int i = 0; i < genre.length; i++) {
+        genreRepository.save(
+          new Genre(genre[i], movieRepository.findAll().get(0))
+        );
+      }
+    }
+
+    if (scheduleRepository.findAll().isEmpty()) {
+      scheduleRepository.save(
+        new Schedule(
+          LocalTime.of(2, 30),
+          LocalDate.of(2021, Month.JANUARY, 24),
+          movieRepository.findAll().get(0),
+          hallRepository.findAll().get(0)
         )
       );
     }

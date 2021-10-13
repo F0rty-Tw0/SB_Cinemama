@@ -1,5 +1,6 @@
 package mandatory.cinemama.Entities.Genre;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,9 +32,10 @@ public class Genre {
   private EGenre name;
 
   @ManyToMany
-  private List<Movie> movies;
+  private List<Movie> movies = new ArrayList<Movie>();
 
-  public Genre(EGenre name) {
+  public Genre(EGenre name, Movie movie) {
     this.name = name;
+    this.movies.add(movie);
   }
 }
