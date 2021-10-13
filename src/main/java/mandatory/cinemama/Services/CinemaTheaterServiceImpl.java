@@ -18,11 +18,24 @@ public class CinemaTheaterServiceImpl implements CinemaTheaterService {
 
   @Override
   public List<CinemaTheater> findAll() {
-    return cinemaTheaterRepository.findAll();
+    List<CinemaTheater> cinemaTheaters = cinemaTheaterRepository.findAll();
+    return cinemaTheaters;
   }
 
   @Override
-  public CinemaTheater findAllById(Long id) {
+  public List<CinemaTheater> findAllById(Long id) {
+    List<CinemaTheater> cinemaTheaters = cinemaTheaterRepository.findAllById(id);
     return cinemaTheaterRepository.getById(id);
+  }
+
+  @Override
+  public List<CinemaTheater> findAllByName(String name) {
+    List<CinemaTheater> cinemaTheaters = cinemaTheaterRepository.findAllByName(name);
+    return cinemaTheaters;
+  }
+
+  @Override
+  public CinemaTheater findByAddress(String address) {
+    return null;
   }
 }

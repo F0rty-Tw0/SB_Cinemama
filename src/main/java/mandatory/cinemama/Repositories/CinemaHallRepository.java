@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CinemaHallRepository extends JpaRepository<CinemaHall, Long> {
-
+  public List<CinemaHall> findAll();
+  public List<CinemaHall> findCinemaHallsById(Long id);
 }

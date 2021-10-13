@@ -22,7 +22,7 @@ public class CinemaHallServiceImpl implements CinemaHallService {
   }
 
   @Override
-  public CinemaHall findById(Long id) {
+  public List<CinemaHall> findById(Long id) {
     List<CinemaHall> cinemaHalls = cinemaHallRepository.findById(id);
     return cinemaHalls;
   }
