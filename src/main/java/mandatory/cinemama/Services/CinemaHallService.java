@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CinemaHallService {
   List<CinemaHall> findAll();
-  CinemaHall findById(Long id);
+  List<CinemaHall> findCinemaHallById(Long id);
 
 
 }

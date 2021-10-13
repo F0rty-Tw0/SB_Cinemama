@@ -9,8 +9,8 @@ import java.util.List;
 
 @Repository
 public interface CinemaTheaterRepository extends JpaRepository<CinemaTheater, Long> {
-  public List<CinemaTheater> findAll();
-  public List<CinemaTheater> findCinemaTheaterById(Long id);
-  public List<CinemaTheater> findAllByName(String name);
-  public List<CinemaTheater> findAllByAddress(String address);
+  List<CinemaTheater> findAll();
+  List<CinemaTheater> findCinemaTheaterById(Long id);
+  List<CinemaTheater> findCinemaTheaterByName(String name);
+  List<CinemaTheater> findCinemaTheaterByAddress(String address);
 }

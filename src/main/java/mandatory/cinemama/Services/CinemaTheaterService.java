@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CinemaTheaterService {
   List<CinemaTheater> findAll();
-  List<CinemaTheater> findAllById(Long id);
-  List<CinemaTheater> findAllByName(String name);
-  CinemaTheater findByAddress(String address);
+  List<CinemaTheater> findCinemaTheaterById(Long id);
+  List<CinemaTheater> findCinemaTheaterByName(String name);
+  List<CinemaTheater> findCinemaTheaterByAddress(String address);
 }
