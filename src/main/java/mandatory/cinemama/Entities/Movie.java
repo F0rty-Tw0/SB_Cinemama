@@ -12,7 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,7 @@ public class Movie {
   @Column(nullable = false)
   private Long id;
 
-  @Column(nullable = false, length = 40)
+  @Column(nullable = false, length = 40, unique = true)
   private String title;
 
   @JsonIgnore
@@ -52,10 +53,25 @@ public class Movie {
   @Column(nullable = false, length = 30)
   private LocalTime screenTime;
 
-  @Column(nullable = false, length = 60)
+  @Column(nullable = false)
   private String info;
 
   @Column(nullable = false, length = 10)
-  @Size(min = 0, max = 10)
-  private int rating;
+  @Min(0)
+  @Max(10)
+  private Integer rating;
+
+  public Movie(
+    String title,
+    int minAge,
+    LocalTime screenTime,
+    String info,
+    @Min(0) @Max(10) Integer rating
+  ) {
+    this.title = title;
+    this.minAge = minAge;
+    this.screenTime = screenTime;
+    this.info = info;
+    this.rating = rating;
+  }
 }
