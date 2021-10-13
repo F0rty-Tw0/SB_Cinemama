@@ -17,12 +17,12 @@ public class CinemaTheaterServiceImpl implements CinemaTheaterService {
 
 
   @Override
-  public List<CinemaTheater> getAll() {
+  public List<CinemaTheater> findAll() {
     return cinemaTheaterRepository.findAll();
   }
 
   @Override
-  public CinemaTheater getById(int id) {
+  public CinemaTheater findAllById(Long id) {
     return cinemaTheaterRepository.getById(id);
   }
 }

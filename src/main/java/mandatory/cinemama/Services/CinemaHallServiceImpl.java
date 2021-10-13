@@ -16,12 +16,14 @@ public class CinemaHallServiceImpl implements CinemaHallService {
   public CinemaHallServiceImpl (CinemaHallRepository cinemaHallRepository) { this.cinemaHallRepository = cinemaHallRepository; }
 
   @Override
-  public List<CinemaHall> getAll() {
-    return cinemaHallRepository.findAll();
+  public List<CinemaHall> findAll() {
+    List<CinemaHall> cinemaHalls = cinemaHallRepository.findAll();
+    return cinemaHalls;
   }
 
   @Override
-  public CinemaHall getById(int id) {
-    return cinemaHallRepository.getById(id);
+  public CinemaHall findById(Long id) {
+    List<CinemaHall> cinemaHalls = cinemaHallRepository.findById(id);
+    return cinemaHalls;
   }
 }
