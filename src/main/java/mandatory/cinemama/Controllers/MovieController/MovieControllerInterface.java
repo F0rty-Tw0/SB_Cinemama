@@ -3,12 +3,14 @@ package mandatory.cinemama.Controllers.MovieController;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import mandatory.cinemama.Entities.Movie;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @RequestMapping("/api/movies")
 public interface MovieControllerInterface {
@@ -30,5 +32,6 @@ public interface MovieControllerInterface {
 
   @ApiOperation("Adds the movie to the database")
   @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
   public Movie addMovie(@RequestBody Movie movie);
 }

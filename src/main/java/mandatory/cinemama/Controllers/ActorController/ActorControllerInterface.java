@@ -1,21 +1,16 @@
 package mandatory.cinemama.Controllers.ActorController;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import mandatory.cinemama.Entities.Actor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-
-import java.util.List;
-
 public interface ActorControllerInterface {
-
   @ApiOperation("Returns the Actor by the ID")
   @GetMapping("/{id}")
   public Actor findActorById(@PathVariable Long id);
@@ -33,9 +28,7 @@ public interface ActorControllerInterface {
   public List<Actor> findActorsByLastName(@PathVariable String lastName);
 
   @ApiOperation("Adds the Actor")
-  @PostMapping()
+  @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Actor addActor(@RequestBody Actor actor);
 }
-
-
