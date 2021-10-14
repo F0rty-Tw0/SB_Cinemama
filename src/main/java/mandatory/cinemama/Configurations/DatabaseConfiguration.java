@@ -59,12 +59,33 @@ public class DatabaseConfiguration implements CommandLineRunner {
     System.out.println("config runs");
     if (theaterRepository.findAll().isEmpty()) {
       theaterRepository.save(new Theater("Coco Bongo", "Gammel Konge Vej 6"));
+      theaterRepository.save(new Theater("Odeon", "Saxogade 25"));
+      theaterRepository.save(new Theater("IMAX 3D", "Dreams str 5"));
+      theaterRepository.save(new Theater("Theater Lux", "Lala land 42"));
+      theaterRepository.save(
+        new Theater("Village Cinema", "Gammel Konge Vej 99")
+      );
     }
 
     if (hallRepository.findAll().isEmpty()) {
-      hallRepository.save(
-        new Hall("Sal 1", theaterRepository.findAll().get(0))
-      );
+      int numberOfTheaters = theaterRepository.findAll().size();
+      for (int i = 0; i < numberOfTheaters; i++) {
+        hallRepository.save(
+          new Hall("Sal 1", theaterRepository.findAll().get(i))
+        );
+        hallRepository.save(
+          new Hall("Sal 2", theaterRepository.findAll().get(i))
+        );
+        hallRepository.save(
+          new Hall("Sal 3", theaterRepository.findAll().get(i))
+        );
+        hallRepository.save(
+          new Hall("Sal 4", theaterRepository.findAll().get(i))
+        );
+        hallRepository.save(
+          new Hall("Sal 5", theaterRepository.findAll().get(i))
+        );
+      }
     }
 
     if (directorRepository.findAll().isEmpty()) {
@@ -92,7 +113,11 @@ public class DatabaseConfiguration implements CommandLineRunner {
           9,
           actorRepository.findActorsByFirstName("Bruce"),
           directorRepository.findDirectorsByLastName("Nolan"),
-          List.of(genreRepository.findGenreByName(EGenre.ACTION).get())
+          List.of(
+            genreRepository.findGenreByName(EGenre.ACTION).get(),
+            genreRepository.findGenreByName(EGenre.FANTASY).get(),
+            genreRepository.findGenreByName(EGenre.OTHER).get()
+          )
         )
       );
     }
@@ -100,7 +125,7 @@ public class DatabaseConfiguration implements CommandLineRunner {
     if (scheduleRepository.findAll().isEmpty()) {
       scheduleRepository.save(
         new Schedule(
-          LocalTime.of(2, 30),
+          LocalTime.of(14, 30),
           LocalDate.of(2021, Month.JANUARY, 24),
           movieRepository.findAll().get(0),
           hallRepository.findAll().get(0)

@@ -22,7 +22,7 @@ public class Hall {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  @Column(nullable = false, length = 40, unique = true)
+  @Column(nullable = false, length = 40)
   private String name;
 
   @ManyToOne

@@ -29,7 +29,7 @@ public class Movie {
   @Column(nullable = false)
   private Long id;
 
-  @Column(nullable = false, length = 40, unique = true)
+  @Column(nullable = false, unique = true)
   private String title;
 
   @ManyToMany
