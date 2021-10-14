@@ -4,13 +4,11 @@ import java.util.List;
 import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.Services.ActorService.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
 
 @RestController
-@RequestMapping("/api/actor")
 public class ActorController implements ActorControllerInterface {
 
   @Autowired
@@ -37,8 +35,21 @@ public class ActorController implements ActorControllerInterface {
   }
 
   @Override
-  public Actor addActor(Actor actor) {
-    return actorService.addActor(actor);
+  public Actor findActorsByFirstNameAndLastName(
+    String firstName,
+    String lastName
+  ) {
+    return actorService.findActorsByFirstNameAndLastName(firstName, lastName);
+  }
+
+  @Override
+  public void addActor(Actor actor) {
+    actorService.addActor(actor);
+  }
+
+  @Override
+  public void deleteActorById(Long id) {
+    actorService.deleteActorById(id);
   }
 
   @Transactional

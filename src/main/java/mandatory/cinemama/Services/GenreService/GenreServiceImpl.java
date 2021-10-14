@@ -30,7 +30,7 @@ public class GenreServiceImpl implements GenreService {
 
   @Override
   public Genre findGenreByName(EGenre name) {
-    Optional<Genre> genre = genreRepository.findGenreByName(name);
+    Optional<Genre> genre = genreRepository.findByName(name);
     return genre.get();
   }
 }

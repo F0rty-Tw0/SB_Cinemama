@@ -1,8 +1,6 @@
 package mandatory.cinemama.Services.ActorService;
 
 import java.util.List;
-import java.util.Optional;
-
 import mandatory.cinemama.Entities.Actor;
 
 public interface ActorService {
@@ -14,7 +12,12 @@ public interface ActorService {
 
   public List<Actor> findActorsByLastName(String lastName);
 
-  public Actor addActor(Actor actor);
+  public Actor findActorsByFirstNameAndLastName(
+    String firstName,
+    String lastName
+  );
 
   public void deleteActorById(Long id);
+
+  public void addActor(Actor actor);
 }

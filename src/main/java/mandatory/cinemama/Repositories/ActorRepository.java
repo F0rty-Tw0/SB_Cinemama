@@ -2,11 +2,9 @@ package mandatory.cinemama.Repositories;
 
 import java.util.List;
 import java.util.Optional;
-
+import mandatory.cinemama.Entities.Actor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import mandatory.cinemama.Entities.Actor;
 
 @Repository
 public interface ActorRepository extends JpaRepository<Actor, Long> {
@@ -14,9 +12,12 @@ public interface ActorRepository extends JpaRepository<Actor, Long> {
 
   public Optional<Actor> findById(Long id);
 
-  public List<Actor> findActorsByFirstName(String firstName);
+  public List<Actor> findByFirstName(String firstName);
 
-  public List<Actor> findActorsByLastName(String lastName);
+  public List<Actor> findByLastName(String lastName);
 
-  public void deleteActorById(Long id);
+  public Optional<Actor> findByFirstNameAndLastName(
+    String firstName,
+    String lastName
+  );
 }

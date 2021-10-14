@@ -1,5 +1,6 @@
 package mandatory.cinemama.Services.MovieService;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import mandatory.cinemama.Entities.Movie;
@@ -18,31 +19,78 @@ public class MovieServiceImpl implements MovieService {
   }
 
   @Override
-  public Movie findMovieById(Long id) {
-    Optional<Movie> movie = movieRepository.findById(id);
-    return movie.get();
-  }
-
-  @Override
-  public void deleteMovieById(Long id) {
-    movieRepository.deleteMovieById(id);
-  }
-
-  @Override
   public List<Movie> findAllMovies() {
     List<Movie> allMovies = movieRepository.findAll();
     return allMovies;
   }
 
   @Override
+  public Movie findMovieById(Long id) {
+    Optional<Movie> movie = movieRepository.findById(id);
+    return movie.get();
+  }
+
+  @Override
   public Movie findMovieByTitle(String title) {
-    Optional<Movie> foundMovies = movieRepository.findMovieByTitle(title);
+    Optional<Movie> foundMovies = movieRepository.findByTitle(title);
     return foundMovies.get();
   }
 
   @Override
-  public Movie addMovie(Movie movie) {
-    Movie newMovie = movieRepository.save(movie);
-    return newMovie;
+  public void addMovie(Movie movie) {
+    movieRepository.save(movie);
+  }
+
+  @Override
+  public void deleteMovieById(Long id) {
+    movieRepository.deleteById(id);
+  }
+
+  @Override
+  public List<Movie> findMoviesByInfoIgnoreCaseContaining(String info) {
+    List<Movie> allMovies = movieRepository.findByInfoIgnoreCaseContaining(
+      info
+    );
+    return allMovies;
+  }
+
+  @Override
+  public List<Movie> findMoviesByMinAgeLessThan(int minAge) {
+    List<Movie> allMovies = movieRepository.findByMinAgeLessThan(minAge);
+    return allMovies;
+  }
+
+  @Override
+  public List<Movie> findMoviesByMinAgeGreaterThan(int minAge) {
+    List<Movie> allMovies = movieRepository.findByMinAgeGreaterThan(minAge);
+    return allMovies;
+  }
+
+  @Override
+  public List<Movie> findMoviesByRating(int rating) {
+    List<Movie> allMovies = movieRepository.findByRating(rating);
+    return allMovies;
+  }
+
+  @Override
+  public List<Movie> findMoviesByScreenTimeLessThan(LocalTime screenTime) {
+    List<Movie> allMovies = movieRepository.findByScreenTimeLessThan(
+      screenTime
+    );
+    return allMovies;
+  }
+
+  @Override
+  public List<Movie> findMoviesByScreenTimeGreaterThan(LocalTime screenTime) {
+    List<Movie> allMovies = movieRepository.findByScreenTimeGreaterThan(
+      screenTime
+    );
+    return allMovies;
+  }
+
+  @Override
+  public String findInfoByTitle(String title) {
+    Optional<Movie> info = movieRepository.findInfoByTitle(title);
+    return info.get().getInfo();
   }
 }

@@ -1,6 +1,5 @@
 package mandatory.cinemama.Controllers.TheaterController;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import mandatory.cinemama.Entities.Theater;
@@ -38,9 +37,9 @@ public interface TheaterControllerInterface {
   )
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Theater addTheater(@RequestBody Theater theater);
+  public void addTheater(@RequestBody Theater theater);
 
-  @ApiOperation("Deletes a Theater from the database")
-  @DeleteMapping("{id}")
-  public void deleteMovieById(@PathVariable Long id);
+  @ApiOperation("Deletes a Theater by Id")
+  @DeleteMapping("/{id}")
+  public void deleteTheaterById(Long id);
 }

@@ -110,12 +110,12 @@ public class DatabaseConfiguration implements CommandLineRunner {
           LocalTime.of(2, 30),
           "The Lord of the Rings is the saga of a group of sometimes reluctant heroes who set forth to save their world from consummate evil. Its many worlds and creatures were drawn from Tolkien's extensive knowledge of philology and folklore.",
           9,
-          actorRepository.findActorsByFirstName("Bruce"),
-          directorRepository.findDirectorsByLastName("Nolan"),
+          actorRepository.findByFirstName("Bruce"),
+          directorRepository.findByLastName("Nolan"),
           List.of(
-            genreRepository.findGenreByName(EGenre.ACTION).get(),
-            genreRepository.findGenreByName(EGenre.FANTASY).get(),
-            genreRepository.findGenreByName(EGenre.OTHER).get()
+            genreRepository.findByName(EGenre.ACTION).get(),
+            genreRepository.findByName(EGenre.FANTASY).get(),
+            genreRepository.findByName(EGenre.OTHER).get()
           )
         )
       );
