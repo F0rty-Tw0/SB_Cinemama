@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public interface TheaterControllerInterface {
   @ApiOperation("Returns all found Theaters")
   @GetMapping
-  public List<Theater> findAllTheater();
+  public List<Theater> findAllTheaters();
 
   @ApiOperation("Returns the Theater based on Id")
   @GetMapping("/{id}")

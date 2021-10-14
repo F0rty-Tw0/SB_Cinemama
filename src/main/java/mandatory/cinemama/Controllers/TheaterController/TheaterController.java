@@ -13,7 +13,7 @@ public class TheaterController implements TheaterControllerInterface {
   private TheaterService theaterService;
 
   @Override
-  public List<Theater> findAllTheater() {
+  public List<Theater> findAllTheaters() {
     return theaterService.findAllTheaters();
   }
 
