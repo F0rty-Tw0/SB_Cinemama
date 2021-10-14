@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CinemamaApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CinemamaApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(CinemamaApplication.class, args);
+  }
 }

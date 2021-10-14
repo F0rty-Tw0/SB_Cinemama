@@ -44,7 +44,6 @@ public class DatabaseConfiguration implements CommandLineRunner {
     ActorRepository actorRepository,
     ScheduleRepository scheduleRepository
   ) {
-    // TODO: Add repositories
     this.movieRepository = movieRepository;
     this.directorRepository = directorRepository;
     this.hallRepository = hallRepository;
@@ -132,6 +131,5 @@ public class DatabaseConfiguration implements CommandLineRunner {
         )
       );
     }
-    // TODO: Setup data to database
   }
 }
