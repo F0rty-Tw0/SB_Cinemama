@@ -30,7 +30,7 @@ public interface MovieControllerInterface {
 
   @ApiOperation("Returns the Movies based on the Info text")
   @GetMapping("/info/{info}")
-  public List<Movie> findMoviesByInfoIgnoreCaseContaining(
+  public List<Movie> findMoviesByInfoContaining(
     @PathVariable String info
   );
 

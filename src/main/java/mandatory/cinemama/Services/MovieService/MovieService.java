@@ -11,7 +11,7 @@ public interface MovieService {
 
   public Movie findMovieByTitle(String title);
 
-  public List<Movie> findMoviesByInfoIgnoreCaseContaining(String info);
+  public List<Movie> findMoviesByInfoContaining(String info);
 
   public List<Movie> findMoviesByMinAgeLessThan(int minAge);
 
