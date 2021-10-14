@@ -1,8 +1,10 @@
 package mandatory.cinemama.Controllers.MovieController;
 
 import io.swagger.annotations.ApiOperation;
+import java.time.LocalTime;
 import java.util.List;
 import mandatory.cinemama.Entities.Movie;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,24 +16,70 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @RequestMapping("/api/movies")
 public interface MovieControllerInterface {
-  @ApiOperation("Returns the movie based on the ID")
-  @GetMapping("/{id}")
-  public Movie findMovieById(@PathVariable Long id);
-
-  @ApiOperation("Deletes the movie based on the ID")
-  @DeleteMapping("/{id}")
-  public void deleteMovieById(@PathVariable Long id);
-
-  @ApiOperation("Returns all the movies")
+  @ApiOperation("Returns all the Movies")
   @GetMapping
   public List<Movie> findAllMovies();
 
-  @ApiOperation("Returns the movies based on the title")
+  @ApiOperation("Returns the Movie based on the Id")
+  @GetMapping("/{id}")
+  public Movie findMovieById(@PathVariable Long id);
+
+  @ApiOperation("Returns the Movies based on the Title")
   @GetMapping("/title/{title}")
   public Movie findMovieByTitle(@PathVariable String title);
 
-  @ApiOperation("Adds the movie to the database")
+  @ApiOperation("Returns the Movies based on the Info text")
+  @GetMapping("/info/{info}")
+  public List<Movie> findMoviesByInfoIgnoreCaseContaining(
+    @PathVariable String info
+  );
+
+  @ApiOperation(
+    "Returns the Movies based on the Minimum age which is Less than input"
+  )
+  @GetMapping("/less-min-age/{minAge}")
+  public List<Movie> findMoviesByMinAgeLessThan(@PathVariable int minAge);
+
+  @ApiOperation(
+    "Returns the Movies based on the Minimum age which is Greater than input"
+  )
+  @GetMapping("/greater-min-age/{minAge}")
+  public List<Movie> findMoviesByMinAgeGreaterThan(@PathVariable int minAge);
+
+  @ApiOperation("Returns the Movies based on the Rating")
+  @GetMapping("/rating/{rating}")
+  public List<Movie> findMoviesByRating(@PathVariable int rating);
+
+  @ApiOperation(
+    "Returns the Movies based on the Screen Time which is Less than input"
+  )
+  @GetMapping("/less-screen-time/{screenTime}")
+  public List<Movie> findMoviesByScreenTimeLessThan(
+    @PathVariable @DateTimeFormat(
+      iso = DateTimeFormat.ISO.TIME
+    ) LocalTime screenTime
+  );
+
+  @ApiOperation(
+    "Returns the Movies based on the Screen Time which is Greater than input"
+  )
+  @GetMapping("/greater-screen-time/{screenTime}")
+  public List<Movie> findMoviesByScreenTimeGreaterThan(
+    @PathVariable @DateTimeFormat(
+      iso = DateTimeFormat.ISO.TIME
+    ) LocalTime screenTime
+  );
+
+  @ApiOperation("Returns the Info based on the Title")
+  @GetMapping("/info-from-title{title}")
+  public String findInfoByTitle(@PathVariable String title);
+
+  @ApiOperation("Adds the Movie to the database")
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Movie addMovie(@RequestBody Movie movie);
+  public void addMovie(@RequestBody Movie movie);
+
+  @ApiOperation("Deletes the Movie based on the ID")
+  @DeleteMapping("/{id}")
+  public void deleteMovieById(@PathVariable Long id);
 }

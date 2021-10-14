@@ -24,20 +24,30 @@ public class HallServiceImpl implements HallService {
   }
 
   @Override
+  public List<Hall> findHallsByTheaterId(Long id) {
+    List<Hall> halls = hallRepository.findByTheaterId(id);
+    return halls;
+  }
+
+  @Override
   public Hall findHallById(Long id) {
     Optional<Hall> hall = hallRepository.findById(id);
     return hall.get();
   }
 
   @Override
-  public Hall addHall(Hall hall) {
-    Hall newHall = hallRepository.save(hall);
-    return newHall;
+  public Hall findHallByName(String name) {
+    Optional<Hall> hall = hallRepository.findByName(name);
+    return hall.get();
   }
 
   @Override
-  public Hall findHallByName(String name) {
-    Optional<Hall> hall = hallRepository.findHallByName(name);
-    return hall.get();
+  public void addHall(Hall hall) {
+    hallRepository.save(hall);
+  }
+
+  @Override
+  public void deleteHallById(Long id) {
+    hallRepository.deleteById(id);
   }
 }

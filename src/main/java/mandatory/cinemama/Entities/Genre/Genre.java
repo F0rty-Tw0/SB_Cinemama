@@ -3,15 +3,16 @@ package mandatory.cinemama.Entities.Genre;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,10 +35,17 @@ public class Genre {
   private EGenre name;
 
   @JsonIgnore
-  @ManyToMany(mappedBy = "genres", cascade = CascadeType.ALL)
+  @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
   private List<Movie> movies = new ArrayList<Movie>();
 
   public Genre(EGenre name) {
     this.name = name;
+  }
+
+  @PreRemove
+  private void removeGenreFromMovies() {
+    for (Movie movie : movies) {
+      movie.getGenres().remove(this);
+    }
   }
 }

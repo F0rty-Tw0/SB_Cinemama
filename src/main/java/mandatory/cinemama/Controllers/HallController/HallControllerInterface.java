@@ -5,6 +5,7 @@ import java.util.List;
 import mandatory.cinemama.Entities.Hall;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,10 @@ public interface HallControllerInterface {
   @ApiOperation("Returns all found Halls")
   @GetMapping
   public List<Hall> findAllHalls();
+
+  @ApiOperation("Returns the Halls by Theater Id")
+  @GetMapping("/theater/{id}")
+  public List<Hall> findHallsByTheaterId(@PathVariable Long id);
 
   @ApiOperation("Returns the Hall based on Id")
   @GetMapping("/{id}")
@@ -32,5 +37,9 @@ public interface HallControllerInterface {
   )
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Hall addHall(@RequestBody Hall hall);
+  public void addHall(@RequestBody Hall hall);
+
+  @ApiOperation("Deletes a Hall by Id")
+  @DeleteMapping("/{id}")
+  public void deleteHallById(Long id);
 }

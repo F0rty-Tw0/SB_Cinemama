@@ -6,9 +6,18 @@ import mandatory.cinemama.Entities.Director;
 public interface DirectorService {
   public List<Director> findAllDirectors();
 
-  public List<Director> findDirectorsByFirstName(String name);
+  public Director findDirectorById(Long id);
 
-  public List<Director> findDirectorsByLastName(String name);
+  public List<Director> findDirectorsByFirstName(String firstName);
 
-  public Director addDirector(Director director);
+  public List<Director> findDirectorsByLastName(String lastName);
+
+  public Director findDirectorByFirstNameAndLastName(
+    String firstName,
+    String lastName
+  );
+
+  public void addDirector(Director director);
+
+  public void deleteDirectorById(Long id);
 }
