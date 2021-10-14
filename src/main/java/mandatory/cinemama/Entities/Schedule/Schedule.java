@@ -1,5 +1,6 @@
 package mandatory.cinemama.Entities.Schedule;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.persistence.Column;
@@ -40,10 +41,12 @@ public class Schedule {
   @Column(nullable = false)
   private LocalDate date;
 
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(insertable = false, updatable = false)
   private Hall hall;
 
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(insertable = false, updatable = false)
   private Movie movie;
