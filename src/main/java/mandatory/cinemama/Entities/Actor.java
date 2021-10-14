@@ -1,7 +1,9 @@
 package mandatory.cinemama.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,12 +33,12 @@ public class Actor {
   @Column(nullable = false)
   private String lastName;
 
-  @ManyToMany
+  @JsonIgnore
+  @ManyToMany(mappedBy = "actors", cascade = CascadeType.ALL)
   private List<Movie> movies = new ArrayList<Movie>();
 
-  public Actor(String firstName, String lastName, Movie movie) {
+  public Actor(String firstName, String lastName) {
     this.firstName = firstName;
     this.lastName = lastName;
-    this.movies.add(movie);
   }
 }

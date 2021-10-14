@@ -3,6 +3,7 @@ package mandatory.cinemama.Configurations;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
+import java.util.List;
 import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.Entities.Director;
 import mandatory.cinemama.Entities.Genre.EGenre;
@@ -66,6 +67,21 @@ public class DatabaseConfiguration implements CommandLineRunner {
       );
     }
 
+    if (directorRepository.findAll().isEmpty()) {
+      directorRepository.save(new Director("Christopher", "Nolan"));
+    }
+
+    if (actorRepository.findAll().isEmpty()) {
+      actorRepository.save(new Actor("Bruce", "Willis"));
+    }
+
+    if (genreRepository.findAll().isEmpty()) {
+      EGenre[] genre = EGenre.values();
+      for (int i = 0; i < genre.length; i++) {
+        genreRepository.save(new Genre(genre[i]));
+      }
+    }
+
     if (movieRepository.findAll().isEmpty()) {
       movieRepository.save(
         new Movie(
@@ -73,30 +89,12 @@ public class DatabaseConfiguration implements CommandLineRunner {
           16,
           LocalTime.of(2, 30),
           "The Lord of the Rings is the saga of a group of sometimes reluctant heroes who set forth to save their world from consummate evil. Its many worlds and creatures were drawn from Tolkien's extensive knowledge of philology and folklore.",
-          9
+          9,
+          actorRepository.findActorsByFirstName("Bruce"),
+          directorRepository.findDirectorsByLastName("Nolan"),
+          List.of(genreRepository.findGenreByName(EGenre.ACTION).get())
         )
       );
-    }
-
-    if (directorRepository.findAll().isEmpty()) {
-      directorRepository.save(
-        new Director("Christopher", "Nolan", movieRepository.findAll().get(0))
-      );
-    }
-
-    if (actorRepository.findAll().isEmpty()) {
-      actorRepository.save(
-        new Actor("Bruce", "Willis", movieRepository.findAll().get(0))
-      );
-    }
-
-    if (genreRepository.findAll().isEmpty()) {
-      EGenre[] genre = EGenre.values();
-      for (int i = 0; i < genre.length; i++) {
-        genreRepository.save(
-          new Genre(genre[i], movieRepository.findAll().get(0))
-        );
-      }
     }
 
     if (scheduleRepository.findAll().isEmpty()) {

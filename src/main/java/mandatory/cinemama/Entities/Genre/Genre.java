@@ -1,7 +1,9 @@
 package mandatory.cinemama.Entities.Genre;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -31,11 +33,11 @@ public class Genre {
   @Enumerated(EnumType.STRING)
   private EGenre name;
 
-  @ManyToMany
+  @JsonIgnore
+  @ManyToMany(mappedBy = "genres", cascade = CascadeType.ALL)
   private List<Movie> movies = new ArrayList<Movie>();
 
-  public Genre(EGenre name, Movie movie) {
+  public Genre(EGenre name) {
     this.name = name;
-    this.movies.add(movie);
   }
 }

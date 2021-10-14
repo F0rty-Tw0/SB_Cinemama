@@ -1,10 +1,8 @@
 package mandatory.cinemama.Entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +12,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +21,6 @@ import mandatory.cinemama.Entities.Genre.Genre;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "movies", schema = "cinemama")
 public class Movie {
 
@@ -36,16 +32,13 @@ public class Movie {
   @Column(nullable = false, length = 40, unique = true)
   private String title;
 
-  @JsonIgnore
-  @ManyToMany(mappedBy = "movies", cascade = CascadeType.ALL)
+  @ManyToMany
   private List<Genre> genres = new ArrayList<>();
 
-  @JsonIgnore
-  @ManyToMany(mappedBy = "movies", cascade = CascadeType.ALL)
+  @ManyToMany
   private List<Actor> actors = new ArrayList<>();
 
-  @JsonIgnore
-  @ManyToMany(mappedBy = "movies", cascade = CascadeType.ALL)
+  @ManyToMany
   private List<Director> directors = new ArrayList<>();
 
   private int minAge;
@@ -66,13 +59,19 @@ public class Movie {
     int minAge,
     LocalTime screenTime,
     String info,
-    @Min(0) @Max(10) Integer rating
+    @Min(0) @Max(10) Integer rating,
+    List<Actor> actors,
+    List<Director> directors,
+    List<Genre> genres
   ) {
     this.title = title;
     this.minAge = minAge;
     this.screenTime = screenTime;
     this.info = info;
     this.rating = rating;
+    this.actors = actors;
+    this.directors = directors;
+    this.genres = genres;
   }
 
   public void addDirector(Director director) {
