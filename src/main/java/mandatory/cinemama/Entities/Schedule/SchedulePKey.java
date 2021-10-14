@@ -1,4 +1,4 @@
-package mandatory.cinemama.Entities;
+package mandatory.cinemama.Entities.Schedule;
 
 import java.io.Serializable;
 import java.time.LocalTime;
@@ -13,15 +13,15 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SchedulePKey implements Serializable {
 
-  @Column(nullable = false)
   @Id
+  @Column(nullable = false)
   private Long movieId;
 
-  @Column(nullable = false)
   @Id
+  @Column(nullable = false)
   private Long hallId;
 
-  @Column(nullable = false)
   @Id
+  @Column(nullable = false)
   private LocalTime timeSlot;
 }

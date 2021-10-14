@@ -23,14 +23,14 @@ public class DirectorServiceImpl implements DirectorService {
   }
 
   @Override
-  public List<Director> findDirectorByFirstName(String name) {
-    List<Director> directors = directorRepository.findByFirstName(name);
+  public List<Director> findDirectorsByFirstName(String name) {
+    List<Director> directors = directorRepository.findDirectorsByFirstName(name);
     return directors;
   }
 
   @Override
-  public List<Director> findDirectorByLastName(String name) {
-    List<Director> directors = directorRepository.findByLastName(name);
+  public List<Director> findDirectorsByLastName(String name) {
+    List<Director> directors = directorRepository.findDirectorsByLastName(name);
     return directors;
   }
 
