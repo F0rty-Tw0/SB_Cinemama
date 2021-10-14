@@ -4,8 +4,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,19 +25,28 @@ import mandatory.cinemama.Entities.Movie;
 public class Schedule {
 
   @Id
-  @Column(nullable = false)
-  private Long movieId;
+  @Column(name = "hall_id")
+  private Long hallId;
 
   @Id
-  @Column(nullable = false)
-  private Long hallId;
+  @Column(name = "movie_id")
+  private Long movieId;
 
   @Id
   @Column(nullable = false)
   private LocalTime timeSlot;
 
+  @Id
   @Column(nullable = false)
   private LocalDate date;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(insertable = false, updatable = false)
+  private Hall hall;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(insertable = false, updatable = false)
+  private Movie movie;
 
   @Column(nullable = false)
   private LocalTime screenTime;
@@ -42,8 +54,10 @@ public class Schedule {
   public Schedule(LocalTime timeSlot, LocalDate date, Movie movie, Hall hall) {
     this.timeSlot = timeSlot;
     this.date = date;
-    this.movieId = movie.getId();
+    this.movie = movie;
+    this.hall = hall;
     this.hallId = hall.getId();
+    this.movieId = movie.getId();
     this.screenTime = movie.getScreenTime();
   }
 }
