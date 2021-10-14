@@ -25,7 +25,7 @@ public class MovieServiceImpl implements MovieService {
 
   @Override
   public void deleteMovieById(Long id) {
-    movieRepository.deleteMovieById(id);
+    movieRepository.deleteById(id);
   }
 
   @Override
@@ -36,7 +36,7 @@ public class MovieServiceImpl implements MovieService {
 
   @Override
   public Movie findMovieByTitle(String title) {
-    Optional<Movie> foundMovies = movieRepository.findMovieByTitle(title);
+    Optional<Movie> foundMovies = movieRepository.findByTitle(title);
     return foundMovies.get();
   }
 

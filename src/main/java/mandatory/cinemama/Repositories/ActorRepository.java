@@ -14,7 +14,7 @@ public interface ActorRepository extends JpaRepository<Actor, Long> {
 
   public Optional<Actor> findById(Long id);
 
-  public List<Actor> findActorsByFirstName(String firstName);
+  public List<Actor> findByFirstName(String firstName);
 
-  public List<Actor> findActorsByLastName(String lastName);
+  public List<Actor> findByLastName(String lastName);
 }

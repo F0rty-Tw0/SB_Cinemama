@@ -11,6 +11,6 @@ public interface TheaterRepository
   extends JpaRepository<Theater, Long> {
   List<Theater> findAll();
   Optional<Theater> findById(Long id);
-  Optional<Theater> findTheaterByName(String name);
-  Optional<Theater> findTheaterByAddress(String address);
+  Optional<Theater> findByName(String name);
+  Optional<Theater> findByAddress(String address);
 }

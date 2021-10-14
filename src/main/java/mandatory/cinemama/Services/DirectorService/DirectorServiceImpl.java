@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class DirectorServiceImpl implements DirectorService {
 
   private DirectorRepository directorRepository;
-  //change
+
   @Autowired
   public DirectorServiceImpl(DirectorRepository directorRepository) {
     this.directorRepository = directorRepository;
@@ -23,15 +23,29 @@ public class DirectorServiceImpl implements DirectorService {
   }
 
   @Override
-  public List<Director> findDirectorsByFirstName(String name) {
-    List<Director> directors = directorRepository.findDirectorsByFirstName(name);
+  public List<Director> findDirectorsByFirstName(String firstName) {
+    List<Director> directors = directorRepository.findByFirstName(firstName);
     return directors;
   }
 
   @Override
-  public List<Director> findDirectorsByLastName(String name) {
-    List<Director> directors = directorRepository.findDirectorsByLastName(name);
+  public List<Director> findDirectorsByLastName(String lastName) {
+    List<Director> directors = directorRepository.findByLastName(
+      lastName
+    );
     return directors;
+  }
+
+  @Override
+  public Director findDirectorByFirstNameAndLastName(
+    String firstName,
+    String lastName
+  ) {
+    Director director = directorRepository.findByFirstNameAndLastName(
+      firstName,
+      lastName
+    );
+    return director;
   }
 
   @Override

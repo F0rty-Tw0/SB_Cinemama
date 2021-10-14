@@ -37,7 +37,7 @@ public class HallServiceImpl implements HallService {
 
   @Override
   public Hall findHallByName(String name) {
-    Optional<Hall> hall = hallRepository.findHallByName(name);
+    Optional<Hall> hall = hallRepository.findByName(name);
     return hall.get();
   }
 }

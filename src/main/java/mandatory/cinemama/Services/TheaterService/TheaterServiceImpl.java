@@ -31,13 +31,13 @@ public class TheaterServiceImpl implements TheaterService {
 
   @Override
   public Theater findTheaterByName(String name) {
-    Optional<Theater> theater = theaterRepository.findTheaterByName(name);
+    Optional<Theater> theater = theaterRepository.findByName(name);
     return theater.get();
   }
 
   @Override
   public Theater findTheaterByAddress(String address) {
-    Optional<Theater> theater = theaterRepository.findTheaterByAddress(address);
+    Optional<Theater> theater = theaterRepository.findByAddress(address);
     return theater.get();
   }
 

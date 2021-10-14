@@ -32,13 +32,13 @@ public class ActorServiceImpl implements ActorService {
 
   @Override
   public List<Actor> findActorsByFirstName(String firstName) {
-    List<Actor> actors = actorRepository.findActorsByFirstName(firstName);
+    List<Actor> actors = actorRepository.findByFirstName(firstName);
     return actors;
   }
 
   @Override
   public List<Actor> findActorsByLastName(String lastName) {
-    List<Actor> actors = actorRepository.findActorsByLastName(lastName);
+    List<Actor> actors = actorRepository.findByLastName(lastName);
     return actors;
   }
 
