@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
+
 @RestController
 @RequestMapping("/api/actor")
 public class ActorController implements ActorControllerInterface {
@@ -37,5 +39,11 @@ public class ActorController implements ActorControllerInterface {
   @Override
   public Actor addActor(Actor actor) {
     return actorService.addActor(actor);
+  }
+
+  @Transactional
+  @Override
+  public void deleteActorById(Long id) {
+    actorService.deleteActorById(id);
   }
 }

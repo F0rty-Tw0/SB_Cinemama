@@ -11,4 +11,5 @@ public interface HallRepository extends JpaRepository<Hall, Long> {
   List<Hall> findAll();
   Optional<Hall> findById(Long id);
   Optional<Hall> findHallByName(String name);
+  void deleteHallById(Long id);
 }

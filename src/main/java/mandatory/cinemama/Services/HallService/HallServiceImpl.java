@@ -40,4 +40,9 @@ public class HallServiceImpl implements HallService {
     Optional<Hall> hall = hallRepository.findHallByName(name);
     return hall.get();
   }
+
+  @Override
+  public void deleteHallById(Long id) {
+    hallRepository.deleteHallById(id);
+  }
 }

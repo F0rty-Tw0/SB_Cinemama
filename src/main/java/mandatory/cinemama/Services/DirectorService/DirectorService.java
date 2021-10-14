@@ -11,4 +11,6 @@ public interface DirectorService {
   public List<Director> findDirectorsByLastName(String name);
 
   public Director addDirector(Director director);
+
+  public void deleteDirectorById(Long id);
 }

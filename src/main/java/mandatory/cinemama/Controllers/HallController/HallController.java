@@ -6,6 +6,8 @@ import mandatory.cinemama.Services.HallService.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
+
 @RestController
 public class HallController implements HallControllerInterface {
 
@@ -30,5 +32,11 @@ public class HallController implements HallControllerInterface {
   @Override
   public Hall addHall(Hall hall) {
     return hallService.addHall(hall);
+  }
+
+  @Transactional
+  @Override
+  public void deleteHallById(Long id) {
+    hallService.deleteHallById(id);
   }
 }

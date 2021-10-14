@@ -47,4 +47,9 @@ public class ActorServiceImpl implements ActorService {
     Actor newActor = actorRepository.save(actor);
     return newActor;
   }
+
+  @Override
+  public void deleteActorById(Long id) {
+    actorRepository.deleteActorById(id);
+  }
 }

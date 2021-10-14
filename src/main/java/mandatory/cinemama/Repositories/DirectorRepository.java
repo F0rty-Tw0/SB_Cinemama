@@ -12,4 +12,6 @@ public interface DirectorRepository extends JpaRepository<Director, Long> {
   public List<Director> findDirectorsByFirstName(String name);
 
   public List<Director> findDirectorsByLastName(String name);
+
+  public void deleteDirectorById(Long id);
 }

@@ -9,4 +9,5 @@ public interface TheaterService {
   Theater findTheaterByName(String name);
   Theater findTheaterByAddress(String address);
   Theater addTheater(Theater theater);
+  void deleteTheaterById(Long id);
 }

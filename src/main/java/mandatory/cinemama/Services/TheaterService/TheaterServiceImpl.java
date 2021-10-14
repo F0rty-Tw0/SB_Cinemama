@@ -46,4 +46,9 @@ public class TheaterServiceImpl implements TheaterService {
     Theater newTheater = theaterRepository.save(theater);
     return newTheater;
   }
+
+  @Override
+  public void deleteTheaterById(Long id) {
+    theaterRepository.deleteTheaterById(id);
+  }
 }

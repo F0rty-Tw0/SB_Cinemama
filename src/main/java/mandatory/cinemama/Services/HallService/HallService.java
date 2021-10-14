@@ -7,5 +7,6 @@ public interface HallService {
   List<Hall> findAllHalls();
   Hall findHallById(Long id);
   Hall findHallByName(String name);
-  Hall addHall(Hall hall); //Merry christmas
+  Hall addHall(Hall hall);
+  void deleteHallById(Long id);
 }

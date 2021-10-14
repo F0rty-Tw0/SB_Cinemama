@@ -5,6 +5,7 @@ import java.util.List;
 import mandatory.cinemama.Entities.Hall;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,4 +34,8 @@ public interface HallControllerInterface {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Hall addHall(@RequestBody Hall hall);
+
+  @ApiOperation("Deletes a Hall from the database")
+  @DeleteMapping("{id}")
+  public void deleteHallById(@PathVariable Long id);
 }

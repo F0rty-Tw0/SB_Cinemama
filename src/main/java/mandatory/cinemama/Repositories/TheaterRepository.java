@@ -13,4 +13,5 @@ public interface TheaterRepository
   Optional<Theater> findById(Long id);
   Optional<Theater> findTheaterByName(String name);
   Optional<Theater> findTheaterByAddress(String address);
+  void deleteTheaterById(Long id);
 }
