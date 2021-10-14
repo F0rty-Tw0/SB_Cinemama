@@ -17,21 +17,21 @@ import java.util.List;
 @RequestMapping("/api/halls")
 public interface HallControllerInterface {
 
-  @ApiOperation("Returns all found halls")
+  @ApiOperation("Returns all found Halls")
   @GetMapping
   public List<Hall> findAllHalls(@RequestParam(required = false) String type);
 
-  @ApiOperation("Returns the hall based on Id")
+  @ApiOperation("Returns the Hall based on Id")
   @GetMapping("/id/{id}")
   public Hall findHallById(@RequestParam(required = false) String type,
       @PathVariable Long id);
 
-  @ApiOperation("Returns the hall based on name")
+  @ApiOperation("Returns the Hall based on name")
   @GetMapping("/name/{name}")
   public Hall findHallByName(@RequestParam(required = false) String type,
       @PathVariable String name);
 
-  @ApiOperation(value = "Adds a hall to the database", response = Procedure.class)
+  @ApiOperation(value = "Adds a Hall to the database", response = Procedure.class)
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Hall addHall(@RequestBody Hall hall);
