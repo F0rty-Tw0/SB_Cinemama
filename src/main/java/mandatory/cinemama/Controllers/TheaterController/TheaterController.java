@@ -33,7 +33,12 @@ public class TheaterController implements TheaterControllerInterface {
   }
 
   @Override
-  public Theater addTheater(Theater theater) {
-    return theaterService.addTheater(theater);
+  public void addTheater(Theater theater) {
+    theaterService.addTheater(theater);
+  }
+
+  @Override
+  public void deleteTheaterById(Long id) {
+    theaterService.deleteTheaterById(id);
   }
 }

@@ -2,7 +2,6 @@ package mandatory.cinemama.Services.ActorService;
 
 import java.util.List;
 import java.util.Optional;
-
 import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.Repositories.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +42,24 @@ public class ActorServiceImpl implements ActorService {
   }
 
   @Override
-  public Actor addActor(Actor actor) {
-    Actor newActor = actorRepository.save(actor);
-    return newActor;
+  public Actor findActorsByFirstNameAndLastName(
+    String firstName,
+    String lastName
+  ) {
+    Optional<Actor> actor = actorRepository.findByFirstNameAndLastName(
+      firstName,
+      lastName
+    );
+    return actor.get();
+  }
+
+  @Override
+  public void deleteActorById(Long id) {
+    actorRepository.deleteById(id);
+  }
+
+  @Override
+  public void addActor(Actor actor) {
+    actorRepository.save(actor);
   }
 }

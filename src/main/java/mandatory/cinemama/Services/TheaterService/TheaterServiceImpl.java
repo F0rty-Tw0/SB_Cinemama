@@ -42,8 +42,12 @@ public class TheaterServiceImpl implements TheaterService {
   }
 
   @Override
-  public Theater addTheater(Theater theater) {
-    Theater newTheater = theaterRepository.save(theater);
-    return newTheater;
+  public void addTheater(Theater theater) {
+    theaterRepository.save(theater);
+  }
+
+  @Override
+  public void deleteTheaterById(Long id) {
+    theaterRepository.deleteById(id);
   }
 }

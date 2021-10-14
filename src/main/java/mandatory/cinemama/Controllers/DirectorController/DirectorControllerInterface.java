@@ -4,8 +4,11 @@ import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import mandatory.cinemama.Entities.Director;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -15,23 +18,31 @@ public interface DirectorControllerInterface {
   @GetMapping
   public List<Director> findAllDirectors();
 
+  @ApiOperation("Returns the Director by Id")
+  @GetMapping("/{id}")
+  public Director findDirectorById(@PathVariable Long id);
+
   @ApiOperation("Returns the Directors found by First Name")
-  @GetMapping
-  public List<Director> findDirectorsByFirstName(String name);
+  @GetMapping("/first-name/{firstName}")
+  public List<Director> findDirectorsByFirstName(@PathVariable String name);
 
   @ApiOperation("Returns the Directors found by Last Name")
-  @GetMapping
-  public List<Director> findDirectorsByLastName(String name);
+  @GetMapping("/last-name/{lastName}")
+  public List<Director> findDirectorsByLastName(@PathVariable String name);
 
-  @ApiOperation("Returns the Director  found by First Name and Last Name")
-  @GetMapping
+  @ApiOperation("Returns the Director found by First Name and Last Name")
+  @GetMapping("/first-name/{firstName}/last-name/{lastName}")
   public Director findDirectorByFirstNameAndLastName(
-    String firstName,
-    String lastName
+    @PathVariable String firstName,
+    @PathVariable String lastName
   );
 
-  @ApiOperation("Adds the Actor")
+  @ApiOperation("Adds a Director to the database")
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Director addDirector(Director director);
+  public void addDirector(@RequestBody Director director);
+
+  @ApiOperation("Deletes a Director by Id")
+  @DeleteMapping("/{id}")
+  public void deleteDirectorById(@PathVariable Long id);
 }

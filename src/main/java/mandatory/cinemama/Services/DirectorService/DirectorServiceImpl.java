@@ -1,6 +1,7 @@
 package mandatory.cinemama.Services.DirectorService;
 
 import java.util.List;
+import java.util.Optional;
 import mandatory.cinemama.Entities.Director;
 import mandatory.cinemama.Repositories.DirectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,12 @@ public class DirectorServiceImpl implements DirectorService {
   }
 
   @Override
+  public Director findDirectorById(Long id) {
+    Optional<Director> director = directorRepository.findById(id);
+    return director.get();
+  }
+
+  @Override
   public List<Director> findDirectorsByFirstName(String firstName) {
     List<Director> directors = directorRepository.findByFirstName(firstName);
     return directors;
@@ -30,9 +37,7 @@ public class DirectorServiceImpl implements DirectorService {
 
   @Override
   public List<Director> findDirectorsByLastName(String lastName) {
-    List<Director> directors = directorRepository.findByLastName(
-      lastName
-    );
+    List<Director> directors = directorRepository.findByLastName(lastName);
     return directors;
   }
 
@@ -49,8 +54,12 @@ public class DirectorServiceImpl implements DirectorService {
   }
 
   @Override
-  public Director addDirector(Director director) {
-    Director newDirector = directorRepository.save(director);
-    return newDirector;
+  public void addDirector(Director director) {
+    directorRepository.save(director);
+  }
+
+  @Override
+  public void deleteDirectorById(Long id) {
+    directorRepository.deleteById(id);
   }
 }

@@ -28,7 +28,17 @@ public class HallController implements HallControllerInterface {
   }
 
   @Override
-  public Hall addHall(Hall hall) {
-    return hallService.addHall(hall);
+  public void addHall(Hall hall) {
+    hallService.addHall(hall);
+  }
+
+  @Override
+  public void deleteHallById(Long id) {
+    hallService.deleteHallById(id);
+  }
+
+  @Override
+  public List<Hall> findHallsByTheaterId(Long id) {
+    return hallService.findHallsByTheaterId(id);
   }
 }
