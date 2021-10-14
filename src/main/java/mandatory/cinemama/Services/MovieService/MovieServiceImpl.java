@@ -47,8 +47,8 @@ public class MovieServiceImpl implements MovieService {
   }
 
   @Override
-  public List<Movie> findMoviesByInfoIgnoreCaseContaining(String info) {
-    List<Movie> allMovies = movieRepository.findByInfoIgnoreCaseContaining(
+  public List<Movie> findMoviesByInfoContaining(String info) {
+    List<Movie> allMovies = movieRepository.findByInfoContaining(
       info
     );
     return allMovies;

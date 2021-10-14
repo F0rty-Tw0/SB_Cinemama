@@ -41,8 +41,8 @@ public class MovieController implements MovieControllerInterface {
   }
 
   @Override
-  public List<Movie> findMoviesByInfoIgnoreCaseContaining(String info) {
-    return movieService.findMoviesByInfoIgnoreCaseContaining(info);
+  public List<Movie> findMoviesByInfoContaining(String info) {
+    return movieService.findMoviesByInfoContaining(info);
   }
 
   @Override
