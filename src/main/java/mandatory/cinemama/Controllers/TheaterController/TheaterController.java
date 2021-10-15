@@ -34,6 +34,11 @@ public class TheaterController implements TheaterControllerInterface {
   }
 
   @Override
+  public void updateTheaterById(Theater theater, Long id) {
+    theaterService.updateTheaterById(theater, id);
+  }
+
+  @Override
   public void addTheater(Theater theater) {
     theaterService.addTheater(theater);
   }

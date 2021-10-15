@@ -48,5 +48,5 @@ public interface TheaterControllerInterface {
 
   @ApiOperation("Deletes a Theater by Id")
   @DeleteMapping("/{id}")
-  public void deleteTheaterById(Long id);
+  public void deleteTheaterById(@PathVariable Long id);
 }
