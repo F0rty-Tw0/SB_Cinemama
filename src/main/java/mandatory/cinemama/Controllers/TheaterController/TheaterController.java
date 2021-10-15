@@ -1,12 +1,11 @@
 package mandatory.cinemama.Controllers.TheaterController;
 
 import java.util.List;
+import javax.transaction.Transactional;
 import mandatory.cinemama.Entities.Theater;
 import mandatory.cinemama.Services.TheaterService.TheaterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.transaction.Transactional;
 
 @RestController
 public class TheaterController implements TheaterControllerInterface {
@@ -39,14 +38,9 @@ public class TheaterController implements TheaterControllerInterface {
     theaterService.addTheater(theater);
   }
 
-  @Override
-  public void deleteTheaterById(Long id) {
-    theaterService.deleteTheaterById(id);
-  }
-
   @Transactional
   @Override
-  public void deleteMovieById(Long id) {
+  public void deleteTheaterById(Long id) {
     theaterService.deleteTheaterById(id);
   }
 }

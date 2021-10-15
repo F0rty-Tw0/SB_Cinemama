@@ -50,9 +50,4 @@ public class HallServiceImpl implements HallService {
   public void deleteHallById(Long id) {
     hallRepository.deleteById(id);
   }
-
-  @Override
-  public void deleteHallById(Long id) {
-    hallRepository.deleteHallById(id);
-  }
 }

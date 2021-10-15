@@ -50,9 +50,4 @@ public class TheaterServiceImpl implements TheaterService {
   public void deleteTheaterById(Long id) {
     theaterRepository.deleteById(id);
   }
-
-  @Override
-  public void deleteTheaterById(Long id) {
-    theaterRepository.deleteTheaterById(id);
-  }
 }
