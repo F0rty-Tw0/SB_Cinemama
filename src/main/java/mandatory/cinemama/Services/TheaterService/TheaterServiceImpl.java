@@ -7,7 +7,7 @@ import mandatory.cinemama.Repositories.TheaterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service // dd
+@Service
 public class TheaterServiceImpl implements TheaterService {
 
   private final TheaterRepository theaterRepository;
@@ -42,18 +42,6 @@ public class TheaterServiceImpl implements TheaterService {
   }
 
   @Override
-  public void updateTheaterById(Theater theater, Long id) {
-    Optional<Theater> foundTheater = theaterRepository.findById(id);
-    if (foundTheater.isPresent()) {
-      foundTheater.get().setName(theater.getName());
-      foundTheater.get().setAddress(theater.getAddress());
-      theaterRepository.save(foundTheater.get());
-    } else {
-      System.out.println("Error");
-    }
-  }
-
-  @Override
   public void addTheater(Theater theater) {
     theaterRepository.save(theater);
   }
@@ -62,5 +50,4 @@ public class TheaterServiceImpl implements TheaterService {
   public void deleteTheaterById(Long id) {
     theaterRepository.deleteById(id);
   }
-
 }

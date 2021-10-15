@@ -1,12 +1,11 @@
 package mandatory.cinemama.Controllers.ActorController;
 
 import java.util.List;
+import javax.transaction.Transactional;
 import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.Services.ActorService.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.transaction.Transactional;
 
 @RestController
 public class ActorController implements ActorControllerInterface {

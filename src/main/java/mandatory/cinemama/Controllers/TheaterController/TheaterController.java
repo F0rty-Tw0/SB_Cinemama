@@ -1,12 +1,11 @@
 package mandatory.cinemama.Controllers.TheaterController;
 
 import java.util.List;
+import javax.transaction.Transactional;
 import mandatory.cinemama.Entities.Theater;
 import mandatory.cinemama.Services.TheaterService.TheaterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.transaction.Transactional;
 
 @RestController
 public class TheaterController implements TheaterControllerInterface {
@@ -32,11 +31,6 @@ public class TheaterController implements TheaterControllerInterface {
   @Override
   public Theater findTheaterAddress(String address) {
     return theaterService.findTheaterByAddress(address);
-  }
-
-  @Override
-  public void updateTheaterById(Theater theater, Long id) {
-    theaterService.updateTheaterById(theater, id);
   }
 
   @Override

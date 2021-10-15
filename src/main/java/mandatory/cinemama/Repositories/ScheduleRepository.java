@@ -3,6 +3,7 @@ package mandatory.cinemama.Repositories;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 import mandatory.cinemama.Entities.Schedule.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,6 +15,13 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
   public List<Schedule> findByDateAndTimeSlot(
     LocalDate date,
     LocalTime timeSlot
+  );
+
+  public Optional<Schedule> findByDateAndTimeSlotAndHallIdAndMovieId(
+    LocalDate date,
+    LocalTime timeSlot,
+    Long hallId,
+    Long movieId
   );
 
   public List<Schedule> findByDate(LocalDate date);

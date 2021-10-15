@@ -62,5 +62,4 @@ public class ActorServiceImpl implements ActorService {
   public void addActor(Actor actor) {
     actorRepository.save(actor);
   }
-
 }

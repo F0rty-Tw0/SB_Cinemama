@@ -1,12 +1,11 @@
 package mandatory.cinemama.Controllers.HallController;
 
 import java.util.List;
+import javax.transaction.Transactional;
 import mandatory.cinemama.Entities.Hall;
 import mandatory.cinemama.Services.HallService.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.transaction.Transactional;
 
 @RestController
 public class HallController implements HallControllerInterface {
@@ -27,11 +26,6 @@ public class HallController implements HallControllerInterface {
   @Override
   public Hall findHallByName(String name) {
     return hallService.findHallByName(name);
-  }
-
-  @Override
-  public void updateHallById(Hall hall, Long id) {
-    hallService.updateHallById(hall, id);
   }
 
   @Override
