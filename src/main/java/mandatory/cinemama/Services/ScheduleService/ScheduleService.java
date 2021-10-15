@@ -3,7 +3,7 @@ package mandatory.cinemama.Services.ScheduleService;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import mandatory.cinemama.Entities.Schedule.Schedule;
+import mandatory.cinemama.Entities.Schedule;
 
 public interface ScheduleService {
   public List<Schedule> findAllSchedules();
@@ -11,13 +11,6 @@ public interface ScheduleService {
   public List<Schedule> findSchedulesByDateAndTimeSlot(
     LocalDate date,
     LocalTime timeSlot
-  );
-
-  public Schedule findScheduleByDateAndTimeSlotAndHallIdAndMovieId(
-    LocalDate date,
-    LocalTime timeSlot,
-    Long hallId,
-    Long movieId
   );
 
   public List<Schedule> findSchedulesByDate(LocalDate date);
@@ -36,19 +29,9 @@ public interface ScheduleService {
 
   public List<Schedule> findSchedulesByMovieInfoContaining(String info);
 
-  public void updateScheduleByDateAndTimeSlotAndHallIdAndMovieId(
-    LocalDate date,
-    LocalTime timeSlot,
-    Long hallId,
-    Long movieId,
-    Schedule schedule
-  );
+  public void updateScheduleById(Long id, Schedule schedule);
 
   public void addSchedule(Schedule schedule);
 
-  public void deleteScheduleByDateAndTimeSlotAndHallId(
-    LocalDate date,
-    LocalTime timeSlot,
-    Long hallId
-  );
+  public void deleteScheduleById(Long id);
 }

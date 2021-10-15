@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import mandatory.cinemama.Entities.Schedule.Schedule;
+import mandatory.cinemama.Entities.Schedule;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,19 +29,6 @@ public interface ScheduleControllerInterface {
     @PathVariable @DateTimeFormat(
       iso = DateTimeFormat.ISO.TIME
     ) LocalTime timeSlot
-  );
-
-  @ApiOperation(
-    "Returns the Schedules based on the Date,Time Slot, Hall Id and Movie Id"
-  )
-  @GetMapping("/date/{date}/time-slot/{timeSlot}/hall/{hallId}/movie/{movieId}")
-  public Schedule findScheduleByDateAndTimeSlotAndHallIdAndMovieId(
-    @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-    @PathVariable @DateTimeFormat(
-      iso = DateTimeFormat.ISO.TIME
-    ) LocalTime timeSlot,
-    @PathVariable Long hallId,
-    @PathVariable Long movieId
   );
 
   @ApiOperation("Returns the Schedules based on the Date")
@@ -84,19 +71,10 @@ public interface ScheduleControllerInterface {
     @PathVariable String info
   );
 
-  @ApiOperation(
-    "Updates the Schedule based on the Date,Time Slot, Hall Id and Movie Id"
-  )
-  @PatchMapping(
-    "/date/{date}/time-slot/{timeSlot}/hall/{hallId}/movie/{movieId}"
-  )
-  public void updateScheduleByDateAndTimeSlotAndHallIdAndMovieId(
-    @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-    @PathVariable @DateTimeFormat(
-      iso = DateTimeFormat.ISO.TIME
-    ) LocalTime timeSlot,
-    @PathVariable Long hallId,
-    @PathVariable Long movieId,
+  @ApiOperation("Updates the Schedule based on the Id")
+  @PatchMapping("/{id}")
+  public void updateScheduleById(
+    @PathVariable Long id,
     @RequestBody Schedule schedule
   );
 
@@ -105,13 +83,7 @@ public interface ScheduleControllerInterface {
   @ResponseStatus(HttpStatus.CREATED)
   public void addSchedule(@RequestBody Schedule schedule);
 
-  @ApiOperation("Deletes the Movie based on the Date, Time Slot, and Hall Id")
+  @ApiOperation("Deletes the Movie based on the Id")
   @DeleteMapping("/{id}")
-  public void deleteScheduleByDateAndTimeSlotAndHallId(
-    @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-    @PathVariable @DateTimeFormat(
-      iso = DateTimeFormat.ISO.TIME
-    ) LocalTime timeSlot,
-    @PathVariable Long hallId
-  );
+  public void deleteScheduleById(@PathVariable Long id);
 }

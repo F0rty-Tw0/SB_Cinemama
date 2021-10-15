@@ -54,9 +54,7 @@ public interface MovieControllerInterface {
   )
   @GetMapping("/less-screen-time/{screenTime}")
   public List<Movie> findMoviesByScreenTimeLessThan(
-    @PathVariable @DateTimeFormat(
-      iso = DateTimeFormat.ISO.TIME
-    ) LocalTime screenTime
+    @PathVariable @DateTimeFormat(pattern = "HH:mm") LocalTime screenTime
   );
 
   @ApiOperation(
@@ -64,9 +62,7 @@ public interface MovieControllerInterface {
   )
   @GetMapping("/greater-screen-time/{screenTime}")
   public List<Movie> findMoviesByScreenTimeGreaterThan(
-    @PathVariable @DateTimeFormat(
-      iso = DateTimeFormat.ISO.TIME
-    ) LocalTime screenTime
+    @PathVariable @DateTimeFormat(pattern = "HH:mm") LocalTime screenTime
   );
 
   @ApiOperation("Returns the Info based on the Title")

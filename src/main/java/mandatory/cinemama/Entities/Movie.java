@@ -1,5 +1,6 @@
 package mandatory.cinemama.Entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class Movie {
   private int minAge;
 
   @Column(nullable = false, length = 30)
+  @JsonFormat(pattern = "HH:mm")
   private LocalTime screenTime;
 
   @Column(nullable = false)
