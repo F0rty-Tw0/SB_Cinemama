@@ -1,10 +1,39 @@
 package mandatory.cinemama.Services.ScheduleService;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
-
 import mandatory.cinemama.Entities.Schedule.Schedule;
 
 public interface ScheduleService {
   public List<Schedule> findAllSchedules();
-  public Schedule addSchedule(Schedule schedule);
+
+  public List<Schedule> findSchedulesByDateAndTimeSlot(
+    LocalDate date,
+    LocalTime timeSlot
+  );
+
+  public List<Schedule> findSchedulesByDate(LocalDate date);
+
+  public List<Schedule> findSchedulesByHallId(Long hallId);
+
+  public List<Schedule> findSchedulesByMovieId(Long movieId);
+
+  public List<Schedule> findSchedulesByHallName(String name);
+
+  public List<Schedule> findSchedulesByMovieTitle(String title);
+
+  public List<Schedule> findSchedulesByMovieMinAgeGreaterThan(int minAge);
+
+  public List<Schedule> findSchedulesByMovieRating(int rating);
+
+  public List<Schedule> findSchedulesByMovieInfoContaining(String info);
+
+  public void addSchedule(Schedule schedule);
+
+  public void deleteScheduleByDateAndSlotTimeAndHallId(
+    LocalDate date,
+    LocalTime timeSlot,
+    Long hallId
+  );
 }
