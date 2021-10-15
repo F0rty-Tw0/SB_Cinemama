@@ -9,8 +9,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -27,6 +29,19 @@ public interface ScheduleControllerInterface {
     @PathVariable @DateTimeFormat(
       iso = DateTimeFormat.ISO.TIME
     ) LocalTime timeSlot
+  );
+
+  @ApiOperation(
+    "Returns the Schedules based on the Date,Time Slot, Hall Id and Movie Id"
+  )
+  @GetMapping("/date/{date}/time-slot/{timeSlot}/hall/{hallId}/movie/{movieId}")
+  public Schedule findScheduleByDateAndTimeSlotAndHallIdAndMovieId(
+    @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+    @PathVariable @DateTimeFormat(
+      iso = DateTimeFormat.ISO.TIME
+    ) LocalTime timeSlot,
+    @PathVariable Long hallId,
+    @PathVariable Long movieId
   );
 
   @ApiOperation("Returns the Schedules based on the Date")
@@ -69,14 +84,30 @@ public interface ScheduleControllerInterface {
     @PathVariable String info
   );
 
+  @ApiOperation(
+    "Updates the Schedule based on the Date,Time Slot, Hall Id and Movie Id"
+  )
+  @PatchMapping(
+    "/date/{date}/time-slot/{timeSlot}/hall/{hallId}/movie/{movieId}"
+  )
+  public void updateScheduleByDateAndTimeSlotAndHallIdAndMovieId(
+    @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+    @PathVariable @DateTimeFormat(
+      iso = DateTimeFormat.ISO.TIME
+    ) LocalTime timeSlot,
+    @PathVariable Long hallId,
+    @PathVariable Long movieId,
+    @RequestBody Schedule schedule
+  );
+
   @ApiOperation("Adds a Schedule to the database")
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public void addSchedule(Schedule schedule);
+  public void addSchedule(@RequestBody Schedule schedule);
 
   @ApiOperation("Deletes the Movie based on the Date, Time Slot, and Hall Id")
   @DeleteMapping("/{id}")
-  public void deleteScheduleByDateAndSlotTimeAndHallId(
+  public void deleteScheduleByDateAndTimeSlotAndHallId(
     @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
     @PathVariable @DateTimeFormat(
       iso = DateTimeFormat.ISO.TIME

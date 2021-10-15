@@ -28,6 +28,21 @@ public class ScheduleController implements ScheduleControllerInterface {
   }
 
   @Override
+  public Schedule findScheduleByDateAndTimeSlotAndHallIdAndMovieId(
+    LocalDate date,
+    LocalTime timeSlot,
+    Long hallId,
+    Long movieId
+  ) {
+    return scheduleService.findScheduleByDateAndTimeSlotAndHallIdAndMovieId(
+      date,
+      timeSlot,
+      hallId,
+      movieId
+    );
+  }
+
+  @Override
   public List<Schedule> findSchedulesByDate(LocalDate date) {
     return scheduleService.findSchedulesByDate(date);
   }
@@ -68,17 +83,34 @@ public class ScheduleController implements ScheduleControllerInterface {
   }
 
   @Override
+  public void updateScheduleByDateAndTimeSlotAndHallIdAndMovieId(
+    LocalDate date,
+    LocalTime timeSlot,
+    Long hallId,
+    Long movieId,
+    Schedule schedule
+  ) {
+    scheduleService.updateScheduleByDateAndTimeSlotAndHallIdAndMovieId(
+      date,
+      timeSlot,
+      hallId,
+      movieId,
+      schedule
+    );
+  }
+
+  @Override
   public void addSchedule(Schedule schedule) {
     scheduleService.addSchedule(schedule);
   }
 
   @Override
-  public void deleteScheduleByDateAndSlotTimeAndHallId(
+  public void deleteScheduleByDateAndTimeSlotAndHallId(
     LocalDate date,
     LocalTime timeSlot,
     Long hallId
   ) {
-    scheduleService.deleteScheduleByDateAndSlotTimeAndHallId(
+    scheduleService.deleteScheduleByDateAndTimeSlotAndHallId(
       date,
       timeSlot,
       hallId

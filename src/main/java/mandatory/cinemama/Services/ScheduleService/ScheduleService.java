@@ -13,6 +13,13 @@ public interface ScheduleService {
     LocalTime timeSlot
   );
 
+  public Schedule findScheduleByDateAndTimeSlotAndHallIdAndMovieId(
+    LocalDate date,
+    LocalTime timeSlot,
+    Long hallId,
+    Long movieId
+  );
+
   public List<Schedule> findSchedulesByDate(LocalDate date);
 
   public List<Schedule> findSchedulesByHallId(Long hallId);
@@ -29,9 +36,17 @@ public interface ScheduleService {
 
   public List<Schedule> findSchedulesByMovieInfoContaining(String info);
 
+  public void updateScheduleByDateAndTimeSlotAndHallIdAndMovieId(
+    LocalDate date,
+    LocalTime timeSlot,
+    Long hallId,
+    Long movieId,
+    Schedule schedule
+  );
+
   public void addSchedule(Schedule schedule);
 
-  public void deleteScheduleByDateAndSlotTimeAndHallId(
+  public void deleteScheduleByDateAndTimeSlotAndHallId(
     LocalDate date,
     LocalTime timeSlot,
     Long hallId
