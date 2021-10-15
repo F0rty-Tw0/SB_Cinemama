@@ -42,6 +42,11 @@ public class ActorController implements ActorControllerInterface {
   }
 
   @Override
+  public void updateActorById(Actor actor, Long id) {
+    actorService.updateActorById(actor, id);
+  }
+
+  @Override
   public void addActor(Actor actor) {
     actorService.addActor(actor);
   }

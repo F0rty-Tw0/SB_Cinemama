@@ -17,6 +17,8 @@ public interface ActorService {
     String lastName
   );
 
+  public void updateActorById(Actor actor, Long id);
+
   public void deleteActorById(Long id);
 
   public void addActor(Actor actor);

@@ -44,6 +44,11 @@ public class DirectorController implements DirectorControllerInterface {
   }
 
   @Override
+  public void updateDirectorById(Director director, Long id) {
+    directorService.updateDirectorById(director, id);
+  }
+
+  @Override
   public void addDirector(Director director) {
     directorService.addDirector(director);
   }
