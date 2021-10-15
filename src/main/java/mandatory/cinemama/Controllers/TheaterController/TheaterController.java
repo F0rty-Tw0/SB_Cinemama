@@ -35,18 +35,18 @@ public class TheaterController implements TheaterControllerInterface {
   }
 
   @Override
+  public void updateTheaterById(Theater theater, Long id) {
+    theaterService.updateTheaterById(theater, id);
+  }
+
+  @Override
   public void addTheater(Theater theater) {
     theaterService.addTheater(theater);
   }
 
-  @Override
-  public void deleteTheaterById(Long id) {
-    theaterService.deleteTheaterById(id);
-  }
-
   @Transactional
   @Override
-  public void deleteMovieById(Long id) {
+  public void deleteTheaterById(Long id) {
     theaterService.deleteTheaterById(id);
   }
 }

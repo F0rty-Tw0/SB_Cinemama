@@ -30,13 +30,13 @@ public class HallController implements HallControllerInterface {
   }
 
   @Override
-  public void addHall(Hall hall) {
-    hallService.addHall(hall);
+  public void updateHallById(Hall hall, Long id) {
+    hallService.updateHallById(hall, id);
   }
 
   @Override
-  public void deleteHallById(Long id) {
-    hallService.deleteHallById(id);
+  public void addHall(Hall hall) {
+    hallService.addHall(hall);
   }
 
   @Override

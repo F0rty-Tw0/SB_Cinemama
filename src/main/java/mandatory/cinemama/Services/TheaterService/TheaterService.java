@@ -15,4 +15,6 @@ public interface TheaterService {
   public void addTheater(Theater theater);
 
   public void deleteTheaterById(Long id);
+
+  public void updateTheaterById(Theater theater, Long id);
 }

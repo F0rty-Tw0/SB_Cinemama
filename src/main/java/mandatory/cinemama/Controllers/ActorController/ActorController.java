@@ -47,11 +47,6 @@ public class ActorController implements ActorControllerInterface {
     actorService.addActor(actor);
   }
 
-  @Override
-  public void deleteActorById(Long id) {
-    actorService.deleteActorById(id);
-  }
-
   @Transactional
   @Override
   public void deleteActorById(Long id) {

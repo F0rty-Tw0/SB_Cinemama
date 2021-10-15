@@ -15,4 +15,6 @@ public interface HallService {
   public void addHall(Hall hall); //Merry christmas
 
   public void deleteHallById(Long id);
+
+  public void updateHallById(Hall hall, Long id);
 }

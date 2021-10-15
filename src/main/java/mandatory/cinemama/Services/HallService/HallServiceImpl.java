@@ -1,5 +1,6 @@
 package mandatory.cinemama.Services.HallService;
 
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Optional;
 import mandatory.cinemama.Entities.Hall;
@@ -42,6 +43,18 @@ public class HallServiceImpl implements HallService {
   }
 
   @Override
+  public void updateHallById(Hall hall, Long id) {
+    Optional<Hall> foundHall = hallRepository.findById(id);
+    if (foundHall.isPresent()) {
+      foundHall.get().setName(hall.getName());
+      foundHall.get().setTheater(hall.getTheater());
+      hallRepository.save(foundHall.get());
+    } else {
+      System.out.println("Error");
+    }
+  }
+
+  @Override
   public void addHall(Hall hall) {
     hallRepository.save(hall);
   }
@@ -51,8 +64,4 @@ public class HallServiceImpl implements HallService {
     hallRepository.deleteById(id);
   }
 
-  @Override
-  public void deleteHallById(Long id) {
-    hallRepository.deleteHallById(id);
-  }
 }
