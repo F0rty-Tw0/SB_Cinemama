@@ -6,6 +6,7 @@ import mandatory.cinemama.Entities.Actor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +37,10 @@ public interface ActorControllerInterface {
     @PathVariable String firstName,
     @PathVariable String lastName
   );
+
+  @ApiOperation("Updates an Actor by Id and the details we enter")
+  @PatchMapping("/{id}")
+  public void updateActorById(@RequestBody Actor actor, @PathVariable Long id);
 
   @ApiOperation("Adds an Actor to the database")
   @PostMapping
