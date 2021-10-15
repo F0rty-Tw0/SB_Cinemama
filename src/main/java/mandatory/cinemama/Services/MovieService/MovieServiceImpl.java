@@ -84,16 +84,16 @@ public class MovieServiceImpl implements MovieService {
 
   @Override
   public void updateMovieById(Movie movie, Long id) {
-    Optional<Movie> foundMovie = movieRepository.findById(id);
-    if (foundMovie.isPresent()) {
-      foundMovie.get().setActors(movie.getActors());
-      foundMovie.get().setDirectors(movie.getDirectors());
-      foundMovie.get().setGenres(movie.getGenres());
-      foundMovie.get().setTitle(movie.getTitle());
-      foundMovie.get().setInfo(movie.getInfo());
-      foundMovie.get().setRating(movie.getRating());
-      foundMovie.get().setMinAge(movie.getMinAge());
-      movieRepository.save(foundMovie.get());
+    Movie foundMovie = movieRepository.getById(id);
+    if (foundMovie != null) {
+      foundMovie.setActors(movie.getActors());
+      foundMovie.setDirectors(movie.getDirectors());
+      foundMovie.setGenres(movie.getGenres());
+      foundMovie.setTitle(movie.getTitle());
+      foundMovie.setInfo(movie.getInfo());
+      foundMovie.setRating(movie.getRating());
+      foundMovie.setMinAge(movie.getMinAge());
+      movieRepository.save(foundMovie);
     } else {
       System.out.println("This one should be handled by error handler");
     }

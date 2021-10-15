@@ -71,6 +71,17 @@ public interface ScheduleControllerInterface {
     @PathVariable String info
   );
 
+  @ApiOperation("Returns the Schedules based on From Date and To Date")
+  @GetMapping("/end-date/{endDate}/start-date/{startDate}")
+  public List<Schedule> findSchedulesByDateBetween(
+    @PathVariable @DateTimeFormat(
+      iso = DateTimeFormat.ISO.DATE
+    ) LocalDate endDate,
+    @PathVariable @DateTimeFormat(
+      iso = DateTimeFormat.ISO.DATE
+    ) LocalDate startDate
+  );
+
   @ApiOperation("Updates the Schedule based on the Id")
   @PatchMapping("/{id}")
   public void updateScheduleById(

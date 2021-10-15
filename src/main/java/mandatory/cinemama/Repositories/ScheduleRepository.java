@@ -31,4 +31,9 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
   public List<Schedule> findByMovieRating(int rating);
 
   public List<Schedule> findByMovieInfoContaining(String info);
+
+  public List<Schedule> findByDateBetween(
+    LocalDate startDate,
+    LocalDate endDate
+  );
 }

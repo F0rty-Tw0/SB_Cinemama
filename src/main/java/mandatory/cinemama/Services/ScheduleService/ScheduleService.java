@@ -29,6 +29,11 @@ public interface ScheduleService {
 
   public List<Schedule> findSchedulesByMovieInfoContaining(String info);
 
+  public List<Schedule> findSchedulesByDateBetween(
+    LocalDate endDate,
+    LocalDate startDate
+  );
+
   public void updateScheduleById(Long id, Schedule schedule);
 
   public void addSchedule(Schedule schedule);

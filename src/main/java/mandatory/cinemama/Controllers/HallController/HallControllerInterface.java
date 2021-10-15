@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,10 @@ public interface HallControllerInterface {
   @ApiOperation("Returns the Hall based on name")
   @GetMapping("/name/{name}")
   public Hall findHallByName(@PathVariable String name);
+
+  @ApiOperation("Updates the hall based on the id and details we enter")
+  @PatchMapping("/{id}")
+  public void updateHallById(@RequestBody Hall hall, @PathVariable Long id);
 
   @ApiOperation(
     value = "Adds a Hall to the database",

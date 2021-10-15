@@ -89,6 +89,18 @@ public class ScheduleServiceImpl implements ScheduleService {
   }
 
   @Override
+  public List<Schedule> findSchedulesByDateBetween(
+    LocalDate endDate,
+    LocalDate startDate
+  ) {
+    List<Schedule> schedules = scheduleRepository.findByDateBetween(
+      endDate,
+      startDate
+    );
+    return schedules;
+  }
+
+  @Override
   public void updateScheduleById(Long id, Schedule schedule) {
     Schedule newSchedule = scheduleRepository.getById(id);
     if (newSchedule != null) {

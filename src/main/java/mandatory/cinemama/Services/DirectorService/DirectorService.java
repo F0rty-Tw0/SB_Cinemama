@@ -17,6 +17,8 @@ public interface DirectorService {
     String lastName
   );
 
+  public void updateDirectorById(Director director, Long id);
+
   public void addDirector(Director director);
 
   public void deleteDirectorById(Long id);

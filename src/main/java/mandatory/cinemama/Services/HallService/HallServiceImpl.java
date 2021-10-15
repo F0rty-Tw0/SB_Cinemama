@@ -42,6 +42,18 @@ public class HallServiceImpl implements HallService {
   }
 
   @Override
+  public void updateHallById(Hall hall, Long id) {
+    Hall foundHall = hallRepository.getById(id);
+    if (foundHall != null) {
+      foundHall.setName(hall.getName());
+      foundHall.setTheater(hall.getTheater());
+      hallRepository.save(foundHall);
+    } else {
+      System.out.println("This one should be handled by error handler");
+    }
+  }
+
+  @Override
   public void addHall(Hall hall) {
     hallRepository.save(hall);
   }

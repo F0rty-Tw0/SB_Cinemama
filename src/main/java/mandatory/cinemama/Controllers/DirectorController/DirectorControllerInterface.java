@@ -6,6 +6,7 @@ import mandatory.cinemama.Entities.Director;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +37,10 @@ public interface DirectorControllerInterface {
     @PathVariable String firstName,
     @PathVariable String lastName
   );
+
+  @ApiOperation("Updates the Director based on the id and details we enter")
+  @PatchMapping("/{id}")
+  public void updateDirectorById(@RequestBody Director director, @PathVariable Long id);
 
   @ApiOperation("Adds a Director to the database")
   @PostMapping

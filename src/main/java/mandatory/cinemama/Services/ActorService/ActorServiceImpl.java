@@ -54,6 +54,18 @@ public class ActorServiceImpl implements ActorService {
   }
 
   @Override
+  public void updateActorById(Actor actor, Long id) {
+    Actor foundActor = actorRepository.getById(id);
+    if (foundActor != null) {
+      foundActor.setFirstName(actor.getFirstName());
+      foundActor.setLastName(actor.getLastName());
+      actorRepository.save(foundActor);
+    } else {
+      System.out.println("This one should be handled by error handler");
+    }
+  }
+
+  @Override
   public void deleteActorById(Long id) {
     actorRepository.deleteById(id);
   }

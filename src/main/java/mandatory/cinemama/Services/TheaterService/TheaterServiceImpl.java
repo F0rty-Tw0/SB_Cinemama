@@ -42,6 +42,18 @@ public class TheaterServiceImpl implements TheaterService {
   }
 
   @Override
+  public void updateTheaterById(Theater theater, Long id) {
+    Theater foundTheater = theaterRepository.getById(id);
+    if (foundTheater != null) {
+      foundTheater.setName(theater.getName());
+      foundTheater.setAddress(theater.getAddress());
+      theaterRepository.save(foundTheater);
+    } else {
+      System.out.println("Error");
+    }
+  }
+
+  @Override
   public void addTheater(Theater theater) {
     theaterRepository.save(theater);
   }
