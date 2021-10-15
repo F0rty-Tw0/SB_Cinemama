@@ -25,6 +25,8 @@ public interface MovieService {
 
   public String findInfoByTitle(String title);
 
+  public void updateMovieById(Movie movie, Long id);
+
   public void addMovie(Movie movie);
 
   public void deleteMovieById(Long id);
