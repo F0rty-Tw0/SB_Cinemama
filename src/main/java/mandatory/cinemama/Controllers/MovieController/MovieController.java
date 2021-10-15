@@ -30,17 +30,6 @@ public class MovieController implements MovieControllerInterface {
   }
 
   @Override
-  public void addMovie(Movie movie) {
-    movieService.addMovie(movie);
-  }
-
-  @Transactional
-  @Override
-  public void deleteMovieById(Long id) {
-    movieService.deleteMovieById(id);
-  }
-
-  @Override
   public List<Movie> findMoviesByInfoContaining(String info) {
     return movieService.findMoviesByInfoContaining(info);
   }
@@ -73,5 +62,21 @@ public class MovieController implements MovieControllerInterface {
   @Override
   public String findInfoByTitle(String title) {
     return movieService.findInfoByTitle(title);
+  }
+
+  @Override
+  public void updateMovieById(Movie movie, Long id) {
+    movieService.updateMovieById(movie, id);
+  }
+
+  @Override
+  public void addMovie(Movie movie) {
+    movieService.addMovie(movie);
+  }
+
+  @Transactional
+  @Override
+  public void deleteMovieById(Long id) {
+    movieService.deleteMovieById(id);
   }
 }

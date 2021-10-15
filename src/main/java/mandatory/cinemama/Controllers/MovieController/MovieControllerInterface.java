@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,9 +31,7 @@ public interface MovieControllerInterface {
 
   @ApiOperation("Returns the Movies based on the Info text")
   @GetMapping("/info/{info}")
-  public List<Movie> findMoviesByInfoContaining(
-    @PathVariable String info
-  );
+  public List<Movie> findMoviesByInfoContaining(@PathVariable String info);
 
   @ApiOperation(
     "Returns the Movies based on the Minimum age which is Less than input"
@@ -73,6 +72,10 @@ public interface MovieControllerInterface {
   @ApiOperation("Returns the Info based on the Title")
   @GetMapping("/info-from-title{title}")
   public String findInfoByTitle(@PathVariable String title);
+
+  @ApiOperation("Updates the Movie based on the id and details we enter")
+  @PatchMapping("/{id}")
+  public void updateMovieById(@RequestBody Movie movie, @PathVariable Long id);
 
   @ApiOperation("Adds the Movie to the database")
   @PostMapping
