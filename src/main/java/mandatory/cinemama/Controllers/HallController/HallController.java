@@ -1,6 +1,7 @@
 package mandatory.cinemama.Controllers.HallController;
 
 import java.util.List;
+import javax.transaction.Transactional;
 import mandatory.cinemama.Entities.Hall;
 import mandatory.cinemama.Services.HallService.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +34,13 @@ public class HallController implements HallControllerInterface {
   }
 
   @Override
-  public void deleteHallById(Long id) {
-    hallService.deleteHallById(id);
-  }
-
-  @Override
   public List<Hall> findHallsByTheaterId(Long id) {
     return hallService.findHallsByTheaterId(id);
+  }
+
+  @Transactional
+  @Override
+  public void deleteHallById(Long id) {
+    hallService.deleteHallById(id);
   }
 }

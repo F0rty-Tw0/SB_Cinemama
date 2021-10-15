@@ -1,6 +1,7 @@
 package mandatory.cinemama.Controllers.ActorController;
 
 import java.util.List;
+import javax.transaction.Transactional;
 import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.Services.ActorService.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,7 @@ public class ActorController implements ActorControllerInterface {
     actorService.addActor(actor);
   }
 
+  @Transactional
   @Override
   public void deleteActorById(Long id) {
     actorService.deleteActorById(id);

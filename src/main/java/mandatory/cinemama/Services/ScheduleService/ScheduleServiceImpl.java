@@ -3,8 +3,7 @@ package mandatory.cinemama.Services.ScheduleService;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
-import mandatory.cinemama.Entities.Schedule.Schedule;
+import mandatory.cinemama.Entities.Schedule;
 import mandatory.cinemama.Repositories.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,22 +34,6 @@ public class ScheduleServiceImpl implements ScheduleService {
       timeSlot
     );
     return schedules;
-  }
-
-  @Override
-  public Schedule findScheduleByDateAndTimeSlotAndHallIdAndMovieId(
-    LocalDate date,
-    LocalTime timeSlot,
-    Long hallId,
-    Long movieId
-  ) {
-    Optional<Schedule> schedule = scheduleRepository.findByDateAndTimeSlotAndHallIdAndMovieId(
-      date,
-      timeSlot,
-      hallId,
-      movieId
-    );
-    return schedule.get();
   }
 
   @Override
@@ -106,26 +89,15 @@ public class ScheduleServiceImpl implements ScheduleService {
   }
 
   @Override
-  public void updateScheduleByDateAndTimeSlotAndHallIdAndMovieId(
-    LocalDate date,
-    LocalTime timeSlot,
-    Long hallId,
-    Long movieId,
-    Schedule schedule
-  ) {
-    Optional<Schedule> newSchedule = scheduleRepository.findByDateAndTimeSlotAndHallIdAndMovieId(
-      date,
-      timeSlot,
-      hallId,
-      movieId
-    );
-    if (newSchedule.isPresent()) {
-      newSchedule.get().setDate(schedule.getDate());
-      newSchedule.get().setTimeSlot(schedule.getTimeSlot());
-      newSchedule.get().setHallId(schedule.getHallId());
-      newSchedule.get().setMovieId(schedule.getMovieId());
-      newSchedule.get().setScreenTime(schedule.getScreenTime());
-      scheduleRepository.save(newSchedule.get());
+  public void updateScheduleById(Long id, Schedule schedule) {
+    Schedule newSchedule = scheduleRepository.getById(id);
+    if (newSchedule != null) {
+      newSchedule.setDate(schedule.getDate());
+      newSchedule.setScreenTime(schedule.getMovie().getScreenTime());
+      if (schedule.getTimeSlot() != null) {
+        newSchedule.setTimeSlot(schedule.getTimeSlot());
+      }
+      scheduleRepository.save(newSchedule);
     } else {
       System.out.println("This one should be handled by error handler");
     }
@@ -133,15 +105,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 
   @Override
   public void addSchedule(Schedule schedule) {
+    schedule.setScreenTime(schedule.getMovie().getScreenTime());
     scheduleRepository.save(schedule);
   }
 
   @Override
-  public void deleteScheduleByDateAndTimeSlotAndHallId(
-    LocalDate date,
-    LocalTime timeSlot,
-    Long hallId
-  ) {
-    scheduleRepository.deleteByDateAndTimeSlotAndHallId(date, timeSlot, hallId);
+  public void deleteScheduleById(Long id) {
+    scheduleRepository.deleteById(id);
   }
 }

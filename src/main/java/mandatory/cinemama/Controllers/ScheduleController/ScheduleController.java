@@ -3,7 +3,8 @@ package mandatory.cinemama.Controllers.ScheduleController;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import mandatory.cinemama.Entities.Schedule.Schedule;
+import javax.transaction.Transactional;
+import mandatory.cinemama.Entities.Schedule;
 import mandatory.cinemama.Services.ScheduleService.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,21 +26,6 @@ public class ScheduleController implements ScheduleControllerInterface {
     LocalTime timeSlot
   ) {
     return scheduleService.findSchedulesByDateAndTimeSlot(date, timeSlot);
-  }
-
-  @Override
-  public Schedule findScheduleByDateAndTimeSlotAndHallIdAndMovieId(
-    LocalDate date,
-    LocalTime timeSlot,
-    Long hallId,
-    Long movieId
-  ) {
-    return scheduleService.findScheduleByDateAndTimeSlotAndHallIdAndMovieId(
-      date,
-      timeSlot,
-      hallId,
-      movieId
-    );
   }
 
   @Override
@@ -83,20 +69,8 @@ public class ScheduleController implements ScheduleControllerInterface {
   }
 
   @Override
-  public void updateScheduleByDateAndTimeSlotAndHallIdAndMovieId(
-    LocalDate date,
-    LocalTime timeSlot,
-    Long hallId,
-    Long movieId,
-    Schedule schedule
-  ) {
-    scheduleService.updateScheduleByDateAndTimeSlotAndHallIdAndMovieId(
-      date,
-      timeSlot,
-      hallId,
-      movieId,
-      schedule
-    );
+  public void updateScheduleById(Long id, Schedule schedule) {
+    scheduleService.updateScheduleById(id, schedule);
   }
 
   @Override
@@ -104,16 +78,9 @@ public class ScheduleController implements ScheduleControllerInterface {
     scheduleService.addSchedule(schedule);
   }
 
+  @Transactional
   @Override
-  public void deleteScheduleByDateAndTimeSlotAndHallId(
-    LocalDate date,
-    LocalTime timeSlot,
-    Long hallId
-  ) {
-    scheduleService.deleteScheduleByDateAndTimeSlotAndHallId(
-      date,
-      timeSlot,
-      hallId
-    );
+  public void deleteScheduleById(Long id) {
+    scheduleService.deleteScheduleById(id);
   }
 }

@@ -10,7 +10,7 @@ import mandatory.cinemama.Entities.Genre.EGenre;
 import mandatory.cinemama.Entities.Genre.Genre;
 import mandatory.cinemama.Entities.Hall;
 import mandatory.cinemama.Entities.Movie;
-import mandatory.cinemama.Entities.Schedule.Schedule;
+import mandatory.cinemama.Entities.Schedule;
 import mandatory.cinemama.Entities.Theater;
 import mandatory.cinemama.Repositories.ActorRepository;
 import mandatory.cinemama.Repositories.DirectorRepository;
@@ -152,14 +152,6 @@ public class DatabaseConfiguration implements CommandLineRunner {
           LocalDate.of(2021, Month.JANUARY, 24),
           movieRepository.findAll().get(0),
           hallRepository.findAll().get(3)
-        )
-      );
-      scheduleRepository.save(
-        new Schedule(
-          LocalTime.of(14, 30),
-          LocalDate.of(2021, Month.JANUARY, 24),
-          movieRepository.findAll().get(0),
-          hallRepository.findAll().get(0)
         )
       );
     }
