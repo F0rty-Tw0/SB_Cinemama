@@ -69,6 +69,14 @@ public class ScheduleController implements ScheduleControllerInterface {
   }
 
   @Override
+  public List<Schedule> findSchedulesByDateBetween(
+    LocalDate endDate,
+    LocalDate startDate
+  ) {
+    return scheduleService.findSchedulesByDateBetween(startDate, endDate);
+  }
+
+  @Override
   public void updateScheduleById(Long id, Schedule schedule) {
     scheduleService.updateScheduleById(id, schedule);
   }
