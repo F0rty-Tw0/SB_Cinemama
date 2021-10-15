@@ -1,7 +1,8 @@
 package mandatory.cinemama.Services.ScheduleService;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
-
 import mandatory.cinemama.Entities.Schedule.Schedule;
 import mandatory.cinemama.Repositories.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,78 @@ public class ScheduleServiceImpl implements ScheduleService {
   }
 
   @Override
-  public Schedule addSchedule(Schedule schedule) {
-    Schedule newSchedule = scheduleRepository.save(schedule);
-    return newSchedule;
+  public List<Schedule> findSchedulesByDateAndTimeSlot(
+    LocalDate date,
+    LocalTime timeSlot
+  ) {
+    List<Schedule> schedules = scheduleRepository.findByDateAndTimeSlot(
+      date,
+      timeSlot
+    );
+    return schedules;
+  }
+
+  @Override
+  public List<Schedule> findSchedulesByDate(LocalDate date) {
+    List<Schedule> schedules = scheduleRepository.findByDate(date);
+    return schedules;
+  }
+
+  @Override
+  public List<Schedule> findSchedulesByHallId(Long hallId) {
+    List<Schedule> schedules = scheduleRepository.findByHallId(hallId);
+    return schedules;
+  }
+
+  @Override
+  public List<Schedule> findSchedulesByMovieId(Long movieId) {
+    List<Schedule> schedules = scheduleRepository.findByMovieId(movieId);
+    return schedules;
+  }
+
+  @Override
+  public List<Schedule> findSchedulesByHallName(String name) {
+    List<Schedule> schedules = scheduleRepository.findByHallName(name);
+    return schedules;
+  }
+
+  @Override
+  public List<Schedule> findSchedulesByMovieTitle(String title) {
+    List<Schedule> schedules = scheduleRepository.findByMovieTitle(title);
+    return schedules;
+  }
+
+  @Override
+  public List<Schedule> findSchedulesByMovieMinAgeGreaterThan(int minAge) {
+    List<Schedule> schedules = scheduleRepository.findByMovieMinAgeGreaterThan(minAge);
+    return schedules;
+  }
+
+  @Override
+  public List<Schedule> findSchedulesByMovieRating(int rating) {
+    List<Schedule> schedules = scheduleRepository.findByMovieRating(rating);
+    return schedules;
+  }
+
+  @Override
+  public List<Schedule> findSchedulesByMovieInfoContaining(String info) {
+    List<Schedule> schedules = scheduleRepository.findByMovieInfoContaining(
+      info
+    );
+    return schedules;
+  }
+
+  @Override
+  public void addSchedule(Schedule schedule) {
+    scheduleRepository.save(schedule);
+  }
+
+  @Override
+  public void deleteScheduleByDateAndSlotTimeAndHallId(
+    LocalDate date,
+    LocalTime timeSlot,
+    Long hallId
+  ) {
+    scheduleRepository.deleteByDateAndTimeSlotAndHallId(date, timeSlot, hallId);
   }
 }

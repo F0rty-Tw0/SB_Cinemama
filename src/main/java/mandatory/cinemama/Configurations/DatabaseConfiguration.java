@@ -130,6 +130,38 @@ public class DatabaseConfiguration implements CommandLineRunner {
           hallRepository.findAll().get(0)
         )
       );
+      scheduleRepository.save(
+        new Schedule(
+          LocalTime.of(14, 30),
+          LocalDate.of(2021, Month.JANUARY, 25),
+          movieRepository.findAll().get(0),
+          hallRepository.findAll().get(0)
+        )
+      );
+      scheduleRepository.save(
+        new Schedule(
+          LocalTime.of(14, 31),
+          LocalDate.of(2021, Month.JANUARY, 24),
+          movieRepository.findAll().get(0),
+          hallRepository.findAll().get(0)
+        )
+      );
+      scheduleRepository.save(
+        new Schedule(
+          LocalTime.of(14, 30),
+          LocalDate.of(2021, Month.JANUARY, 24),
+          movieRepository.findAll().get(0),
+          hallRepository.findAll().get(3)
+        )
+      );
+      scheduleRepository.save(
+        new Schedule(
+          LocalTime.of(14, 30),
+          LocalDate.of(2021, Month.JANUARY, 24),
+          movieRepository.findAll().get(0),
+          hallRepository.findAll().get(0)
+        )
+      );
     }
   }
 }
