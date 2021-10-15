@@ -43,11 +43,11 @@ public class TheaterServiceImpl implements TheaterService {
 
   @Override
   public void updateTheaterById(Theater theater, Long id) {
-    Optional<Theater> foundTheater = theaterRepository.findById(id);
-    if (foundTheater.isPresent()) {
-      foundTheater.get().setName(theater.getName());
-      foundTheater.get().setAddress(theater.getAddress());
-      theaterRepository.save(foundTheater.get());
+    Theater foundTheater = theaterRepository.getById(id);
+    if (foundTheater != null) {
+      foundTheater.setName(theater.getName());
+      foundTheater.setAddress(theater.getAddress());
+      theaterRepository.save(foundTheater);
     } else {
       System.out.println("Error");
     }

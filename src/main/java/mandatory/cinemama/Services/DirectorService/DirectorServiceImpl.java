@@ -55,13 +55,13 @@ public class DirectorServiceImpl implements DirectorService {
 
   @Override
   public void updateDirectorById(Director director, Long id) {
-    Optional<Director> foundDirector = directorRepository.findById(id);
-    if (foundDirector.isPresent()) {
-      foundDirector.get().setFirstName(director.getFirstName());
-      foundDirector.get().setLastName(director.getLastName());
-      directorRepository.save(foundDirector.get());
+    Director foundDirector = directorRepository.getById(id);
+    if (foundDirector != null) {
+      foundDirector.setFirstName(director.getFirstName());
+      foundDirector.setLastName(director.getLastName());
+      directorRepository.save(foundDirector);
     } else {
-      System.out.println("Error handling needed");
+      System.out.println("This one should be handled by error handler");
     }
   }
 

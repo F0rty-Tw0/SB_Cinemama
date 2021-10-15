@@ -43,13 +43,13 @@ public class HallServiceImpl implements HallService {
 
   @Override
   public void updateHallById(Hall hall, Long id) {
-    Optional<Hall> foundHall = hallRepository.findById(id);
-    if (foundHall.isPresent()) {
-      foundHall.get().setName(hall.getName());
-      foundHall.get().setTheater(hall.getTheater());
-      hallRepository.save(foundHall.get());
+    Hall foundHall = hallRepository.getById(id);
+    if (foundHall != null) {
+      foundHall.setName(hall.getName());
+      foundHall.setTheater(hall.getTheater());
+      hallRepository.save(foundHall);
     } else {
-      System.out.println("Error");
+      System.out.println("This one should be handled by error handler");
     }
   }
 
