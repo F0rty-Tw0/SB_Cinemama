@@ -7,7 +7,7 @@ import mandatory.cinemama.Repositories.TheaterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service // dd
 public class TheaterServiceImpl implements TheaterService {
 
   private final TheaterRepository theaterRepository;
