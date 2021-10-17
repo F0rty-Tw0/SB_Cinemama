@@ -2,8 +2,9 @@ package mandatory.cinemama.Services.MovieService;
 
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 import mandatory.cinemama.Entities.Movie;
+import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
+import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ public class MovieServiceImpl implements MovieService {
     this.movieRepository = movieRepository;
   }
 
+  private String type = "Movie";
+
   @Override
   public List<Movie> findAllMovies() {
     List<Movie> allMovies = movieRepository.findAll();
@@ -26,14 +29,28 @@ public class MovieServiceImpl implements MovieService {
 
   @Override
   public Movie findMovieById(Long id) {
-    Optional<Movie> movie = movieRepository.findById(id);
-    return movie.get();
+    Movie movie = movieRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(id, type)
+          )
+      );
+    return movie;
   }
 
   @Override
   public Movie findMovieByTitle(String title) {
-    Optional<Movie> foundMovies = movieRepository.findByTitle(title);
-    return foundMovies.get();
+    Movie foundMovies = movieRepository
+      .findByTitle(title)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(title, type)
+          )
+      );
+    return foundMovies;
   }
 
   @Override
@@ -78,25 +95,36 @@ public class MovieServiceImpl implements MovieService {
 
   @Override
   public String findInfoByTitle(String title) {
-    Optional<Movie> info = movieRepository.findInfoByTitle(title);
-    return info.get().getInfo();
+    Movie info = movieRepository
+      .findInfoByTitle(title)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(title, type)
+          )
+      );
+    return info.getInfo();
   }
 
   @Override
   public void updateMovieById(Movie movie, Long id) {
-    Movie foundMovie = movieRepository.getById(id);
-    if (foundMovie != null) {
-      foundMovie.setActors(movie.getActors());
-      foundMovie.setDirectors(movie.getDirectors());
-      foundMovie.setGenres(movie.getGenres());
-      foundMovie.setTitle(movie.getTitle());
-      foundMovie.setInfo(movie.getInfo());
-      foundMovie.setRating(movie.getRating());
-      foundMovie.setMinAge(movie.getMinAge());
-      movieRepository.save(foundMovie);
-    } else {
-      System.out.println("This one should be handled by error handler");
-    }
+    Movie foundMovie = movieRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(id, type)
+          )
+      );
+
+    foundMovie.setActors(movie.getActors());
+    foundMovie.setDirectors(movie.getDirectors());
+    foundMovie.setGenres(movie.getGenres());
+    foundMovie.setTitle(movie.getTitle());
+    foundMovie.setInfo(movie.getInfo());
+    foundMovie.setRating(movie.getRating());
+    foundMovie.setMinAge(movie.getMinAge());
+    movieRepository.save(foundMovie);
   }
 
   @Override

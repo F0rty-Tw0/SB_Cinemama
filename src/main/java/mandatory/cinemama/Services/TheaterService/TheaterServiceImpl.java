@@ -1,8 +1,9 @@
 package mandatory.cinemama.Services.TheaterService;
 
 import java.util.List;
-import java.util.Optional;
 import mandatory.cinemama.Entities.Theater;
+import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
+import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.TheaterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class TheaterServiceImpl implements TheaterService {
     this.theaterRepository = theaterRepository;
   }
 
+  private String type = "Theater";
+
   @Override
   public List<Theater> findAllTheaters() {
     List<Theater> theaters = theaterRepository.findAll();
@@ -25,32 +28,56 @@ public class TheaterServiceImpl implements TheaterService {
 
   @Override
   public Theater findTheaterById(Long id) {
-    Optional<Theater> theater = theaterRepository.findById(id);
-    return theater.get();
+    Theater theater = theaterRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(id, type)
+          )
+      );
+    return theater;
   }
 
   @Override
   public Theater findTheaterByName(String name) {
-    Optional<Theater> theater = theaterRepository.findByName(name);
-    return theater.get();
+    Theater theater = theaterRepository
+      .findByName(name)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(name, type)
+          )
+      );
+    return theater;
   }
 
   @Override
   public Theater findTheaterByAddress(String address) {
-    Optional<Theater> theater = theaterRepository.findByAddress(address);
-    return theater.get();
+    Theater theater = theaterRepository
+      .findByAddress(address)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(address, type)
+          )
+      );
+    return theater;
   }
 
   @Override
   public void updateTheaterById(Theater theater, Long id) {
-    Theater foundTheater = theaterRepository.getById(id);
-    if (foundTheater != null) {
-      foundTheater.setName(theater.getName());
-      foundTheater.setAddress(theater.getAddress());
-      theaterRepository.save(foundTheater);
-    } else {
-      System.out.println("Error");
-    }
+    Theater foundTheater = theaterRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(id, type)
+          )
+      );
+    foundTheater.setName(theater.getName());
+    foundTheater.setAddress(theater.getAddress());
+    theaterRepository.save(foundTheater);
   }
 
   @Override
