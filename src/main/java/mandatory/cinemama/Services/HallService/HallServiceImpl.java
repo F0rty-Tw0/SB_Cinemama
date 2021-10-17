@@ -1,8 +1,9 @@
 package mandatory.cinemama.Services.HallService;
 
 import java.util.List;
-import java.util.Optional;
 import mandatory.cinemama.Entities.Hall;
+import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
+import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.HallRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ public class HallServiceImpl implements HallService {
   public HallServiceImpl(HallRepository hallRepository) {
     this.hallRepository = hallRepository;
   }
+
+  private String type = "Hall";
 
   @Override
   public List<Hall> findAllHalls() {
@@ -31,26 +34,44 @@ public class HallServiceImpl implements HallService {
 
   @Override
   public Hall findHallById(Long id) {
-    Optional<Hall> hall = hallRepository.findById(id);
-    return hall.get();
+    Hall hall = hallRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(id, type)
+          )
+      );
+    return hall;
   }
 
   @Override
   public Hall findHallByName(String name) {
-    Optional<Hall> hall = hallRepository.findByName(name);
-    return hall.get();
+    Hall hall = hallRepository
+      .findByName(name)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(name, type)
+          )
+      );
+    return hall;
   }
 
   @Override
   public void updateHallById(Hall hall, Long id) {
-    Hall foundHall = hallRepository.getById(id);
-    if (foundHall != null) {
-      foundHall.setName(hall.getName());
-      foundHall.setTheater(hall.getTheater());
-      hallRepository.save(foundHall);
-    } else {
-      System.out.println("This one should be handled by error handler");
-    }
+    Hall foundHall = hallRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(id, type)
+          )
+      );
+
+    foundHall.setName(hall.getName());
+    foundHall.setTheater(hall.getTheater());
+    hallRepository.save(foundHall);
   }
 
   @Override

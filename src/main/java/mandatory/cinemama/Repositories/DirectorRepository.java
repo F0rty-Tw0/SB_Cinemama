@@ -16,8 +16,5 @@ public interface DirectorRepository extends JpaRepository<Director, Long> {
 
   public List<Director> findByLastName(String lastName);
 
-  public Director findByFirstNameAndLastName(
-    String firstName,
-    String lastName
-  );
+  public Director findByFirstNameAndLastName(String firstName, String lastName);
 }

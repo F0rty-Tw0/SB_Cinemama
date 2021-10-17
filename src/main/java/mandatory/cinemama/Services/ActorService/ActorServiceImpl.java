@@ -1,8 +1,9 @@
 package mandatory.cinemama.Services.ActorService;
 
 import java.util.List;
-import java.util.Optional;
 import mandatory.cinemama.Entities.Actor;
+import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
+import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class ActorServiceImpl implements ActorService {
     this.actorRepository = actorRepository;
   }
 
+  private String type = "Actor";
+
   @Override
   public List<Actor> findAllActors() {
     List<Actor> allActors = actorRepository.findAll();
@@ -25,8 +28,15 @@ public class ActorServiceImpl implements ActorService {
 
   @Override
   public Actor findActorById(Long id) {
-    Optional<Actor> actor = actorRepository.findById(id);
-    return actor.get();
+    Actor actor = actorRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(id, type)
+          )
+      );
+    return actor;
   }
 
   @Override
@@ -46,23 +56,34 @@ public class ActorServiceImpl implements ActorService {
     String firstName,
     String lastName
   ) {
-    Optional<Actor> actor = actorRepository.findByFirstNameAndLastName(
-      firstName,
-      lastName
-    );
-    return actor.get();
+    Actor actor = actorRepository
+      .findByFirstNameAndLastName(firstName, lastName)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(
+              firstName + " " + lastName,
+              type
+            )
+          )
+      );
+    return actor;
   }
 
   @Override
   public void updateActorById(Actor actor, Long id) {
-    Actor foundActor = actorRepository.getById(id);
-    if (foundActor != null) {
-      foundActor.setFirstName(actor.getFirstName());
-      foundActor.setLastName(actor.getLastName());
-      actorRepository.save(foundActor);
-    } else {
-      System.out.println("This one should be handled by error handler");
-    }
+    Actor foundActor = actorRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(id, type)
+          )
+      );
+
+    foundActor.setFirstName(actor.getFirstName());
+    foundActor.setLastName(actor.getLastName());
+    actorRepository.save(foundActor);
   }
 
   @Override

@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import mandatory.cinemama.Entities.Schedule;
+import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
+import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ public class ScheduleServiceImpl implements ScheduleService {
   public ScheduleServiceImpl(ScheduleRepository scheduleRepository) {
     this.scheduleRepository = scheduleRepository;
   }
+
+  private String type = "Schedule";
 
   @Override
   public List<Schedule> findAllSchedules() {
@@ -102,17 +106,20 @@ public class ScheduleServiceImpl implements ScheduleService {
 
   @Override
   public void updateScheduleById(Long id, Schedule schedule) {
-    Schedule newSchedule = scheduleRepository.getById(id);
-    if (newSchedule != null) {
-      newSchedule.setDate(schedule.getDate());
-      newSchedule.setScreenTime(schedule.getMovie().getScreenTime());
-      if (schedule.getTimeSlot() != null) {
-        newSchedule.setTimeSlot(schedule.getTimeSlot());
-      }
-      scheduleRepository.save(newSchedule);
-    } else {
-      System.out.println("This one should be handled by error handler");
+    Schedule newSchedule = scheduleRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(id, type)
+          )
+      );
+    newSchedule.setDate(schedule.getDate());
+    newSchedule.setScreenTime(schedule.getMovie().getScreenTime());
+    if (schedule.getTimeSlot() != null) {
+      newSchedule.setTimeSlot(schedule.getTimeSlot());
     }
+    scheduleRepository.save(newSchedule);
   }
 
   @Override
