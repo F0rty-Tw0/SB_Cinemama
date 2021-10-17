@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.util.List;
 import mandatory.cinemama.Entities.Schedule;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
+import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class ScheduleServiceImpl implements ScheduleService {
   @Override
   public List<Schedule> findAllSchedules() {
     List<Schedule> schedules = scheduleRepository.findAll();
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, "of All", type);
     return schedules;
   }
 
@@ -37,58 +39,63 @@ public class ScheduleServiceImpl implements ScheduleService {
       date,
       timeSlot
     );
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Date and Time Slot", type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByDate(LocalDate date) {
     List<Schedule> schedules = scheduleRepository.findByDate(date);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Date", type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByHallId(Long hallId) {
     List<Schedule> schedules = scheduleRepository.findByHallId(hallId);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Hall Id", type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByMovieId(Long movieId) {
     List<Schedule> schedules = scheduleRepository.findByMovieId(movieId);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Movie Id", type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByHallName(String name) {
     List<Schedule> schedules = scheduleRepository.findByHallName(name);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Name", type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByMovieTitle(String title) {
     List<Schedule> schedules = scheduleRepository.findByMovieTitle(title);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Movie Title", type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByMovieMinAgeGreaterThan(int minAge) {
-    List<Schedule> schedules = scheduleRepository.findByMovieMinAgeGreaterThan(
-      minAge
-    );
+    List<Schedule> schedules = scheduleRepository.findByMovieMinAgeGreaterThan(minAge);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Movies with Minimum Age Greater Than", type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByMovieRating(int rating) {
     List<Schedule> schedules = scheduleRepository.findByMovieRating(rating);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Movie Rating", type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByMovieInfoContaining(String info) {
-    List<Schedule> schedules = scheduleRepository.findByMovieInfoContaining(
-      info
-    );
+    List<Schedule> schedules = scheduleRepository.findByMovieInfoContaining(info);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Movie Info Containing", type);
     return schedules;
   }
 
@@ -101,6 +108,7 @@ public class ScheduleServiceImpl implements ScheduleService {
       endDate,
       startDate
     );
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Dates Between", type);
     return schedules;
   }
 
@@ -130,6 +138,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 
   @Override
   public void deleteScheduleById(Long id) {
-    scheduleRepository.deleteById(id);
+    try {
+      scheduleRepository.deleteById(id);
+    } catch (Exception e) {
+      if (e instanceof DataAccessException) {
+        throw ErrorMessageCreator.throwResourceNotFoundException(id, type);
+      }
+    }
   }
 }

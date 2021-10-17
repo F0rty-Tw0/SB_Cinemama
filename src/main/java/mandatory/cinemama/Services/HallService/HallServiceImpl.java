@@ -23,12 +23,14 @@ public class HallServiceImpl implements HallService {
   @Override
   public List<Hall> findAllHalls() {
     List<Hall> halls = hallRepository.findAll();
+    ErrorMessageCreator.throwErrorIfNotFound(halls, "of All", type);
     return halls;
   }
 
   @Override
   public List<Hall> findHallsByTheaterId(Long id) {
     List<Hall> halls = hallRepository.findByTheaterId(id);
+    ErrorMessageCreator.throwErrorIfNotFound(halls, "Theater Id", type);
     return halls;
   }
 
@@ -81,6 +83,10 @@ public class HallServiceImpl implements HallService {
 
   @Override
   public void deleteHallById(Long id) {
-    hallRepository.deleteById(id);
+    try {
+      hallRepository.deleteById(id);
+    } catch (Exception e) {
+      throw ErrorMessageCreator.throwResourceNotFoundException(id, type);
+    }
   }
 }

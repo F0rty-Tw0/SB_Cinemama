@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.List;
 import mandatory.cinemama.Entities.Movie;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
+import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class MovieServiceImpl implements MovieService {
   @Override
   public List<Movie> findAllMovies() {
     List<Movie> allMovies = movieRepository.findAll();
+    ErrorMessageCreator.throwErrorIfNotFound(allMovies, "of All", type);
     return allMovies;
   }
 
@@ -56,40 +58,42 @@ public class MovieServiceImpl implements MovieService {
   @Override
   public List<Movie> findMoviesByInfoContaining(String info) {
     List<Movie> allMovies = movieRepository.findByInfoContaining(info);
+    ErrorMessageCreator.throwErrorIfNotFound(allMovies, "Info Containing", type);
     return allMovies;
   }
 
   @Override
   public List<Movie> findMoviesByMinAgeLessThan(int minAge) {
     List<Movie> allMovies = movieRepository.findByMinAgeLessThan(minAge);
+    ErrorMessageCreator.throwErrorIfNotFound(allMovies, "Min Age Less Than", type);
     return allMovies;
   }
 
   @Override
   public List<Movie> findMoviesByMinAgeGreaterThan(int minAge) {
     List<Movie> allMovies = movieRepository.findByMinAgeGreaterThan(minAge);
+    ErrorMessageCreator.throwErrorIfNotFound(allMovies, "Min Age Greater Than", type);
     return allMovies;
   }
 
   @Override
   public List<Movie> findMoviesByRating(int rating) {
     List<Movie> allMovies = movieRepository.findByRating(rating);
+    ErrorMessageCreator.throwErrorIfNotFound(allMovies, "By Rating", type);
     return allMovies;
   }
 
   @Override
   public List<Movie> findMoviesByScreenTimeLessThan(LocalTime screenTime) {
-    List<Movie> allMovies = movieRepository.findByScreenTimeLessThan(
-      screenTime
-    );
+    List<Movie> allMovies = movieRepository.findByScreenTimeLessThan(screenTime);
+    ErrorMessageCreator.throwErrorIfNotFound(allMovies, "Screen Time Less Than", type);
     return allMovies;
   }
 
   @Override
   public List<Movie> findMoviesByScreenTimeGreaterThan(LocalTime screenTime) {
-    List<Movie> allMovies = movieRepository.findByScreenTimeGreaterThan(
-      screenTime
-    );
+    List<Movie> allMovies = movieRepository.findByScreenTimeGreaterThan(screenTime);
+    ErrorMessageCreator.throwErrorIfNotFound(allMovies, "Screen Time Greater Than", type);
     return allMovies;
   }
 
@@ -134,6 +138,12 @@ public class MovieServiceImpl implements MovieService {
 
   @Override
   public void deleteMovieById(Long id) {
-    movieRepository.deleteById(id);
+   try {
+     movieRepository.deleteById(id);
+   } catch (Exception e) {
+     if (e instanceof DataAccessException) {
+       throw ErrorMessageCreator.throwResourceNotFoundException(id, type);
+     }
+   }
   }
 }

@@ -6,6 +6,7 @@ import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.TheaterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +24,7 @@ public class TheaterServiceImpl implements TheaterService {
   @Override
   public List<Theater> findAllTheaters() {
     List<Theater> theaters = theaterRepository.findAll();
+    ErrorMessageCreator.throwErrorIfNotFound(theaters, "of All", type);
     return theaters;
   }
 
@@ -87,6 +89,14 @@ public class TheaterServiceImpl implements TheaterService {
 
   @Override
   public void deleteTheaterById(Long id) {
-    theaterRepository.deleteById(id);
+    try {
+      theaterRepository.deleteById(id);
+    } catch (Exception e) {
+      if (e instanceof DataAccessException) {
+        throw ErrorMessageCreator.throwResourceNotFoundException(id, type);
+      }
+    }
   }
+
+
 }
