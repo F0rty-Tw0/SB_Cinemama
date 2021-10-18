@@ -2,7 +2,8 @@ package mandatory.cinemama.Controllers.HallController;
 
 import java.util.List;
 import javax.transaction.Transactional;
-import mandatory.cinemama.Entities.Hall;
+
+import mandatory.cinemama.Entities.Hall.Hall;
 import mandatory.cinemama.Services.HallService.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;

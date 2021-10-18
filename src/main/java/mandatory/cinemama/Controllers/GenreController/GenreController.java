@@ -1,7 +1,7 @@
 package mandatory.cinemama.Controllers.GenreController;
 
 import java.util.List;
-import mandatory.cinemama.Entities.Genre.EGenre;
+import mandatory.cinemama.Entities.Genre.EGenres;
 import mandatory.cinemama.Entities.Genre.Genre;
 import mandatory.cinemama.Services.GenreService.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,6 @@ public class GenreController implements GenreControllerInterface {
 
   @Override
   public Genre findGenreByName(String name) {
-    return genreService.findGenreByName(EGenre.valueOf(name.toUpperCase()));
+    return genreService.findGenreByName(EGenres.valueOf(name.toUpperCase()));
   }
 }

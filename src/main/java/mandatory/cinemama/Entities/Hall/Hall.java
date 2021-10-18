@@ -1,5 +1,6 @@
-package mandatory.cinemama.Entities;
+package mandatory.cinemama.Entities.Hall;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -11,12 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import mandatory.cinemama.Entities.Schedule;
+import mandatory.cinemama.Entities.Theater;
+import mandatory.cinemama.Entities.Hall.HallRow.Row;
 
 @Getter
 @Setter
@@ -34,6 +35,10 @@ public class Hall {
 
   @ManyToOne
   private Theater theater;
+  
+  @JsonIgnore
+  @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
+  private List<Row> rows = new ArrayList<>();
 
   @JsonIgnore
   @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)

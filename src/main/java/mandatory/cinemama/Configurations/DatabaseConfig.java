@@ -6,13 +6,16 @@ import java.time.Month;
 import java.util.List;
 import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.Entities.Director;
-import mandatory.cinemama.Entities.Genre.EGenre;
+import mandatory.cinemama.Entities.Genre.EGenres;
 import mandatory.cinemama.Entities.Genre.Genre;
-import mandatory.cinemama.Entities.Hall;
+import mandatory.cinemama.Entities.Hall.Hall;
+import mandatory.cinemama.Entities.Hall.HallRow.ERows;
+import mandatory.cinemama.Entities.Hall.HallRow.Row;
+import mandatory.cinemama.Entities.Hall.Seat;
 import mandatory.cinemama.Entities.Movie;
 import mandatory.cinemama.Entities.Schedule;
 import mandatory.cinemama.Entities.Theater;
-import mandatory.cinemama.Entities.User.ERole;
+import mandatory.cinemama.Entities.User.ERoles;
 import mandatory.cinemama.Entities.User.Role;
 import mandatory.cinemama.Entities.User.User;
 import mandatory.cinemama.Repositories.ActorRepository;
@@ -21,7 +24,9 @@ import mandatory.cinemama.Repositories.GenreRepository;
 import mandatory.cinemama.Repositories.HallRepository;
 import mandatory.cinemama.Repositories.MovieRepository;
 import mandatory.cinemama.Repositories.RoleRepository;
+import mandatory.cinemama.Repositories.RowRepository;
 import mandatory.cinemama.Repositories.ScheduleRepository;
+import mandatory.cinemama.Repositories.SeatRepository;
 import mandatory.cinemama.Repositories.TheaterRepository;
 import mandatory.cinemama.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,16 +67,22 @@ public class DatabaseConfig implements CommandLineRunner {
   private UserRepository userRepository;
 
   @Autowired
-  PasswordEncoder passwordEncoder;
+  private PasswordEncoder passwordEncoder;
+
+  @Autowired
+  private RowRepository rowRepository;
+
+  @Autowired
+  private SeatRepository seatRepository;
 
   @Override
   public void run(String... args) throws Exception {
     System.out.println("config runs");
 
     if (roleRepository.findAll().isEmpty()) {
-      ERole[] role = ERole.values();
-      for (int i = 0; i < role.length; i++) {
-        roleRepository.save(new Role(role[i]));
+      ERoles[] roles = ERoles.values();
+      for (int i = 0; i < roles.length; i++) {
+        roleRepository.save(new Role(roles[i]));
       }
     }
 
@@ -112,6 +123,29 @@ public class DatabaseConfig implements CommandLineRunner {
       }
     }
 
+    if (rowRepository.findAll().isEmpty()) {
+      int numberOfHalls = hallRepository.findAll().size();
+      ERows[] rows = ERows.values();
+      for (int i = 0; i < numberOfHalls; i++) {
+        for (int j = 0; j < rows.length; j++) {
+          rowRepository.save(new Row(rows[j], hallRepository.findAll().get(i)));
+        }
+      }
+    }
+
+    if (seatRepository.findAll().isEmpty()) {
+      int numberOfRows = rowRepository.findAll().size();
+      for (int i = 0; i < numberOfRows; i++) {
+        for (Integer j = 1; j < 6; j++) {
+          seatRepository.save(
+            new Seat(
+              rowRepository.findAll().get(i).getName() + j.toString(),
+              rowRepository.findAll().get(i)
+            )
+          );
+        }
+      }
+    }
     if (directorRepository.findAll().isEmpty()) {
       directorRepository.save(new Director("Christopher", "Nolan"));
     }
@@ -121,9 +155,9 @@ public class DatabaseConfig implements CommandLineRunner {
     }
 
     if (genreRepository.findAll().isEmpty()) {
-      EGenre[] genre = EGenre.values();
-      for (int i = 0; i < genre.length; i++) {
-        genreRepository.save(new Genre(genre[i]));
+      EGenres[] genres = EGenres.values();
+      for (int i = 0; i < genres.length; i++) {
+        genreRepository.save(new Genre(genres[i]));
       }
     }
 
@@ -138,9 +172,9 @@ public class DatabaseConfig implements CommandLineRunner {
           actorRepository.findByFirstName("Bruce"),
           directorRepository.findByLastName("Nolan"),
           List.of(
-            genreRepository.findByName(EGenre.ACTION).get(),
-            genreRepository.findByName(EGenre.FANTASY).get(),
-            genreRepository.findByName(EGenre.OTHER).get()
+            genreRepository.findByName(EGenres.ACTION).get(),
+            genreRepository.findByName(EGenres.FANTASY).get(),
+            genreRepository.findByName(EGenres.OTHER).get()
           )
         )
       );

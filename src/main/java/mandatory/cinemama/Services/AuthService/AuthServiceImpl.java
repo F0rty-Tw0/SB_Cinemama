@@ -1,6 +1,6 @@
 package mandatory.cinemama.Services.AuthService;
 
-import mandatory.cinemama.Entities.User.ERole;
+import mandatory.cinemama.Entities.User.ERoles;
 import mandatory.cinemama.Entities.User.Role;
 import mandatory.cinemama.Entities.User.User;
 import mandatory.cinemama.Repositories.RoleRepository;
@@ -59,26 +59,26 @@ public class AuthServiceImpl implements AuthService {
 
     if (strRole == null) {
       Role customerRole = roleRepository
-        .findByName(ERole.CUSTOMER)
+        .findByName(ERoles.CUSTOMER)
         .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_MESSAGE));
       role = customerRole;
     } else {
       switch (strRole) {
         case "admin":
           Role adminRole = roleRepository
-            .findByName(ERole.ADMIN)
+            .findByName(ERoles.ADMIN)
             .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_MESSAGE));
           role = adminRole;
           break;
         case "manager":
           Role employeeRole = roleRepository
-            .findByName(ERole.MANAGER)
+            .findByName(ERoles.MANAGER)
             .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_MESSAGE));
           role = employeeRole;
           break;
         case "customer":
           Role customerRole = roleRepository
-            .findByName(ERole.CUSTOMER)
+            .findByName(ERoles.CUSTOMER)
             .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_MESSAGE));
           role = customerRole;
           break;

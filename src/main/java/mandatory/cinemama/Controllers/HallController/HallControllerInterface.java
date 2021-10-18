@@ -2,8 +2,10 @@ package mandatory.cinemama.Controllers.HallController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import mandatory.cinemama.Entities.Hall.Hall;
+
 import java.util.List;
-import mandatory.cinemama.Entities.Hall;
+
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
