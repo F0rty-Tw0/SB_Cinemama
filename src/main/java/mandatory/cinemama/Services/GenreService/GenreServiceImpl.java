@@ -1,7 +1,7 @@
 package mandatory.cinemama.Services.GenreService;
 
 import java.util.List;
-import mandatory.cinemama.Entities.Genre.EGenre;
+import mandatory.cinemama.Entities.Genre.EGenres;
 import mandatory.cinemama.Entities.Genre.Genre;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
@@ -37,7 +37,7 @@ public class GenreServiceImpl implements GenreService {
   }
 
   @Override
-  public Genre findGenreByName(EGenre name) {
+  public Genre findGenreByName(EGenres name) {
     Genre genre = genreRepository
       .findByName(name)
       .orElseThrow(

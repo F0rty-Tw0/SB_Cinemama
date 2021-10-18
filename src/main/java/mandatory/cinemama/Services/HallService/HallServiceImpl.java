@@ -1,7 +1,8 @@
 package mandatory.cinemama.Services.HallService;
 
 import java.util.List;
-import mandatory.cinemama.Entities.Hall;
+
+import mandatory.cinemama.Entities.Hall.Hall;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;

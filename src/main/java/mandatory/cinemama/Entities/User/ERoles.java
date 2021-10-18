@@ -1,6 +1,6 @@
 package mandatory.cinemama.Entities.User;
 
-public enum ERole {
+public enum ERoles {
   ADMIN,
   MANAGER,
   CUSTOMER,

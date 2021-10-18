@@ -1,6 +1,6 @@
 package mandatory.cinemama.Entities.Genre;
 
-public enum EGenre {
+public enum EGenres {
   ACTION,
   ANIMATION,
   COMEDY,

@@ -1,7 +1,8 @@
 package mandatory.cinemama.Services.HallService;
 
 import java.util.List;
-import mandatory.cinemama.Entities.Hall;
+
+import mandatory.cinemama.Entities.Hall.Hall;
 
 public interface HallService {
   public List<Hall> findAllHalls();
