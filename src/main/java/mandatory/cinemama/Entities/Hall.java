@@ -2,6 +2,7 @@ package mandatory.cinemama.Entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,7 +36,7 @@ public class Hall {
   private Theater theater;
 
   @JsonIgnore
-  @OneToMany(mappedBy = "hall")
+  @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Schedule> schedules = new ArrayList<Schedule>();
 
   public Hall(String name, Theater theater) {

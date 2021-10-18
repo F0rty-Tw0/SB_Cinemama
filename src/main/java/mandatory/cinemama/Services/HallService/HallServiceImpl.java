@@ -3,6 +3,7 @@ package mandatory.cinemama.Services.HallService;
 import java.util.List;
 import mandatory.cinemama.Entities.Hall;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
+import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.HallRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,14 @@ public class HallServiceImpl implements HallService {
   @Override
   public List<Hall> findAllHalls() {
     List<Hall> halls = hallRepository.findAll();
+    ErrorMessageCreator.throwErrorIfNotFound(halls, "of All", type);
     return halls;
   }
 
   @Override
   public List<Hall> findHallsByTheaterId(Long id) {
     List<Hall> halls = hallRepository.findByTheaterId(id);
+    ErrorMessageCreator.throwErrorIfNotFound(halls, id, type);
     return halls;
   }
 
@@ -81,6 +84,12 @@ public class HallServiceImpl implements HallService {
 
   @Override
   public void deleteHallById(Long id) {
-    hallRepository.deleteById(id);
+    try {
+      hallRepository.deleteById(id);
+    } catch (Exception e) {
+      if (
+        e instanceof DataAccessException
+      ) throw ErrorMessageCreator.throwResourceNotFoundException(id, type);
+    }
   }
 }

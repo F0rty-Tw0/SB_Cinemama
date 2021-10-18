@@ -3,6 +3,7 @@ package mandatory.cinemama.Services.ActorService;
 import java.util.List;
 import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
+import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class ActorServiceImpl implements ActorService {
   @Override
   public List<Actor> findAllActors() {
     List<Actor> allActors = actorRepository.findAll();
+    ErrorMessageCreator.throwErrorIfNotFound(allActors, "of All", type);
     return allActors;
   }
 
@@ -42,12 +44,14 @@ public class ActorServiceImpl implements ActorService {
   @Override
   public List<Actor> findActorsByFirstName(String firstName) {
     List<Actor> actors = actorRepository.findByFirstName(firstName);
+    ErrorMessageCreator.throwErrorIfNotFound(actors, firstName, type);
     return actors;
   }
 
   @Override
   public List<Actor> findActorsByLastName(String lastName) {
     List<Actor> actors = actorRepository.findByLastName(lastName);
+    ErrorMessageCreator.throwErrorIfNotFound(actors, lastName, type);
     return actors;
   }
 
@@ -87,12 +91,18 @@ public class ActorServiceImpl implements ActorService {
   }
 
   @Override
-  public void deleteActorById(Long id) {
-    actorRepository.deleteById(id);
+  public void addActor(Actor actor) {
+    actorRepository.save(actor);
   }
 
   @Override
-  public void addActor(Actor actor) {
-    actorRepository.save(actor);
+  public void deleteActorById(Long id) {
+    try {
+      actorRepository.deleteById(id);
+    } catch (Exception e) {
+      if (e instanceof DataAccessException) {
+        throw ErrorMessageCreator.throwResourceNotFoundException(id, type);
+      }
+    }
   }
 }

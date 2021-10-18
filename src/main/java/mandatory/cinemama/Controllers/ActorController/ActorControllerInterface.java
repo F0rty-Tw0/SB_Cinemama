@@ -1,5 +1,6 @@
 package mandatory.cinemama.Controllers.ActorController;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import mandatory.cinemama.Entities.Actor;
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@RequestMapping("/api/actor")
+@Api(tags = "Actor")
+@RequestMapping("/api/actors")
 public interface ActorControllerInterface {
   @ApiOperation("Returns the Actor by the Id")
   @GetMapping("/{id}")

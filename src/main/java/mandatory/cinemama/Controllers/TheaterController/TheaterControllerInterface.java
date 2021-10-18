@@ -1,5 +1,6 @@
 package mandatory.cinemama.Controllers.TheaterController;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import mandatory.cinemama.Entities.Theater;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
+@Api(tags = "Theaters")
 @RequestMapping("/api/theaters")
 public interface TheaterControllerInterface {
   @ApiOperation("Returns all found Theaters")

@@ -1,5 +1,6 @@
 package mandatory.cinemama.Controllers.HallController;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import mandatory.cinemama.Entities.Hall;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
+@Api(tags = "Halls")
 @RequestMapping("/api/halls")
 public interface HallControllerInterface {
   @ApiOperation("Returns all found Halls")

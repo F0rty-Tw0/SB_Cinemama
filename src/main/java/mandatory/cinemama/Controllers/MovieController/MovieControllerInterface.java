@@ -1,5 +1,6 @@
 package mandatory.cinemama.Controllers.MovieController;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.time.LocalTime;
 import java.util.List;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
+@Api(tags = "Movies")
 @RequestMapping("/api/movies")
 public interface MovieControllerInterface {
   @ApiOperation("Returns all the Movies")
