@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ActorRepository extends JpaRepository<Actor, Long> {
-  public List<Actor> findAll();
 
   public Optional<Actor> findById(Long id);
 

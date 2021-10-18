@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
-  public List<Schedule> findAll();
 
   public List<Schedule> findByDateAndTimeSlot(
     LocalDate date,

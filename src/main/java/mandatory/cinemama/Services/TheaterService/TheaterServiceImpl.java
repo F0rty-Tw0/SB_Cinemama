@@ -12,12 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class TheaterServiceImpl implements TheaterService {
 
-  private final TheaterRepository theaterRepository;
-
   @Autowired
-  public TheaterServiceImpl(TheaterRepository theaterRepository) {
-    this.theaterRepository = theaterRepository;
-  }
+  private TheaterRepository theaterRepository;
 
   private String type = "Theater";
 

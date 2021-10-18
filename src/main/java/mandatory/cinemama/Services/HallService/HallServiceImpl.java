@@ -12,12 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class HallServiceImpl implements HallService {
 
-  private HallRepository hallRepository;
-
   @Autowired
-  public HallServiceImpl(HallRepository hallRepository) {
-    this.hallRepository = hallRepository;
-  }
+  private HallRepository hallRepository;
 
   private String type = "Hall";
 
