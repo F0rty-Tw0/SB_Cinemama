@@ -1,4 +1,4 @@
-package mandatory.cinemama.Security.Payload.Request;
+package mandatory.cinemama.Security.AuthenticationPayload.Request;
 
 import lombok.Getter;
 import lombok.Setter;
