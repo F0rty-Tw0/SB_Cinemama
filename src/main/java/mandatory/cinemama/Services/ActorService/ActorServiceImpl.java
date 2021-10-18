@@ -9,8 +9,6 @@ import mandatory.cinemama.Repositories.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
-
 @Service
 public class ActorServiceImpl implements ActorService {
 
@@ -46,12 +44,14 @@ public class ActorServiceImpl implements ActorService {
   @Override
   public List<Actor> findActorsByFirstName(String firstName) {
     List<Actor> actors = actorRepository.findByFirstName(firstName);
+    ErrorMessageCreator.throwErrorIfNotFound(actors, firstName, type);
     return actors;
   }
 
   @Override
   public List<Actor> findActorsByLastName(String lastName) {
     List<Actor> actors = actorRepository.findByLastName(lastName);
+    ErrorMessageCreator.throwErrorIfNotFound(actors, lastName, type);
     return actors;
   }
 
@@ -91,6 +91,11 @@ public class ActorServiceImpl implements ActorService {
   }
 
   @Override
+  public void addActor(Actor actor) {
+    actorRepository.save(actor);
+  }
+
+  @Override
   public void deleteActorById(Long id) {
     try {
       actorRepository.deleteById(id);
@@ -99,10 +104,5 @@ public class ActorServiceImpl implements ActorService {
         throw ErrorMessageCreator.throwResourceNotFoundException(id, type);
       }
     }
-  }
-
-  @Override
-  public void addActor(Actor actor) {
-    actorRepository.save(actor);
   }
 }

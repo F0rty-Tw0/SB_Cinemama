@@ -44,7 +44,6 @@ public class ErrorHandlerController {
     EntityNotFoundException error,
     WebRequest request
   ) {
-    System.out.println("ERROR: " + error);
     HttpStatus httpStatus = HttpStatus.NOT_FOUND;
     return new ResponseEntity<ErrorMessage>(
       createErrorMessage(error.getMessage(), httpStatus, request),
@@ -87,7 +86,6 @@ public class ErrorHandlerController {
     WebRequest request
   ) {
     HttpStatus httpStatus = HttpStatus.NOT_FOUND;
-    System.out.println("ERROR: " + error);
     return new ResponseEntity<ErrorMessage>(
       createErrorMessage(error.getMessage(), httpStatus, request),
       httpStatus

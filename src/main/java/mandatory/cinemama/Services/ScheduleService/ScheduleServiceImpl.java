@@ -39,63 +39,71 @@ public class ScheduleServiceImpl implements ScheduleService {
       date,
       timeSlot
     );
-    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Date and Time Slot", type);
+    ErrorMessageCreator.throwErrorIfNotFound(
+      schedules,
+      "Date : " + date + " and Time Slot: " + timeSlot,
+      type
+    );
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByDate(LocalDate date) {
     List<Schedule> schedules = scheduleRepository.findByDate(date);
-    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Date", type);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, date, type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByHallId(Long hallId) {
     List<Schedule> schedules = scheduleRepository.findByHallId(hallId);
-    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Hall Id", type);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, hallId, type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByMovieId(Long movieId) {
     List<Schedule> schedules = scheduleRepository.findByMovieId(movieId);
-    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Movie Id", type);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, movieId, type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByHallName(String name) {
     List<Schedule> schedules = scheduleRepository.findByHallName(name);
-    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Name", type);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, name, type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByMovieTitle(String title) {
     List<Schedule> schedules = scheduleRepository.findByMovieTitle(title);
-    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Movie Title", type);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, title, type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByMovieMinAgeGreaterThan(int minAge) {
-    List<Schedule> schedules = scheduleRepository.findByMovieMinAgeGreaterThan(minAge);
-    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Movies with Minimum Age Greater Than", type);
+    List<Schedule> schedules = scheduleRepository.findByMovieMinAgeGreaterThan(
+      minAge
+    );
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, minAge, type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByMovieRating(int rating) {
     List<Schedule> schedules = scheduleRepository.findByMovieRating(rating);
-    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Movie Rating", type);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, rating, type);
     return schedules;
   }
 
   @Override
   public List<Schedule> findSchedulesByMovieInfoContaining(String info) {
-    List<Schedule> schedules = scheduleRepository.findByMovieInfoContaining(info);
-    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Movie Info Containing", type);
+    List<Schedule> schedules = scheduleRepository.findByMovieInfoContaining(
+      info
+    );
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, info, type);
     return schedules;
   }
 
@@ -108,7 +116,11 @@ public class ScheduleServiceImpl implements ScheduleService {
       endDate,
       startDate
     );
-    ErrorMessageCreator.throwErrorIfNotFound(schedules, "Dates Between", type);
+    ErrorMessageCreator.throwErrorIfNotFound(
+      schedules,
+      "From: " + startDate + " To: " + endDate,
+      type
+    );
     return schedules;
   }
 

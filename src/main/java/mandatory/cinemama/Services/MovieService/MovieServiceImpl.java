@@ -58,42 +58,42 @@ public class MovieServiceImpl implements MovieService {
   @Override
   public List<Movie> findMoviesByInfoContaining(String info) {
     List<Movie> allMovies = movieRepository.findByInfoContaining(info);
-    ErrorMessageCreator.throwErrorIfNotFound(allMovies, "Info Containing", type);
+    ErrorMessageCreator.throwErrorIfNotFound(allMovies, info, type);
     return allMovies;
   }
 
   @Override
   public List<Movie> findMoviesByMinAgeLessThan(int minAge) {
     List<Movie> allMovies = movieRepository.findByMinAgeLessThan(minAge);
-    ErrorMessageCreator.throwErrorIfNotFound(allMovies, "Min Age Less Than", type);
+    ErrorMessageCreator.throwErrorIfNotFound(allMovies, minAge, type);
     return allMovies;
   }
 
   @Override
   public List<Movie> findMoviesByMinAgeGreaterThan(int minAge) {
     List<Movie> allMovies = movieRepository.findByMinAgeGreaterThan(minAge);
-    ErrorMessageCreator.throwErrorIfNotFound(allMovies, "Min Age Greater Than", type);
+    ErrorMessageCreator.throwErrorIfNotFound(allMovies, minAge, type);
     return allMovies;
   }
 
   @Override
   public List<Movie> findMoviesByRating(int rating) {
     List<Movie> allMovies = movieRepository.findByRating(rating);
-    ErrorMessageCreator.throwErrorIfNotFound(allMovies, "By Rating", type);
+    ErrorMessageCreator.throwErrorIfNotFound(allMovies, rating, type);
     return allMovies;
   }
 
   @Override
   public List<Movie> findMoviesByScreenTimeLessThan(LocalTime screenTime) {
     List<Movie> allMovies = movieRepository.findByScreenTimeLessThan(screenTime);
-    ErrorMessageCreator.throwErrorIfNotFound(allMovies, "Screen Time Less Than", type);
+    ErrorMessageCreator.throwErrorIfNotFound(allMovies, screenTime, type);
     return allMovies;
   }
 
   @Override
   public List<Movie> findMoviesByScreenTimeGreaterThan(LocalTime screenTime) {
     List<Movie> allMovies = movieRepository.findByScreenTimeGreaterThan(screenTime);
-    ErrorMessageCreator.throwErrorIfNotFound(allMovies, "Screen Time Greater Than", type);
+    ErrorMessageCreator.throwErrorIfNotFound(allMovies, screenTime, type);
     return allMovies;
   }
 
