@@ -1,4 +1,4 @@
-package mandatory.cinemama.Security.Payload.Response;
+package mandatory.cinemama.Security.AuthenticationPayload.Response;
 
 public class MessageResponse {
 	private String message;

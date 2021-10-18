@@ -1,8 +1,8 @@
 package mandatory.cinemama.Controllers.AuthController;
 
-import mandatory.cinemama.Security.Payload.Request.LoginRequest;
-import mandatory.cinemama.Security.Payload.Request.SignupRequest;
-import mandatory.cinemama.Security.Payload.Response.JwtResponse;
+import mandatory.cinemama.Security.AuthenticationPayload.Request.LoginRequest;
+import mandatory.cinemama.Security.AuthenticationPayload.Request.SignupRequest;
+import mandatory.cinemama.Security.AuthenticationPayload.Response.JwtResponse;
 import mandatory.cinemama.Services.AuthService.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

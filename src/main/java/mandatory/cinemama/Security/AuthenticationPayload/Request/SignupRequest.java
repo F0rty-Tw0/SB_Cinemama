@@ -1,4 +1,4 @@
-package mandatory.cinemama.Security.Payload.Request;
+package mandatory.cinemama.Security.AuthenticationPayload.Request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
