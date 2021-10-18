@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
-  public List<Movie> findAll();
-
   public List<Movie> findByInfoContaining(String info);
 
   public List<Movie> findByMinAgeLessThan(int minAge);

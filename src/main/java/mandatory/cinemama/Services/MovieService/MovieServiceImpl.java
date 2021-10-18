@@ -13,12 +13,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class MovieServiceImpl implements MovieService {
 
-  private MovieRepository movieRepository;
-
   @Autowired
-  public MovieServiceImpl(MovieRepository movieRepository) {
-    this.movieRepository = movieRepository;
-  }
+  private MovieRepository movieRepository;
 
   private String type = "Movie";
 
@@ -85,14 +81,18 @@ public class MovieServiceImpl implements MovieService {
 
   @Override
   public List<Movie> findMoviesByScreenTimeLessThan(LocalTime screenTime) {
-    List<Movie> allMovies = movieRepository.findByScreenTimeLessThan(screenTime);
+    List<Movie> allMovies = movieRepository.findByScreenTimeLessThan(
+      screenTime
+    );
     ErrorMessageCreator.throwErrorIfNotFound(allMovies, screenTime, type);
     return allMovies;
   }
 
   @Override
   public List<Movie> findMoviesByScreenTimeGreaterThan(LocalTime screenTime) {
-    List<Movie> allMovies = movieRepository.findByScreenTimeGreaterThan(screenTime);
+    List<Movie> allMovies = movieRepository.findByScreenTimeGreaterThan(
+      screenTime
+    );
     ErrorMessageCreator.throwErrorIfNotFound(allMovies, screenTime, type);
     return allMovies;
   }
@@ -138,12 +138,12 @@ public class MovieServiceImpl implements MovieService {
 
   @Override
   public void deleteMovieById(Long id) {
-   try {
-     movieRepository.deleteById(id);
-   } catch (Exception e) {
-     if (e instanceof DataAccessException) {
-       throw ErrorMessageCreator.throwResourceNotFoundException(id, type);
-     }
-   }
+    try {
+      movieRepository.deleteById(id);
+    } catch (Exception e) {
+      if (e instanceof DataAccessException) {
+        throw ErrorMessageCreator.throwResourceNotFoundException(id, type);
+      }
+    }
   }
 }

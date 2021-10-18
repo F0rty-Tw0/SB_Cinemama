@@ -12,50 +12,75 @@ import mandatory.cinemama.Entities.Hall;
 import mandatory.cinemama.Entities.Movie;
 import mandatory.cinemama.Entities.Schedule;
 import mandatory.cinemama.Entities.Theater;
+import mandatory.cinemama.Entities.User.ERole;
+import mandatory.cinemama.Entities.User.Role;
+import mandatory.cinemama.Entities.User.User;
 import mandatory.cinemama.Repositories.ActorRepository;
 import mandatory.cinemama.Repositories.DirectorRepository;
 import mandatory.cinemama.Repositories.GenreRepository;
 import mandatory.cinemama.Repositories.HallRepository;
 import mandatory.cinemama.Repositories.MovieRepository;
+import mandatory.cinemama.Repositories.RoleRepository;
 import mandatory.cinemama.Repositories.ScheduleRepository;
 import mandatory.cinemama.Repositories.TheaterRepository;
+import mandatory.cinemama.Repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 @Profile("!test")
-public class DatabaseConfiguration implements CommandLineRunner {
+public class DatabaseConfig implements CommandLineRunner {
 
+  @Autowired
   private DirectorRepository directorRepository;
+
+  @Autowired
   private MovieRepository movieRepository;
+
+  @Autowired
   private HallRepository hallRepository;
+
+  @Autowired
   private TheaterRepository theaterRepository;
+
+  @Autowired
   private GenreRepository genreRepository;
+
+  @Autowired
   private ActorRepository actorRepository;
+
+  @Autowired
   private ScheduleRepository scheduleRepository;
 
-  public DatabaseConfiguration(
-    DirectorRepository directorRepository,
-    MovieRepository movieRepository,
-    HallRepository hallRepository,
-    TheaterRepository theaterRepository,
-    GenreRepository genreRepository,
-    ActorRepository actorRepository,
-    ScheduleRepository scheduleRepository
-  ) {
-    this.movieRepository = movieRepository;
-    this.directorRepository = directorRepository;
-    this.hallRepository = hallRepository;
-    this.theaterRepository = theaterRepository;
-    this.genreRepository = genreRepository;
-    this.actorRepository = actorRepository;
-    this.scheduleRepository = scheduleRepository;
-  }
+  @Autowired
+  private RoleRepository roleRepository;
+
+  @Autowired
+  private UserRepository userRepository;
+
+  @Autowired
+  PasswordEncoder passwordEncoder;
 
   @Override
   public void run(String... args) throws Exception {
     System.out.println("config runs");
+
+    if (roleRepository.findAll().isEmpty()) {
+      ERole[] role = ERole.values();
+      for (int i = 0; i < role.length; i++) {
+        roleRepository.save(new Role(role[i]));
+      }
+    }
+
+    if (userRepository.findAll().isEmpty()) {
+      userRepository.save(
+        new User("art@gmail.com", passwordEncoder.encode("test"))
+      );
+    }
+
     if (theaterRepository.findAll().isEmpty()) {
       theaterRepository.save(new Theater("Coco Bongo", "Gammel Konge Vej 6"));
       theaterRepository.save(new Theater("Odeon", "Saxogade 25"));

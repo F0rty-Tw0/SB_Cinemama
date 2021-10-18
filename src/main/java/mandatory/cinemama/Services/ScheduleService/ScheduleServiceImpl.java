@@ -14,12 +14,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
 
-  private ScheduleRepository scheduleRepository;
-
   @Autowired
-  public ScheduleServiceImpl(ScheduleRepository scheduleRepository) {
-    this.scheduleRepository = scheduleRepository;
-  }
+  private ScheduleRepository scheduleRepository;
 
   private String type = "Schedule";
 

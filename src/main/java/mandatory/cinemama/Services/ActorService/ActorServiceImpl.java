@@ -1,5 +1,7 @@
 package mandatory.cinemama.Services.ActorService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
 import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
@@ -12,15 +14,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ActorServiceImpl implements ActorService {
 
-  private ActorRepository actorRepository;
-
   @Autowired
-  public ActorServiceImpl(ActorRepository actorRepository) {
-    this.actorRepository = actorRepository;
-  }
+  private ActorRepository actorRepository;
 
   private String type = "Actor";
 
+  @Operation(security = @SecurityRequirement(name = "basicAuth"))
   @Override
   public List<Actor> findAllActors() {
     List<Actor> allActors = actorRepository.findAll();

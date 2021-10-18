@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DirectorRepository extends JpaRepository<Director, Long> {
-  public List<Director> findAll();
 
   public Optional<Director> findById(Long id);
 

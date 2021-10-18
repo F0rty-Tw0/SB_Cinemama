@@ -6,16 +6,14 @@ import mandatory.cinemama.Entities.Genre.Genre;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.GenreRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GenreServiceImpl implements GenreService {
 
+  @Autowired
   private GenreRepository genreRepository;
-
-  public GenreServiceImpl(GenreRepository genreRepository) {
-    this.genreRepository = genreRepository;
-  }
 
   private String type = "Genre";
 

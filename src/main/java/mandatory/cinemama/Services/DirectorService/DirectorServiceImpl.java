@@ -12,12 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class DirectorServiceImpl implements DirectorService {
 
-  private DirectorRepository directorRepository;
-
   @Autowired
-  public DirectorServiceImpl(DirectorRepository directorRepository) {
-    this.directorRepository = directorRepository;
-  }
+  private DirectorRepository directorRepository;
 
   private String type = "Director";
 
