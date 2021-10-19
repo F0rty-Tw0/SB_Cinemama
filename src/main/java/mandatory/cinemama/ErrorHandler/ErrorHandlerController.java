@@ -7,6 +7,8 @@ import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -24,30 +26,6 @@ public class ErrorHandlerController {
       request.getDescription(false),
       httpStatus.value(),
       LocalDateTime.now()
-    );
-  }
-
-  @ExceptionHandler(ResourceNotFoundException.class)
-  public ResponseEntity<ErrorMessage> handleResourceNotFound(
-    ResourceNotFoundException error,
-    WebRequest request
-  ) {
-    HttpStatus httpStatus = HttpStatus.NOT_FOUND;
-    return new ResponseEntity<ErrorMessage>(
-      createErrorMessage(error.getMessage(), httpStatus, request),
-      httpStatus
-    );
-  }
-
-  @ExceptionHandler(EntityNotFoundException.class)
-  public ResponseEntity<ErrorMessage> entityNotFoundException(
-    EntityNotFoundException error,
-    WebRequest request
-  ) {
-    HttpStatus httpStatus = HttpStatus.NOT_FOUND;
-    return new ResponseEntity<ErrorMessage>(
-      createErrorMessage(error.getMessage(), httpStatus, request),
-      httpStatus
     );
   }
 
@@ -80,9 +58,29 @@ public class ErrorHandlerController {
     );
   }
 
-  @ExceptionHandler(DataAccessException.class)
+  @ExceptionHandler(AccessDeniedException.class)
+  public ResponseEntity<ErrorMessage> dataIntegrityViolationException(
+    AccessDeniedException error,
+    WebRequest request
+  ) {
+    HttpStatus httpStatus = HttpStatus.UNAUTHORIZED;
+
+    return new ResponseEntity<ErrorMessage>(
+      createErrorMessage(error.getMessage(), httpStatus, request),
+      httpStatus
+    );
+  }
+
+  @ExceptionHandler(
+    value = {
+      DataAccessException.class,
+      IllegalArgumentException.class,
+      EntityNotFoundException.class,
+      ResourceNotFoundException.class,
+    }
+  )
   public ResponseEntity<ErrorMessage> emptyResultDataAccessException(
-    DataAccessException error,
+    RuntimeException error,
     WebRequest request
   ) {
     HttpStatus httpStatus = HttpStatus.NOT_FOUND;
@@ -92,14 +90,18 @@ public class ErrorHandlerController {
     );
   }
 
-  @ExceptionHandler(IllegalArgumentException.class)
-  public ResponseEntity<ErrorMessage> illegalArgumentException(
-    IllegalArgumentException error,
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<ErrorMessage> methodArgumentNotValidException(
+    MethodArgumentNotValidException error,
     WebRequest request
   ) {
-    HttpStatus httpStatus = HttpStatus.NOT_FOUND;
+    HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+    String errorMessage =
+      error.getBindingResult().getFieldError().getField() +
+      " " +
+      error.getBindingResult().getFieldError().getDefaultMessage();
     return new ResponseEntity<ErrorMessage>(
-      createErrorMessage(error.getMessage(), httpStatus, request),
+      createErrorMessage(errorMessage, httpStatus, request),
       httpStatus
     );
   }
