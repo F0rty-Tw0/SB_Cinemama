@@ -91,4 +91,16 @@ public class ErrorHandlerController {
       httpStatus
     );
   }
+
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseEntity<ErrorMessage> illegalArgumentException(
+    IllegalArgumentException error,
+    WebRequest request
+  ) {
+    HttpStatus httpStatus = HttpStatus.NOT_FOUND;
+    return new ResponseEntity<ErrorMessage>(
+      createErrorMessage(error.getMessage(), httpStatus, request),
+      httpStatus
+    );
+  }
 }

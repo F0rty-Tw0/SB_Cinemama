@@ -2,7 +2,6 @@ package mandatory.cinemama.ErrorHandler;
 
 import java.util.List;
 import java.util.Optional;
-
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 
 public class ErrorMessageCreator {

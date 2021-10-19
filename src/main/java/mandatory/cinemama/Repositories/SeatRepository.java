@@ -11,4 +11,6 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
   public Optional<Seat> findByName(String name);
 
   public List<Seat> findByRowId(Long id);
+
+  public List<Seat> findByRowHallId(Long id);
 }

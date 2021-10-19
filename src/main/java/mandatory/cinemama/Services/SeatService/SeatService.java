@@ -12,5 +12,7 @@ public interface SeatService {
 
   public List<Seat> findSeatsByRowId(Long id);
 
+  public List<Seat> findSeatsByRowHallId(Long id);
+
   public void addSeat(Seat seat);
 }

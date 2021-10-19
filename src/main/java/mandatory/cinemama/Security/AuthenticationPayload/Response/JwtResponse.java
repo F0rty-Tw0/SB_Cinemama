@@ -11,17 +11,17 @@ public class JwtResponse {
   private String tokenType = "Bearer";
   private Long id;
   private String email;
-  private final String roles;
+  private final String role;
 
   public JwtResponse(
     String accessToken,
     Long id,
     String email,
-    String roles
+    String role
   ) {
     this.accessToken = accessToken;
     this.id = id;
     this.email = email;
-    this.roles = roles;
+    this.role = role;
   }
 }

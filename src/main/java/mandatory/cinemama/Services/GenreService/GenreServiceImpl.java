@@ -39,15 +39,16 @@ public class GenreServiceImpl implements GenreService {
 
   @Override
   public Genre findGenreByName(String name) {
-    Genre genre = genreRepository
-      .findByName(EGenres.valueOf(name.toUpperCase()))
-      .orElseThrow(
-        () ->
-          new ResourceNotFoundException(
-            ErrorMessageCreator.NotFoundErrorMessage(name, type)
-          )
+    try {
+      Genre genre = genreRepository
+        .findByName(EGenres.valueOf(name.toUpperCase()))
+        .get();
+      return genre;
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException(
+        ErrorMessageCreator.NotFoundErrorMessage(name, type)
       );
-    return genre;
+    }
   }
 
   @Override

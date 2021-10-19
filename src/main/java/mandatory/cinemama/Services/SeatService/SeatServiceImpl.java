@@ -57,6 +57,13 @@ public class SeatServiceImpl implements SeatService {
   }
 
   @Override
+  public List<Seat> findSeatsByRowHallId(Long id) {
+    List<Seat> seats = seatRepository.findByRowHallId(id);
+    ErrorMessageCreator.throwErrorIfNotFound(seats, id, type);
+    return seats;
+  }
+
+  @Override
   public void addSeat(Seat seat) {
     seatRepository.save(seat);
   }

@@ -72,10 +72,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and()
       .authorizeRequests()
+      .antMatchers(
+        "/",
+        "/swagger-ui/**",
+        "/swagger-resources/**",
+        "/v2/api-docs"
+      )
+      .permitAll()
       .antMatchers("/api/auth/**")
       .permitAll()
-      .antMatchers("/**")
-      .permitAll() //disabling the spring authentication
+      .antMatchers("/api/actors/**")
+      .access("hasRole('ROLE_ADMIN')")
+      // .antMatchers("/**")
+      // .permitAll() //disabling the spring authentication
       .anyRequest()
       .authenticated();
 

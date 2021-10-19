@@ -59,26 +59,26 @@ public class AuthServiceImpl implements AuthService {
 
     if (strRole == null) {
       Role customerRole = roleRepository
-        .findByName(ERoles.CUSTOMER)
+        .findByName(ERoles.ROLE_CUSTOMER)
         .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_MESSAGE));
       role = customerRole;
     } else {
       switch (strRole) {
         case "admin":
           Role adminRole = roleRepository
-            .findByName(ERoles.ADMIN)
+            .findByName(ERoles.ROLE_ADMIN)
             .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_MESSAGE));
           role = adminRole;
           break;
         case "manager":
           Role employeeRole = roleRepository
-            .findByName(ERoles.MANAGER)
+            .findByName(ERoles.ROLE_MANAGER)
             .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_MESSAGE));
           role = employeeRole;
           break;
         case "customer":
           Role customerRole = roleRepository
-            .findByName(ERoles.CUSTOMER)
+            .findByName(ERoles.ROLE_CUSTOMER)
             .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_MESSAGE));
           role = customerRole;
           break;
