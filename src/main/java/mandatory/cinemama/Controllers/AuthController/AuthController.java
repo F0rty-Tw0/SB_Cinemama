@@ -23,6 +23,11 @@ public class AuthController implements AuthControllerInterface {
 
   @Override
   public ResponseEntity<?> registerUser(SignupRequest signUpRequest) {
+    try{
+    return authService.registerUser(signUpRequest);
+    } catch (Exception e) {
+      System.out.println("error!!");
+    }
     return authService.registerUser(signUpRequest);
   }
 }
