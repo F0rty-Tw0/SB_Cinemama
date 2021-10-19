@@ -25,4 +25,8 @@ public interface SeatControllerInterface {
   @ApiOperation("Returns the Seats by Row Id")
   @GetMapping("/row/{id}")
   public List<Seat> findSeatsByRowId(Long id);
+
+  @ApiOperation("Returns All the Seats inside a Hall by Hall Id")
+  @GetMapping("/hall/{id}")
+  public List<Seat> findSeatsByRowHallId(Long id);
 }

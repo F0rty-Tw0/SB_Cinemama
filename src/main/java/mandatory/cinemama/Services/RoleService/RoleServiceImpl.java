@@ -38,15 +38,16 @@ public class RoleServiceImpl implements RoleService {
 
   @Override
   public Role findRoleByName(String name) {
-    Role role = roleRepository
-      .findByName(ERoles.valueOf(name.toUpperCase()))
-      .orElseThrow(
-        () ->
-          new ResourceNotFoundException(
-            ErrorMessageCreator.NotFoundErrorMessage(name, type)
-          )
+    try {
+      Role role = roleRepository
+        .findByName(ERoles.valueOf(name.toUpperCase()))
+        .get();
+      return role;
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException(
+        ErrorMessageCreator.NotFoundErrorMessage(name, type)
       );
-    return role;
+    }
   }
 
   @Override

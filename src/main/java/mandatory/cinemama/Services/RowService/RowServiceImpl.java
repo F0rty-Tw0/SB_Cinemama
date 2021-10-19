@@ -38,15 +38,14 @@ public class RowServiceImpl implements RowService {
 
   @Override
   public Row findRowByName(String name) {
-    Row genre = rowRepository
-      .findByName(name)
-      .orElseThrow(
-        () ->
-          new ResourceNotFoundException(
-            ErrorMessageCreator.NotFoundErrorMessage(name, type)
-          )
+    try {
+      Row genre = rowRepository.findByName(name).get();
+      return genre;
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException(
+        ErrorMessageCreator.NotFoundErrorMessage(name, type)
       );
-    return genre;
+    }
   }
 
   @Override
