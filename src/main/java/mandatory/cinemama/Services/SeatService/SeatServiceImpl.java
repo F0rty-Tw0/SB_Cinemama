@@ -19,7 +19,6 @@ public class SeatServiceImpl implements SeatService {
   @Override
   public List<Seat> findAllSeats() {
     List<Seat> allSeats = seatRepository.findAll();
-    ErrorMessageCreator.throwErrorIfNotFound(allSeats, "of All", type);
     return allSeats;
   }
 

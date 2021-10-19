@@ -20,7 +20,6 @@ public class GenreServiceImpl implements GenreService {
   @Override
   public List<Genre> findAllGenres() {
     List<Genre> allGenres = genreRepository.findAll();
-    ErrorMessageCreator.throwErrorIfNotFound(allGenres, "of All", type);
     return allGenres;
   }
 

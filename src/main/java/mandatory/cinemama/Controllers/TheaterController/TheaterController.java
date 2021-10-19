@@ -24,12 +24,12 @@ public class TheaterController implements TheaterControllerInterface {
   }
 
   @Override
-  public Theater findTheaterName(String name) {
+  public Theater findTheaterByName(String name) {
     return theaterService.findTheaterByName(name);
   }
 
   @Override
-  public Theater findTheaterAddress(String address) {
+  public Theater findTheaterByAddress(String address) {
     return theaterService.findTheaterByAddress(address);
   }
 

@@ -77,6 +77,11 @@ public class ScheduleController implements ScheduleControllerInterface {
   }
 
   @Override
+  public List<Schedule> findSchedulesByHallTheaterId(Long id) {
+    return scheduleService.findSchedulesByHallTheaterId(id);
+  }
+
+  @Override
   public void updateScheduleById(Long id, Schedule schedule) {
     scheduleService.updateScheduleById(id, schedule);
   }
