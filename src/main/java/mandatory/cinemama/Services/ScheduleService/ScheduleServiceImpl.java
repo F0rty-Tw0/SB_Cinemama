@@ -22,7 +22,6 @@ public class ScheduleServiceImpl implements ScheduleService {
   @Override
   public List<Schedule> findAllSchedules() {
     List<Schedule> schedules = scheduleRepository.findAll();
-    ErrorMessageCreator.throwErrorIfNotFound(schedules, "of All", type);
     return schedules;
   }
 
@@ -117,6 +116,13 @@ public class ScheduleServiceImpl implements ScheduleService {
       "From: " + startDate + " To: " + endDate,
       type
     );
+    return schedules;
+  }
+
+  @Override
+  public List<Schedule> findSchedulesByHallTheaterId(Long id) {
+    List<Schedule> schedules = scheduleRepository.findByHallTheaterId(id);
+    ErrorMessageCreator.throwErrorIfNotFound(schedules, id, type);
     return schedules;
   }
 

@@ -20,7 +20,6 @@ public class TheaterServiceImpl implements TheaterService {
   @Override
   public List<Theater> findAllTheaters() {
     List<Theater> theaters = theaterRepository.findAll();
-    ErrorMessageCreator.throwErrorIfNotFound(theaters, "of All", type);
     return theaters;
   }
 

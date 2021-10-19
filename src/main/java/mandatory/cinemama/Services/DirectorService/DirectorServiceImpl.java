@@ -20,7 +20,6 @@ public class DirectorServiceImpl implements DirectorService {
   @Override
   public List<Director> findAllDirectors() {
     List<Director> directors = directorRepository.findAll();
-    ErrorMessageCreator.throwErrorIfNotFound(directors, "of All", type);
     return directors;
   }
 

@@ -34,6 +34,8 @@ public interface ScheduleService {
     LocalDate startDate
   );
 
+  public List<Schedule> findSchedulesByHallTheaterId(Long id);
+
   public void updateScheduleById(Long id, Schedule schedule);
 
   public void addSchedule(Schedule schedule);

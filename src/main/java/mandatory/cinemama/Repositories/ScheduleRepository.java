@@ -35,4 +35,6 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     LocalDate startDate,
     LocalDate endDate
   );
+
+  public List<Schedule> findByHallTheaterId(Long id);
 }

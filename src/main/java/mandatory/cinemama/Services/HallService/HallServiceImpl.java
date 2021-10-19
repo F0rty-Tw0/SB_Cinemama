@@ -21,7 +21,6 @@ public class HallServiceImpl implements HallService {
   @Override
   public List<Hall> findAllHalls() {
     List<Hall> halls = hallRepository.findAll();
-    ErrorMessageCreator.throwErrorIfNotFound(halls, "of All", type);
     return halls;
   }
 

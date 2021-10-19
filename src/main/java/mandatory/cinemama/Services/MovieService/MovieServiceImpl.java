@@ -21,7 +21,6 @@ public class MovieServiceImpl implements MovieService {
   @Override
   public List<Movie> findAllMovies() {
     List<Movie> allMovies = movieRepository.findAll();
-    ErrorMessageCreator.throwErrorIfNotFound(allMovies, "of All", type);
     return allMovies;
   }
 

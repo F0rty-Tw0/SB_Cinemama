@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Api(
   tags = "Actor (OPTIONAL)",
-  description = "- A secured endpoint for <b>Actors</b>, requires a role of <b>ADMIN</b> to operate! - (This endpoint was created for the testing and learning purposes only)"
+  description = "- A secured endpoint for <b>Actors</b>, requires a role of <b>ADMIN</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only)</em>"
 )
 @RequestMapping("/api/actors")
 public interface ActorControllerInterface {
@@ -73,7 +73,7 @@ public interface ActorControllerInterface {
   @ApiOperation(
     value = " - Updates an Actor by Id and the details we enter",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>Id</b> of an Actor and the Actor Object in the body in order to update an existing <b>Actor</b>."
+    notes = "Enter the <b>id</b> of an Actor and the Actor Object in the body in order to update an existing <b>Actor</b>."
   )
   @PatchMapping("/{id}")
   @PreAuthorize("hasRole('ADMIN')")

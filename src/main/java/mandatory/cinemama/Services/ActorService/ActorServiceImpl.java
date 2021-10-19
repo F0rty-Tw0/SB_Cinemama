@@ -23,7 +23,6 @@ public class ActorServiceImpl implements ActorService {
   @Override
   public List<Actor> findAllActors() {
     List<Actor> allActors = actorRepository.findAll();
-    ErrorMessageCreator.throwErrorIfNotFound(allActors, "of All", type);
     return allActors;
   }
 

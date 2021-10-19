@@ -19,7 +19,6 @@ public class RowServiceImpl implements RowService {
   @Override
   public List<Row> findAllRows() {
     List<Row> allRows = rowRepository.findAll();
-    ErrorMessageCreator.throwErrorIfNotFound(allRows, "of All", type);
     return allRows;
   }
 
