@@ -2,9 +2,11 @@ package mandatory.cinemama.Controllers.ActorController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import java.util.List;
 import mandatory.cinemama.Entities.Actor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,13 +19,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Api(tags = "Actor")
 @RequestMapping("/api/actors")
 public interface ActorControllerInterface {
+  @ApiOperation(
+    value = "Returns all of the Actors",
+    authorizations = { @Authorization(value = "jwtToken") }
+  )
+  @PreAuthorize("hasRole('ADMIN')")
+  @GetMapping
+  public List<Actor> findAllActors();
+
   @ApiOperation("Returns the Actor by the Id")
   @GetMapping("/{id}")
   public Actor findActorById(@PathVariable Long id);
-
-  @ApiOperation("Returns all of the Actors")
-  @GetMapping
-  public List<Actor> findAllActors();
 
   @ApiOperation("Returns the Actors by the First Name")
   @GetMapping("/first-name/{firstName}")

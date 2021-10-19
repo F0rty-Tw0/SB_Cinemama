@@ -20,7 +20,6 @@ public class UserServiceImpl implements UserService {
   @Override
   public List<User> findAllUsers() {
     List<User> allUsers = userRepository.findAll();
-    ErrorMessageCreator.throwErrorIfNotFound(allUsers, "of All", type);
     return allUsers;
   }
 
