@@ -17,22 +17,22 @@ import mandatory.cinemama.Entities.Schedule;
 import mandatory.cinemama.Entities.Theater;
 import mandatory.cinemama.Entities.User.ERoles;
 import mandatory.cinemama.Entities.User.Role;
-import mandatory.cinemama.Entities.User.User;
-import mandatory.cinemama.Repositories.ActorRepository;
-import mandatory.cinemama.Repositories.DirectorRepository;
-import mandatory.cinemama.Repositories.GenreRepository;
-import mandatory.cinemama.Repositories.HallRepository;
-import mandatory.cinemama.Repositories.MovieRepository;
-import mandatory.cinemama.Repositories.RoleRepository;
-import mandatory.cinemama.Repositories.RowRepository;
-import mandatory.cinemama.Repositories.ScheduleRepository;
-import mandatory.cinemama.Repositories.SeatRepository;
-import mandatory.cinemama.Repositories.TheaterRepository;
-import mandatory.cinemama.Repositories.UserRepository;
+import mandatory.cinemama.Security.AuthenticationPayload.Request.SignupRequest;
+import mandatory.cinemama.Services.ActorService.ActorService;
+import mandatory.cinemama.Services.AuthService.AuthService;
+import mandatory.cinemama.Services.DirectorService.DirectorService;
+import mandatory.cinemama.Services.GenreService.GenreService;
+import mandatory.cinemama.Services.HallService.HallService;
+import mandatory.cinemama.Services.MovieService.MovieService;
+import mandatory.cinemama.Services.RoleService.RoleService;
+import mandatory.cinemama.Services.RowService.RowService;
+import mandatory.cinemama.Services.ScheduleService.ScheduleService;
+import mandatory.cinemama.Services.SeatService.SeatService;
+import mandatory.cinemama.Services.TheaterService.TheaterService;
+import mandatory.cinemama.Services.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -40,177 +40,181 @@ import org.springframework.stereotype.Component;
 public class DatabaseConfig implements CommandLineRunner {
 
   @Autowired
-  private DirectorRepository directorRepository;
+  private DirectorService directorService;
 
   @Autowired
-  private MovieRepository movieRepository;
+  private MovieService movieService;
 
   @Autowired
-  private HallRepository hallRepository;
+  private HallService hallService;
 
   @Autowired
-  private TheaterRepository theaterRepository;
+  private TheaterService theaterService;
 
   @Autowired
-  private GenreRepository genreRepository;
+  private GenreService genreService;
 
   @Autowired
-  private ActorRepository actorRepository;
+  private ActorService actorService;
 
   @Autowired
-  private ScheduleRepository scheduleRepository;
+  private ScheduleService scheduleService;
 
   @Autowired
-  private RoleRepository roleRepository;
+  private RoleService roleService;
 
   @Autowired
-  private UserRepository userRepository;
+  private UserService userService;
 
   @Autowired
-  private PasswordEncoder passwordEncoder;
+  private AuthService authService;
 
   @Autowired
-  private RowRepository rowRepository;
+  private RowService rowService;
 
   @Autowired
-  private SeatRepository seatRepository;
+  private SeatService seatService;
 
   @Override
   public void run(String... args) throws Exception {
     System.out.println("config runs");
 
-    if (roleRepository.findAll().isEmpty()) {
+    if (roleService.findAllRoles().isEmpty()) {
       ERoles[] roles = ERoles.values();
       for (int i = 0; i < roles.length; i++) {
-        roleRepository.save(new Role(roles[i]));
+        roleService.addRole(new Role(roles[i]));
       }
     }
 
-    if (userRepository.findAll().isEmpty()) {
-      userRepository.save(
-        new User("art@gmail.com", passwordEncoder.encode("test"))
+    if (userService.findAllUsers().isEmpty()) {
+      authService.registerUser(
+        new SignupRequest("art@gmail.com", "admin", "test")
       );
     }
 
-    if (theaterRepository.findAll().isEmpty()) {
-      theaterRepository.save(new Theater("Coco Bongo", "Gammel Konge Vej 6"));
-      theaterRepository.save(new Theater("Odeon", "Saxogade 25"));
-      theaterRepository.save(new Theater("IMAX 3D", "Dreams str 5"));
-      theaterRepository.save(new Theater("Theater Lux", "Lala land 42"));
-      theaterRepository.save(
+    if (theaterService.findAllTheaters().isEmpty()) {
+      theaterService.addTheater(
+        new Theater("Coco Bongo", "Gammel Konge Vej 6")
+      );
+      theaterService.addTheater(new Theater("Odeon", "Saxogade 25"));
+      theaterService.addTheater(new Theater("IMAX 3D", "Dreams str 5"));
+      theaterService.addTheater(new Theater("Theater Lux", "Lala land 42"));
+      theaterService.addTheater(
         new Theater("Village Cinema", "Gammel Konge Vej 99")
       );
     }
 
-    if (hallRepository.findAll().isEmpty()) {
-      int numberOfTheaters = theaterRepository.findAll().size();
+    if (hallService.findAllHalls().isEmpty()) {
+      int numberOfTheaters = theaterService.findAllTheaters().size();
       for (int i = 0; i < numberOfTheaters; i++) {
-        hallRepository.save(
-          new Hall("Sal 1", theaterRepository.findAll().get(i))
+        hallService.addHall(
+          new Hall("Sal 1", theaterService.findAllTheaters().get(i))
         );
-        hallRepository.save(
-          new Hall("Sal 2", theaterRepository.findAll().get(i))
+        hallService.addHall(
+          new Hall("Sal 2", theaterService.findAllTheaters().get(i))
         );
-        hallRepository.save(
-          new Hall("Sal 3", theaterRepository.findAll().get(i))
+        hallService.addHall(
+          new Hall("Sal 3", theaterService.findAllTheaters().get(i))
         );
-        hallRepository.save(
-          new Hall("Sal 4", theaterRepository.findAll().get(i))
+        hallService.addHall(
+          new Hall("Sal 4", theaterService.findAllTheaters().get(i))
         );
-        hallRepository.save(
-          new Hall("Sal 5", theaterRepository.findAll().get(i))
+        hallService.addHall(
+          new Hall("Sal 5", theaterService.findAllTheaters().get(i))
         );
       }
     }
 
-    if (rowRepository.findAll().isEmpty()) {
-      int numberOfHalls = hallRepository.findAll().size();
+    if (rowService.findAllRows().isEmpty()) {
+      int numberOfHalls = hallService.findAllHalls().size();
       ERows[] rows = ERows.values();
       for (int i = 0; i < numberOfHalls; i++) {
         for (int j = 0; j < rows.length; j++) {
-          rowRepository.save(new Row(rows[j], hallRepository.findAll().get(i)));
+          rowService.addRow(
+            new Row(rows[j], hallService.findAllHalls().get(i))
+          );
         }
       }
     }
 
-    if (seatRepository.findAll().isEmpty()) {
-      int numberOfRows = rowRepository.findAll().size();
+    if (seatService.findAllSeats().isEmpty()) {
+      int numberOfRows = rowService.findAllRows().size();
       for (int i = 0; i < numberOfRows; i++) {
         for (Integer j = 1; j < 6; j++) {
-          seatRepository.save(
+          seatService.addSeat(
             new Seat(
-              rowRepository.findAll().get(i).getName() + j.toString(),
-              rowRepository.findAll().get(i)
+              rowService.findAllRows().get(i).getName() + j.toString(),
+              rowService.findAllRows().get(i)
             )
           );
         }
       }
     }
-    if (directorRepository.findAll().isEmpty()) {
-      directorRepository.save(new Director("Christopher", "Nolan"));
+    if (directorService.findAllDirectors().isEmpty()) {
+      directorService.addDirector(new Director("Christopher", "Nolan"));
     }
 
-    if (actorRepository.findAll().isEmpty()) {
-      actorRepository.save(new Actor("Bruce", "Willis"));
+    if (actorService.findAllActors().isEmpty()) {
+      actorService.addActor(new Actor("Bruce", "Willis"));
     }
 
-    if (genreRepository.findAll().isEmpty()) {
+    if (genreService.findAllGenres().isEmpty()) {
       EGenres[] genres = EGenres.values();
       for (int i = 0; i < genres.length; i++) {
-        genreRepository.save(new Genre(genres[i]));
+        genreService.addGenre(new Genre(genres[i]));
       }
     }
 
-    if (movieRepository.findAll().isEmpty()) {
-      movieRepository.save(
+    if (movieService.findAllMovies().isEmpty()) {
+      movieService.addMovie(
         new Movie(
           "Lord of the Rings 2",
           16,
           LocalTime.of(2, 30),
           "The Lord of the Rings is the saga of a group of sometimes reluctant heroes who set forth to save their world from consummate evil. Its many worlds and creatures were drawn from Tolkien's extensive knowledge of philology and folklore.",
           9,
-          actorRepository.findByFirstName("Bruce"),
-          directorRepository.findByLastName("Nolan"),
+          actorService.findActorsByFirstName("Bruce"),
+          directorService.findDirectorsByLastName("Nolan"),
           List.of(
-            genreRepository.findByName(EGenres.ACTION).get(),
-            genreRepository.findByName(EGenres.FANTASY).get(),
-            genreRepository.findByName(EGenres.OTHER).get()
+            genreService.findGenreByName("ACTION"),
+            genreService.findGenreByName("FANTASY"),
+            genreService.findGenreByName("OTHER")
           )
         )
       );
     }
 
-    if (scheduleRepository.findAll().isEmpty()) {
-      scheduleRepository.save(
+    if (scheduleService.findAllSchedules().isEmpty()) {
+      scheduleService.addSchedule(
         new Schedule(
           LocalTime.of(14, 30),
           LocalDate.of(2021, Month.JANUARY, 24),
-          movieRepository.findAll().get(0),
-          hallRepository.findAll().get(0)
+          movieService.findAllMovies().get(0),
+          hallService.findAllHalls().get(0)
         )
       );
-      scheduleRepository.save(
+      scheduleService.addSchedule(
         new Schedule(
           LocalTime.of(14, 30),
           LocalDate.of(2021, Month.JANUARY, 25),
-          movieRepository.findAll().get(0),
-          hallRepository.findAll().get(0)
+          movieService.findAllMovies().get(0),
+          hallService.findAllHalls().get(0)
         )
       );
-      scheduleRepository.save(
+      scheduleService.addSchedule(
         new Schedule(
           LocalTime.of(14, 31),
           LocalDate.of(2021, Month.JANUARY, 24),
-          movieRepository.findAll().get(0),
-          hallRepository.findAll().get(0)
+          movieService.findAllMovies().get(0),
+          hallService.findAllHalls().get(0)
         )
       );
-      scheduleRepository.save(
+      scheduleService.addSchedule(
         new Schedule(
           LocalTime.of(14, 30),
           LocalDate.of(2021, Month.JANUARY, 24),
-          movieRepository.findAll().get(0),
-          hallRepository.findAll().get(3)
+          movieService.findAllMovies().get(0),
+          hallService.findAllHalls().get(3)
         )
       );
     }

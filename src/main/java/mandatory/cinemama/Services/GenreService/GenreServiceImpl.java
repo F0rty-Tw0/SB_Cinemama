@@ -20,6 +20,7 @@ public class GenreServiceImpl implements GenreService {
   @Override
   public List<Genre> findAllGenres() {
     List<Genre> allGenres = genreRepository.findAll();
+    ErrorMessageCreator.throwErrorIfNotFound(allGenres, "of All", type);
     return allGenres;
   }
 
@@ -37,9 +38,9 @@ public class GenreServiceImpl implements GenreService {
   }
 
   @Override
-  public Genre findGenreByName(EGenres name) {
+  public Genre findGenreByName(String name) {
     Genre genre = genreRepository
-      .findByName(name)
+      .findByName(EGenres.valueOf(name.toUpperCase()))
       .orElseThrow(
         () ->
           new ResourceNotFoundException(
@@ -47,5 +48,10 @@ public class GenreServiceImpl implements GenreService {
           )
       );
     return genre;
+  }
+
+  @Override
+  public void addGenre(Genre genre) {
+    genreRepository.save(genre);
   }
 }
