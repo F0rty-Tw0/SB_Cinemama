@@ -93,12 +93,7 @@ public class DatabaseConfig implements CommandLineRunner {
     }
 
     if (theaterService.findAllTheaters().isEmpty()) {
-      theaterService.addTheater(
-        new Theater("Coco Bongo", "Gammel Konge Vej 6")
-      );
       theaterService.addTheater(new Theater("Odeon", "Saxogade 25"));
-      theaterService.addTheater(new Theater("IMAX 3D", "Dreams str 5"));
-      theaterService.addTheater(new Theater("Theater Lux", "Lala land 42"));
       theaterService.addTheater(
         new Theater("Village Cinema", "Gammel Konge Vej 99")
       );
