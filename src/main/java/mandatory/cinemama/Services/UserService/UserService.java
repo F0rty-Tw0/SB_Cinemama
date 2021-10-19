@@ -1,8 +1,17 @@
 package mandatory.cinemama.Services.UserService;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
+import mandatory.cinemama.Entities.User.User;
+
 public interface UserService {
-  
+  public List<User> findAllUsers();
+
+  public User findUserByEmail(String email);
+
+  public List<User> findUsersByRoleName(String role);
+
+  public Boolean userExistsByEmail(String email);
+
+  public void addUser(User user);
 }
