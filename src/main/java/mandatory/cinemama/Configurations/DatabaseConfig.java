@@ -93,15 +93,15 @@ public class DatabaseConfig implements CommandLineRunner {
     }
 
     if (theaterService.findAllTheaters().isEmpty()) {
-      theaterService.addTheater(
-        new Theater("Coco Bongo", "Gammel Konge Vej 6")
-      );
       theaterService.addTheater(new Theater("Odeon", "Saxogade 25"));
-      theaterService.addTheater(new Theater("IMAX 3D", "Dreams str 5"));
-      theaterService.addTheater(new Theater("Theater Lux", "Lala land 42"));
       theaterService.addTheater(
         new Theater("Village Cinema", "Gammel Konge Vej 99")
       );
+      // theaterService.addTheater(
+      //   new Theater("Coco Bongo", "Gammel Konge Vej 6")
+      // );
+      // theaterService.addTheater(new Theater("IMAX 3D", "Dreams str 5"));
+      // theaterService.addTheater(new Theater("Theater Lux", "Lala land 42"));
     }
 
     if (hallService.findAllHalls().isEmpty()) {
@@ -113,15 +113,15 @@ public class DatabaseConfig implements CommandLineRunner {
         hallService.addHall(
           new Hall("Sal 2", theaterService.findAllTheaters().get(i))
         );
-        hallService.addHall(
-          new Hall("Sal 3", theaterService.findAllTheaters().get(i))
-        );
-        hallService.addHall(
-          new Hall("Sal 4", theaterService.findAllTheaters().get(i))
-        );
-        hallService.addHall(
-          new Hall("Sal 5", theaterService.findAllTheaters().get(i))
-        );
+        // hallService.addHall(
+        //   new Hall("Sal 3", theaterService.findAllTheaters().get(i))
+        // );
+        // hallService.addHall(
+        //   new Hall("Sal 4", theaterService.findAllTheaters().get(i))
+        // );
+        // hallService.addHall(
+        //   new Hall("Sal 5", theaterService.findAllTheaters().get(i))
+        // );
       }
     }
 
