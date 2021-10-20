@@ -15,10 +15,12 @@ import mandatory.cinemama.Entities.Hall.HallRow.ERows;
 import mandatory.cinemama.Entities.Hall.HallRow.Row;
 import mandatory.cinemama.Entities.Hall.Seat;
 import mandatory.cinemama.Entities.Movie;
+import mandatory.cinemama.Entities.Reservation;
 import mandatory.cinemama.Entities.Schedule;
 import mandatory.cinemama.Entities.Theater;
 import mandatory.cinemama.Entities.User.ERoles;
 import mandatory.cinemama.Entities.User.Role;
+import mandatory.cinemama.Repositories.ReservationRepository;
 import mandatory.cinemama.Security.AuthenticationPayload.Request.SignupRequest;
 import mandatory.cinemama.Services.ActorService.ActorService;
 import mandatory.cinemama.Services.AuthService.AuthService;
@@ -76,6 +78,9 @@ public class DatabaseConfig implements CommandLineRunner {
 
   @Autowired
   private SeatService seatService;
+
+  @Autowired
+  private ReservationRepository reservationRepository;
 
   @Override
   public void run(String... args) throws Exception {
@@ -233,6 +238,21 @@ public class DatabaseConfig implements CommandLineRunner {
           LocalDate.of(2021, Month.JANUARY, 24),
           movieService.findAllMovies().get(0),
           hallService.findAllHalls().get(3)
+        )
+      );
+    }
+    if (reservationRepository.findAll().isEmpty()) {
+      reservationRepository.save(
+        new Reservation(
+          false,
+          scheduleService.findAllSchedules().get(0),
+          new ArrayList<Seat>(
+            Arrays.asList(
+              seatService.findAllSeats().get(0),
+              seatService.findAllSeats().get(1)
+            )
+          ),
+          userService.findAllUsers().get(0)
         )
       );
     }
