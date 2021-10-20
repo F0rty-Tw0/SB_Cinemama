@@ -36,4 +36,14 @@ public class SeatController implements SeatControllerInterface {
   public List<Seat> findSeatsByRowHallId(Long id) {
     return seatService.findSeatsByRowHallId(id);
   }
+
+  @Override
+  public List<Seat> findByRowHallIdAndAvailable(Long id, Boolean available) {
+    return seatService.findByRowHallIdAndAvailable(id, available);
+  }
+
+  @Override
+  public void updateSeatById(Long id, Boolean available) {
+    seatService.updateSeatById(id, available);
+  }
 }

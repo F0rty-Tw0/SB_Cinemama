@@ -3,6 +3,7 @@ package mandatory.cinemama.Configurations;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.Entities.Director;
@@ -141,12 +142,22 @@ public class DatabaseConfig implements CommandLineRunner {
       int numberOfRows = rowService.findAllRows().size();
       for (int i = 0; i < numberOfRows; i++) {
         for (Integer j = 1; j < 6; j++) {
-          seatService.addSeat(
-            new Seat(
-              rowService.findAllRows().get(i).getName() + j.toString(),
-              rowService.findAllRows().get(i)
-            )
-          );
+          if (j<5) {
+            seatService.addSeat(
+                    new Seat(
+                            rowService.findAllRows().get(i).getName() + j.toString(),
+                            rowService.findAllRows().get(i), true
+                    )
+            );
+          }
+          else{
+            seatService.addSeat(
+                    new Seat(
+                            rowService.findAllRows().get(i).getName() + j.toString(),
+                            rowService.findAllRows().get(i), false
+                    )
+            );
+          }
         }
       }
     }

@@ -48,4 +48,6 @@ public class TheaterController implements TheaterControllerInterface {
   public void deleteTheaterById(Long id) {
     theaterService.deleteTheaterById(id);
   }
+
+
 }

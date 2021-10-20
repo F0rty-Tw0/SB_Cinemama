@@ -2,6 +2,7 @@ package mandatory.cinemama.Services.SeatService;
 
 import java.util.List;
 import mandatory.cinemama.Entities.Hall.Seat;
+import mandatory.cinemama.Entities.Theater;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.SeatRepository;
@@ -25,26 +26,26 @@ public class SeatServiceImpl implements SeatService {
   @Override
   public Seat findSeatById(Long id) {
     Seat seat = seatRepository
-      .findById(id)
-      .orElseThrow(
-        () ->
-          new ResourceNotFoundException(
-            ErrorMessageCreator.NotFoundErrorMessage(id, type)
-          )
-      );
+            .findById(id)
+            .orElseThrow(
+                    () ->
+                            new ResourceNotFoundException(
+                                    ErrorMessageCreator.NotFoundErrorMessage(id, type)
+                            )
+            );
     return seat;
   }
 
   @Override
   public Seat findSeatByName(String name) {
     Seat seat = seatRepository
-      .findByName(name)
-      .orElseThrow(
-        () ->
-          new ResourceNotFoundException(
-            ErrorMessageCreator.NotFoundErrorMessage(name, type)
-          )
-      );
+            .findByName(name)
+            .orElseThrow(
+                    () ->
+                            new ResourceNotFoundException(
+                                    ErrorMessageCreator.NotFoundErrorMessage(name, type)
+                            )
+            );
     return seat;
   }
 
@@ -66,4 +67,26 @@ public class SeatServiceImpl implements SeatService {
   public void addSeat(Seat seat) {
     seatRepository.save(seat);
   }
+
+  @Override
+  public List<Seat> findByRowHallIdAndAvailable(Long id, Boolean available) {
+    List<Seat> seats = seatRepository.findByRowHallIdAndAvailable(id, available);
+    return seats;
+  }
+
+  @Override
+  public void updateSeatById(Long id, Boolean available) {
+      Seat foundSeat = seatRepository
+              .findById(id)
+              .orElseThrow(
+                      () ->
+                              new ResourceNotFoundException(
+                                      ErrorMessageCreator.NotFoundErrorMessage(id, type)
+                              )
+              );
+      foundSeat.setAvailable(available);
+      seatRepository.save(foundSeat);
+  }
 }
+
+
