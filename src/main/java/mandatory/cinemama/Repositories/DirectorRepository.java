@@ -8,12 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DirectorRepository extends JpaRepository<Director, Long> {
-
   public Optional<Director> findById(Long id);
 
-  public List<Director> findByFirstName(String firstName);
-
-  public List<Director> findByLastName(String lastName);
-
-  public Director findByFirstNameAndLastName(String firstName, String lastName);
+  public List<Director> findByNameContaining(String name);
 }

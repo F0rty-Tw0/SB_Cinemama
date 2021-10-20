@@ -40,36 +40,10 @@ public class ActorServiceImpl implements ActorService {
   }
 
   @Override
-  public List<Actor> findActorsByFirstName(String firstName) {
-    List<Actor> actors = actorRepository.findByFirstName(firstName);
+  public List<Actor> findActorsByNameContaining(String firstName) {
+    List<Actor> actors = actorRepository.findByNameContaining(firstName);
     ErrorMessageCreator.throwErrorIfNotFound(actors, firstName, type);
     return actors;
-  }
-
-  @Override
-  public List<Actor> findActorsByLastName(String lastName) {
-    List<Actor> actors = actorRepository.findByLastName(lastName);
-    ErrorMessageCreator.throwErrorIfNotFound(actors, lastName, type);
-    return actors;
-  }
-
-  @Override
-  public Actor findActorsByFirstNameAndLastName(
-    String firstName,
-    String lastName
-  ) {
-    Actor actor = actorRepository
-      .findByFirstNameAndLastName(firstName, lastName)
-      .orElseThrow(
-        () ->
-          new ResourceNotFoundException(
-            ErrorMessageCreator.NotFoundErrorMessage(
-              firstName + " " + lastName,
-              type
-            )
-          )
-      );
-    return actor;
   }
 
   @Override
@@ -83,8 +57,7 @@ public class ActorServiceImpl implements ActorService {
           )
       );
 
-    foundActor.setFirstName(actor.getFirstName());
-    foundActor.setLastName(actor.getLastName());
+    foundActor.setName(actor.getName());
     actorRepository.save(foundActor);
   }
 

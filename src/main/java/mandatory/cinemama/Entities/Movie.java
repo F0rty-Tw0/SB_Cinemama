@@ -55,7 +55,7 @@ public class Movie {
   @Column(nullable = false, length = 10)
   @Min(0)
   @Max(10)
-  private Integer rating;
+  private Double rating;
 
   @Column
   private String trailer;
@@ -71,7 +71,7 @@ public class Movie {
     int minAge,
     LocalTime screenTime,
     String info,
-    @Min(0) @Max(10) Integer rating,
+    @Min(0) @Max(10) Double rating,
     List<Actor> actors,
     List<Director> directors,
     List<Genre> genres,

@@ -7,6 +7,5 @@ import lombok.Setter;
 @Setter
 public class ActorDTO {
 
-  private String firstName;
-  private String lastName;
+  private String name;
 }

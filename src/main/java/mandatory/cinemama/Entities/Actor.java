@@ -29,21 +29,14 @@ public class Actor {
   private Long id;
 
   @Column(nullable = false)
-  private String firstName;
-
-  @Column(nullable = false)
-  private String lastName;
+  private String name;
 
   @JsonIgnore
-  @ManyToMany(
-    mappedBy = "actors",
-    fetch = FetchType.LAZY
-  )
+  @ManyToMany(mappedBy = "actors", fetch = FetchType.LAZY)
   private List<Movie> movies = new ArrayList<Movie>();
 
-  public Actor(String firstName, String lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
+  public Actor(String name) {
+    this.name = name;
   }
 
   @PreRemove

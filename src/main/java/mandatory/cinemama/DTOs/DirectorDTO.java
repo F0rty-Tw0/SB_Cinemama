@@ -7,6 +7,5 @@ import lombok.Setter;
 @Setter
 public class DirectorDTO {
 
-  private String firstName;
-  private String lastName;
+  private String name;
 }

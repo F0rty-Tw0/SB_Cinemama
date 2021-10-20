@@ -37,34 +37,12 @@ public class DirectorServiceImpl implements DirectorService {
   }
 
   @Override
-  public List<Director> findDirectorsByFirstName(String firstName) {
-    List<Director> directors = directorRepository.findByFirstName(firstName);
+  public List<Director> findDirectorsByNameContaining(String firstName) {
+    List<Director> directors = directorRepository.findByNameContaining(
+      firstName
+    );
     ErrorMessageCreator.throwErrorIfNotFound(directors, firstName, type);
     return directors;
-  }
-
-  @Override
-  public List<Director> findDirectorsByLastName(String lastName) {
-    List<Director> directors = directorRepository.findByLastName(lastName);
-    ErrorMessageCreator.throwErrorIfNotFound(directors, lastName, type);
-    return directors;
-  }
-
-  @Override
-  public Director findDirectorByFirstNameAndLastName(
-    String firstName,
-    String lastName
-  ) {
-    Director director = directorRepository.findByFirstNameAndLastName(
-      firstName,
-      lastName
-    );
-    ErrorMessageCreator.throwErrorIfNotFound(
-      director,
-      firstName + " " + lastName,
-      type
-    );
-    return director;
   }
 
   @Override
@@ -77,8 +55,7 @@ public class DirectorServiceImpl implements DirectorService {
             ErrorMessageCreator.NotFoundErrorMessage(id, type)
           )
       );
-    foundDirector.setFirstName(director.getFirstName());
-    foundDirector.setLastName(director.getLastName());
+    foundDirector.setName(director.getName());
     directorRepository.save(foundDirector);
   }
 

@@ -8,14 +8,7 @@ public interface ActorService {
 
   public List<Actor> findAllActors();
 
-  public List<Actor> findActorsByFirstName(String firstName);
-
-  public List<Actor> findActorsByLastName(String lastName);
-
-  public Actor findActorsByFirstNameAndLastName(
-    String firstName,
-    String lastName
-  );
+  public List<Actor> findActorsByNameContaining(String name);
 
   public void updateActorById(Actor actor, Long id);
 

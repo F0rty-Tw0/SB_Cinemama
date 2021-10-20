@@ -23,24 +23,8 @@ public class DirectorController implements DirectorControllerInterface {
   }
 
   @Override
-  public List<Director> findDirectorsByFirstName(String firstName) {
-    return directorService.findDirectorsByFirstName(firstName);
-  }
-
-  @Override
-  public List<Director> findDirectorsByLastName(String lastName) {
-    return directorService.findDirectorsByLastName(lastName);
-  }
-
-  @Override
-  public Director findDirectorByFirstNameAndLastName(
-    String firstName,
-    String lastName
-  ) {
-    return directorService.findDirectorByFirstNameAndLastName(
-      firstName,
-      lastName
-    );
+  public List<Director> findDirectorsByNameContaining(String name) {
+    return directorService.findDirectorsByNameContaining(name);
   }
 
   @Override

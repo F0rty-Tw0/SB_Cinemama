@@ -24,21 +24,8 @@ public class ActorController implements ActorControllerInterface {
   }
 
   @Override
-  public List<Actor> findActorsByFirstName(String firstName) {
-    return actorService.findActorsByFirstName(firstName);
-  }
-
-  @Override
-  public List<Actor> findActorsByLastName(String lastName) {
-    return actorService.findActorsByLastName(lastName);
-  }
-
-  @Override
-  public Actor findActorsByFirstNameAndLastName(
-    String firstName,
-    String lastName
-  ) {
-    return actorService.findActorsByFirstNameAndLastName(firstName, lastName);
+  public List<Actor> findActorsByNameContaining(String name) {
+    return actorService.findActorsByNameContaining(name);
   }
 
   @Override

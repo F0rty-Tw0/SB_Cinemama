@@ -3,6 +3,8 @@ package mandatory.cinemama.Configurations;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.Entities.Director;
@@ -151,11 +153,14 @@ public class DatabaseConfig implements CommandLineRunner {
       }
     }
     if (directorService.findAllDirectors().isEmpty()) {
-      directorService.addDirector(new Director("Christopher", "Nolan"));
+      directorService.addDirector(new Director("Peter Jackson"));
     }
 
     if (actorService.findAllActors().isEmpty()) {
-      actorService.addActor(new Actor("Bruce", "Willis"));
+      actorService.addActor(new Actor("Elijah Wood"));
+      actorService.addActor(new Actor("Ian McKellen"));
+      actorService.addActor(new Actor("Liv Tyler"));
+      actorService.addActor(new Actor("Viggo Mortensen"));
     }
 
     if (genreService.findAllGenres().isEmpty()) {
@@ -168,24 +173,31 @@ public class DatabaseConfig implements CommandLineRunner {
     if (movieService.findAllMovies().isEmpty()) {
       movieService.addMovie(
         new Movie(
-          "Lord of the Rings 2",
-          16,
-          LocalTime.of(2, 30),
-          "The Lord of the Rings is the saga of a group of sometimes reluctant heroes who set forth to save their world from consummate evil. Its many worlds and creatures were drawn from Tolkien's extensive knowledge of philology and folklore.",
-          9,
-          actorService.findActorsByFirstName("Bruce"),
-          directorService.findDirectorsByLastName("Nolan"),
-          List.of(
-            genreService.findGenreByName("ACTION"),
-            genreService.findGenreByName("FANTASY"),
-            genreService.findGenreByName("OTHER")
+          "Lord of the Rings: The Two Towers",
+          11,
+          LocalTime.of(2, 59),
+          "Frodo and Sam are trekking to Mordor to destroy the One Ring of Power while Gimli, Legolas and Aragorn search for the orc-captured Merry and Pippin. All along, nefarious wizard Saruman awaits the Fellowship members at the Orthanc Tower in Isengard.",
+          8.7d,
+          new ArrayList<Actor>(
+            Arrays.asList(
+              actorService.findActorsByNameContaining("Elijah Wood").get(0),
+              actorService.findActorsByNameContaining("Ian McKellen").get(0),
+              actorService.findActorsByNameContaining("Liv Tyler").get(0),
+              actorService.findActorsByNameContaining("Viggo Mortensen").get(0)
+            )
           ),
-                "LbfMDwc4azU",
-                // https://www.youtu.be/<TRAILER ID>
-                "5VTN0pR8gcqV3EPUHHfMGnJYN9L.jpg",
-                // https://www.themoviedb.org/t/p/original/<POSTER ID>
-                "121-the-lord-of-the-rings-the-two-towers"
-                // https://www.themoviedb.org/movie/<ID OF THE IMAGES>/images/backdrops
+          directorService.findDirectorsByNameContaining("Peter Jackson"),
+          List.of(
+            genreService.findGenreByName("ADVENTURE"),
+            genreService.findGenreByName("FANTASY"),
+            genreService.findGenreByName("ACTION")
+          ),
+          "LbfMDwc4azU",
+          // https://www.youtu.be/<TRAILER ID>
+          "5VTN0pR8gcqV3EPUHHfMGnJYN9L.jpg",
+          // https://www.themoviedb.org/t/p/original/<POSTER ID>
+          "121-the-lord-of-the-rings-the-two-towers"
+          // https://www.themoviedb.org/movie/<ID OF THE IMAGES>/images/backdrops
         )
       );
     }
