@@ -1,10 +1,10 @@
-package mandatory.cinemama.Utils.Converters;
+package mandatory.cinemama.Utils;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 
-public class MovieDTOConverter {
+public class DTOConverter {
 
   private ModelMapper modelMapper = new ModelMapper();
 

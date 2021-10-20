@@ -8,7 +8,7 @@ import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.MovieRepository;
-import mandatory.cinemama.Utils.Converters.MovieDTOConverter;
+import mandatory.cinemama.Utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class MovieServiceImpl implements MovieService {
   @Autowired
   private MovieRepository movieRepository;
 
-  private MovieDTOConverter movieDTOConverter = new MovieDTOConverter();
+  private DTOConverter DTOConverter = new DTOConverter();
   private String type = "Movie";
 
   @Override
@@ -46,7 +46,7 @@ public class MovieServiceImpl implements MovieService {
   ) {
     List<Movie> movies = movieRepository.findInfoByTitleContaining(title);
     System.out.println("Found " + movies.get(0).getTitle());
-    return movieDTOConverter.mapListDTO(movies, MovieDTO.class);
+    return DTOConverter.mapListDTO(movies, MovieDTO.class);
   }
 
   @Override
