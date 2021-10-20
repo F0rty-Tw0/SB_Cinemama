@@ -159,8 +159,8 @@ public interface ScheduleControllerInterface {
   @PatchMapping("/{id}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
   public void updateScheduleById(
-    @PathVariable Long id,
-    @RequestBody Schedule schedule
+    @RequestBody Schedule schedule,
+    @PathVariable Long id
   );
 
   @ApiOperation(

@@ -46,7 +46,7 @@ public interface MovieControllerInterface {
   @ApiOperation(
     value = " - Returns the Movie Info based on the Title",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>Title</b> of a Movies to retrieve a <b>Movie</b> Object."
+    notes = "Enter the <b>Title</b> of a Movies to retrieve a <b>Movie</b> Object.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
   )
   @GetMapping("/info/title/{title}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
@@ -57,7 +57,7 @@ public interface MovieControllerInterface {
   @ApiOperation(
     value = " - Returns the Movies based on the Title",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>Title</b> of a Movie to retrieve a <b>Descriptive Movie Info</b> Object. <br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
+    notes = "Enter the <b>Title</b> of a Movie to retrieve a <b>Descriptive Movie Info</b> Object."
   )
   @GetMapping("/title/{title}")
   @PreAuthorize("hasRole('ADMIN')")

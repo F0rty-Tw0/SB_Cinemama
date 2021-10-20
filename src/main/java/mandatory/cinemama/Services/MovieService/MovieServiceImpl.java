@@ -18,7 +18,6 @@ public class MovieServiceImpl implements MovieService {
   @Autowired
   private MovieRepository movieRepository;
 
-  private DTOConverter DTOConverter = new DTOConverter();
   private String type = "Movie";
 
   @Override

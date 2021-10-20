@@ -12,9 +12,9 @@ public interface TheaterService {
 
   public Theater findTheaterByAddress(String address);
 
+  public void updateTheaterById(Theater theater, Long id);
+
   public void addTheater(Theater theater);
 
   public void deleteTheaterById(Long id);
-
-  public void updateTheaterById(Theater theater, Long id);
 }
