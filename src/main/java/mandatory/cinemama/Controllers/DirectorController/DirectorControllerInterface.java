@@ -41,33 +41,14 @@ public interface DirectorControllerInterface {
   public Director findDirectorById(@PathVariable Long id);
 
   @ApiOperation(
-    value = " - Returns the Directors found by First Name",
+    value = " - Returns the Directors found by Name",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>First Name</b> of a Director to retrieve a list of <b>Directors</b>."
+    notes = "Enter the <b>Name</b> of a Director to retrieve a list of <b>Directors</b>."
   )
-  @GetMapping("/first-name/{firstName}")
+  @GetMapping("/name/{name}")
   @PreAuthorize("hasRole('ADMIN')")
-  public List<Director> findDirectorsByFirstName(@PathVariable String name);
-
-  @ApiOperation(
-    value = " - Returns the Directors found by Last Name",
-    authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>Last Name</b> of a Director to retrieve a list of <b>Director</b>."
-  )
-  @GetMapping("/last-name/{lastName}")
-  @PreAuthorize("hasRole('ADMIN')")
-  public List<Director> findDirectorsByLastName(@PathVariable String name);
-
-  @ApiOperation(
-    value = " - Returns the Director found by First Name and Last Name",
-    authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>First Name and Last Name</b> of a Director to retrieve a <b>Director</b> Object."
-  )
-  @GetMapping("/first-name/{firstName}/last-name/{lastName}")
-  @PreAuthorize("hasRole('ADMIN')")
-  public Director findDirectorByFirstNameAndLastName(
-    @PathVariable String firstName,
-    @PathVariable String lastName
+  public List<Director> findDirectorsByNameContaining(
+    @PathVariable String name
   );
 
   @ApiOperation(

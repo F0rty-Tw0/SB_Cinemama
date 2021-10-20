@@ -41,34 +41,13 @@ public interface ActorControllerInterface {
   public Actor findActorById(@PathVariable Long id);
 
   @ApiOperation(
-    value = " - Returns the Actors by the First Name",
+    value = " - Returns the Actors by the Name",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>First Name</b> of an Actor to retrieve a list of <b>Actors</b>."
+    notes = "Enter the <b>Name</b> of an Actor to retrieve a list of <b>Actors</b>."
   )
-  @GetMapping("/first-name/{firstName}")
+  @GetMapping("/name/{name}")
   @PreAuthorize("hasRole('ADMIN')")
-  public List<Actor> findActorsByFirstName(@PathVariable String firstName);
-
-  @ApiOperation(
-    value = " - Returns the Actors by the Last Name",
-    authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>Last Name</b> of an Actor to retrieve a list of <b>Actors</b>."
-  )
-  @GetMapping("/last-name/{lastName}")
-  @PreAuthorize("hasRole('ADMIN')")
-  public List<Actor> findActorsByLastName(@PathVariable String lastName);
-
-  @ApiOperation(
-    value = " - Returns the Actor by the First Name and Last Name",
-    authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>First Name and Last Name</b> of an Actor to retrieve an <b>Actor</b> Object."
-  )
-  @GetMapping("/first-name/{firstName}/last-name/{lastName}")
-  @PreAuthorize("hasRole('ADMIN')")
-  public Actor findActorsByFirstNameAndLastName(
-    @PathVariable String firstName,
-    @PathVariable String lastName
-  );
+  public List<Actor> findActorsByNameContaining(@PathVariable String name);
 
   @ApiOperation(
     value = " - Updates an Actor by Id and the details we enter",

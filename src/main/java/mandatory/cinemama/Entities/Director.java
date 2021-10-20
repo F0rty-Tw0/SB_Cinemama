@@ -28,18 +28,14 @@ public class Director {
   private Long id;
 
   @Column(nullable = false)
-  private String firstName;
-
-  @Column(nullable = false)
-  private String lastName;
+  private String name;
 
   @JsonIgnore
   @ManyToMany(mappedBy = "directors", fetch = FetchType.LAZY)
   private List<Movie> movies = new ArrayList<Movie>();
 
-  public Director(String firstName, String lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
+  public Director(String name) {
+    this.name = name;
   }
 
   @PreRemove

@@ -8,14 +8,7 @@ public interface DirectorService {
 
   public Director findDirectorById(Long id);
 
-  public List<Director> findDirectorsByFirstName(String firstName);
-
-  public List<Director> findDirectorsByLastName(String lastName);
-
-  public Director findDirectorByFirstNameAndLastName(
-    String firstName,
-    String lastName
-  );
+  public List<Director> findDirectorsByNameContaining(String name);
 
   public void updateDirectorById(Director director, Long id);
 
