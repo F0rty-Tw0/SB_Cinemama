@@ -5,12 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import mandatory.cinemama.Entities.Hall.HallRow.Row;
+import mandatory.cinemama.Entities.Schedule;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,8 +33,15 @@ public class Seat {
   @ManyToOne
   private Row row;
 
-  public Seat(String name, Row row) {
+  @Column(nullable = false, length = 40, columnDefinition = "boolean default true")
+  private Boolean available;
+
+  /*@ManyToMany
+  private List<Schedule> schedules;*/
+
+  public Seat(String name, Row row, Boolean available) {
     this.name = name;
     this.row = row;
+    this.available = available;
   }
 }

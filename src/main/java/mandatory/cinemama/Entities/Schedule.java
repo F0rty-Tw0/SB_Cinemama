@@ -3,18 +3,22 @@ package mandatory.cinemama.Entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import mandatory.cinemama.Entities.Hall.Hall;
+import mandatory.cinemama.Entities.Hall.Seat;
 
 @Entity
 @Getter
@@ -51,6 +55,9 @@ public class Schedule {
 
   @JsonFormat(pattern = "HH:mm")
   private LocalTime screenTime;
+
+    /*@ManyToMany(mapped by = "schedules")
+  private List<Schedule> seats;*/
 
   public Schedule(LocalTime timeSlot, LocalDate date, Movie movie, Hall hall) {
     this.timeSlot = timeSlot;

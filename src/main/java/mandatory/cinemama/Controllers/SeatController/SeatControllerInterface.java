@@ -7,6 +7,7 @@ import java.util.List;
 import mandatory.cinemama.Entities.Hall.Seat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Api(
@@ -59,4 +60,23 @@ public interface SeatControllerInterface {
   @GetMapping("/hall/{id}")
   @PreAuthorize("hasRole('ADMIN')")
   public List<Seat> findSeatsByRowHallId(Long id);
+
+  @ApiOperation(
+          value = " - Returns All the Seats inside a Hall by Hall Id and Availability",
+          authorizations = { @Authorization(value = "jwtToken") },
+          notes = "Enter the <b>Hall Id</b> and <b>Availability</b> of a Hall to retrieve a list of <b>Seats</b>."
+  )
+  @GetMapping("/hall/{id}/available/{available}")
+  @PreAuthorize("hasRole('ADMIN')")
+  public List<Seat> findByRowHallIdAndAvailable(Long id, Boolean available);
+
+  @ApiOperation(
+          value = " - Updates the Theater based on the id and details we enter",
+          authorizations = { @Authorization(value = "jwtToken") },
+          notes = "Enter the <b>id</b> of a Theater and the Theater Object in the body in order to update an existing <b>Theater</b>."
+  )
+  @PatchMapping("/{id}")
+  @PreAuthorize("hasRole('ADMIN')")
+  public void updateSeatById(Long id, Boolean available);
+
 }
