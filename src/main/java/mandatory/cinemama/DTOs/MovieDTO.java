@@ -6,11 +6,9 @@ import java.time.LocalTime;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MovieDTO {
 
@@ -22,6 +20,8 @@ public class MovieDTO {
 
   @JsonFormat(pattern = "HH:mm")
   private LocalTime screenTime;
+
+  private Double rating;
 
   private String info;
   private String trailer;
