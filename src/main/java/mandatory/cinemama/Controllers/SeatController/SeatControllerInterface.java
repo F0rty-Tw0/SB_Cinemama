@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Api(
   tags = "Seats",
-  description = "- (OPTIONAL)A secured endpoint for <b>Seats</b>, requires a role of <b>ADMIN</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only).</em>"
+  description = "- (OPTIONAL) A secured endpoint for <b>Seats</b>, requires a role of <b>ADMIN</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only).</em>"
 )
 @RequestMapping("/api/seats")
 public interface SeatControllerInterface {
