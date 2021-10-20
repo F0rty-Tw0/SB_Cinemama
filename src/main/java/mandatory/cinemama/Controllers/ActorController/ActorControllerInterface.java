@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Api(
-  tags = "Actor (OPTIONAL)",
-  description = "- A secured endpoint for <b>Actors</b>, requires a role of <b>ADMIN</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only)</em>"
+  tags = "Actor",
+  description = "- (OPTIONAL) A secured endpoint for <b>Actors</b>, requires a role of <b>ADMIN</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only)</em>"
 )
 @RequestMapping("/api/actors")
 public interface ActorControllerInterface {

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Api(
-  tags = "Movies",
+  tags = "Movies - (REQUIRED)",
   description = "- A secured endpoint for <b>Movies</b>, requires a role of <b>ADMIN or MANAGER</b> to operate! - <em>(This endpoint is partly required just for the testing and learning purposes).</em>"
 )
 @RequestMapping("/api/movies")

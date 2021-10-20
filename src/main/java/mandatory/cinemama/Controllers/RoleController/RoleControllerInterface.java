@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Api(
-  tags = "Roles (OPTIONAL)",
-  description = "- A secured endpoint for <b>Roles</b>, requires a role of <b>ADMIN</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only).</em>"
+  tags = "Roles",
+  description = "- (OPTIONAL) A secured endpoint for <b>Roles</b>, requires a role of <b>ADMIN</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only).</em>"
 )
 @RequestMapping("/api/roles")
 public interface RoleControllerInterface {
