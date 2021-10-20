@@ -45,7 +45,6 @@ public class MovieServiceImpl implements MovieService {
     String title
   ) {
     List<Movie> movies = movieRepository.findInfoByTitleContaining(title);
-    System.out.println("Found " + movies.get(0).getTitle());
     return DTOConverter.mapListDTO(movies, MovieDTO.class);
   }
 
