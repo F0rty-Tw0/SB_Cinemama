@@ -4,6 +4,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import java.util.List;
+
+import mandatory.cinemama.DTOs.DirectorDTO;
 import mandatory.cinemama.Entities.Director;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Api(
   tags = "Directors",
-  description = "- (OPTIONAL) A secured endpoint for <b>Directors</b>, requires a role of <b>ADMIN</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only).</em>"
+  description = "- (OPTIONAL) A secured endpoint for <b>Directors</b>, requires a role of <b>ADMIN, MANAGER, CUSTOMER</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only).</em>"
 )
 @RequestMapping("/api/directors")
 public interface DirectorControllerInterface {
@@ -43,11 +45,11 @@ public interface DirectorControllerInterface {
   @ApiOperation(
     value = " - Returns the Directors found by Name",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>Name</b> of a Director to retrieve a list of <b>Directors</b>."
+    notes = "Enter the <b>Name</b> of a Director to retrieve a list of <b>Directors</b>.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
   )
   @GetMapping("/name/{name}")
-  @PreAuthorize("hasRole('ADMIN')")
-  public List<Director> findDirectorsByNameContaining(
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  public List<DirectorDTO> findDirectorsByNameContaining(
     @PathVariable String name
   );
 
@@ -59,7 +61,7 @@ public interface DirectorControllerInterface {
   @PatchMapping("/{id}")
   @PreAuthorize("hasRole('ADMIN')")
   public void updateDirectorById(
-    @RequestBody Director director,
+    @RequestBody DirectorDTO director,
     @PathVariable Long id
   );
 
@@ -71,7 +73,7 @@ public interface DirectorControllerInterface {
   @PostMapping
   @PreAuthorize("hasRole('ADMIN')")
   @ResponseStatus(HttpStatus.CREATED)
-  public void addDirector(@RequestBody Director director);
+  public void addDirector(@RequestBody DirectorDTO director);
 
   @ApiOperation(
     value = " - Deletes a Director by Id",

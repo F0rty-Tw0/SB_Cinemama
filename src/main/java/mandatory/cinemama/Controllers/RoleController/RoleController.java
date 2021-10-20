@@ -1,6 +1,8 @@
 package mandatory.cinemama.Controllers.RoleController;
 
 import java.util.List;
+
+import mandatory.cinemama.DTOs.RoleDTO;
 import mandatory.cinemama.Entities.User.Role;
 import mandatory.cinemama.Services.RoleService.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class RoleController implements RoleControllerInterface {
   }
 
   @Override
-  public Role findRoleByName(String name) {
+  public RoleDTO findRoleByName(String name) {
     return roleService.findRoleByName(name);
   }
 }

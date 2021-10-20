@@ -1,4 +1,4 @@
-package mandatory.cinemama.DTOs;
+package mandatory.cinemama.DTOs.ImputDTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TheaterDTO {
+public class HallInputDTO {
 
   private String name;
-  private String address;
+  private TheaterInputDTO theater;
 }

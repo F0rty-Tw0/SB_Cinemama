@@ -1,10 +1,12 @@
 package mandatory.cinemama.Services.TheaterService;
 
 import java.util.List;
+import mandatory.cinemama.DTOs.TheaterDTO;
 import mandatory.cinemama.Entities.Theater;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.TheaterRepository;
+import mandatory.cinemama.Utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -18,8 +20,15 @@ public class TheaterServiceImpl implements TheaterService {
   private String type = "Theater";
 
   @Override
-  public List<Theater> findAllTheaters() {
+  public List<Theater> findAllTheaters(boolean isExtended) {
     List<Theater> theaters = theaterRepository.findAll();
+    if (!isExtended) {
+      List<TheaterDTO> theaterDTOs = DTOConverter.mapListDTO(
+        theaters,
+        TheaterDTO.class
+      );
+      theaters = DTOConverter.mapListDTO(theaterDTOs, Theater.class);
+    }
     return theaters;
   }
 
@@ -37,33 +46,21 @@ public class TheaterServiceImpl implements TheaterService {
   }
 
   @Override
-  public Theater findTheaterByName(String name) {
-    Theater theater = theaterRepository
-      .findByName(name)
-      .orElseThrow(
-        () ->
-          new ResourceNotFoundException(
-            ErrorMessageCreator.NotFoundErrorMessage(name, type)
-          )
-      );
-    return theater;
+  public List<TheaterDTO> findTheatersByName(String name) {
+    List<Theater> theaters = theaterRepository.findByNameContaining(name);
+    ErrorMessageCreator.throwErrorIfNotFound(theaters, name, type);
+    return DTOConverter.mapListDTO(theaters, TheaterDTO.class);
   }
 
   @Override
-  public Theater findTheaterByAddress(String address) {
-    Theater theater = theaterRepository
-      .findByAddress(address)
-      .orElseThrow(
-        () ->
-          new ResourceNotFoundException(
-            ErrorMessageCreator.NotFoundErrorMessage(address, type)
-          )
-      );
-    return theater;
+  public List<TheaterDTO> findTheatersByAddress(String address) {
+    List<Theater> theaters = theaterRepository.findByAddressContaining(address);
+    ErrorMessageCreator.throwErrorIfNotFound(theaters, address, type);
+    return DTOConverter.mapListDTO(theaters, TheaterDTO.class);
   }
 
   @Override
-  public void updateTheaterById(Theater theater, Long id) {
+  public void updateTheaterById(TheaterDTO theater, Long id) {
     Theater foundTheater = theaterRepository
       .findById(id)
       .orElseThrow(
@@ -78,8 +75,8 @@ public class TheaterServiceImpl implements TheaterService {
   }
 
   @Override
-  public void addTheater(Theater theater) {
-    theaterRepository.save(theater);
+  public void addTheater(TheaterDTO theater) {
+    theaterRepository.save(DTOConverter.mapDTO(theater, Theater.class));
   }
 
   @Override

@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +20,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @Table(name = "roles", schema = "cinemama")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Role {
 
   @Id

@@ -3,11 +3,13 @@ package mandatory.cinemama.Services.ActorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
+import mandatory.cinemama.DTOs.ActorDTO;
 import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.ActorRepository;
+import mandatory.cinemama.Utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,14 +42,14 @@ public class ActorServiceImpl implements ActorService {
   }
 
   @Override
-  public List<Actor> findActorsByNameContaining(String firstName) {
+  public List<ActorDTO> findActorsByNameContaining(String firstName) {
     List<Actor> actors = actorRepository.findByNameContaining(firstName);
     ErrorMessageCreator.throwErrorIfNotFound(actors, firstName, type);
-    return actors;
+    return DTOConverter.mapListDTO(actors, ActorDTO.class);
   }
 
   @Override
-  public void updateActorById(Actor actor, Long id) {
+  public void updateActorById(ActorDTO actor, Long id) {
     Actor foundActor = actorRepository
       .findById(id)
       .orElseThrow(
@@ -62,8 +64,8 @@ public class ActorServiceImpl implements ActorService {
   }
 
   @Override
-  public void addActor(Actor actor) {
-    actorRepository.save(actor);
+  public void addActor(ActorDTO actor) {
+    actorRepository.save(DTOConverter.mapDTO(actor, Actor.class));
   }
 
   @Override

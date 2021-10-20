@@ -3,6 +3,7 @@ package mandatory.cinemama.Controllers.UserController;
 import java.util.List;
 import mandatory.cinemama.Entities.User.User;
 import mandatory.cinemama.Services.UserService.UserService;
+import mandatory.cinemama.Utils.CheckExtended;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +19,11 @@ public class UserController implements UserControllerInterface {
   }
 
   @Override
-  public User findUserByEmail(String email) {
-    return userService.findUserByEmail(email);
+  public Object findUserByEmail(String email, String type) {
+    return userService.findUserByEmail(
+      email,
+      CheckExtended.isExtended(type)
+    );
   }
 
   @Override

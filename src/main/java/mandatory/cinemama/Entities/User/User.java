@@ -1,8 +1,10 @@
 package mandatory.cinemama.Entities.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,9 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +24,8 @@ import mandatory.cinemama.Entities.Reservation;
 @NoArgsConstructor
 @Entity
 @Table(name = "users", schema = "cinemama")
+@JsonIgnoreProperties("password")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
 
   @Id
@@ -39,6 +40,7 @@ public class User {
   private String password;
 
   @ManyToOne
+  @JsonIgnoreProperties("id")
   private Role role;
 
   @JsonIgnore

@@ -1,6 +1,8 @@
 package mandatory.cinemama.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -21,11 +23,12 @@ import mandatory.cinemama.Entities.Hall.Hall;
 @NoArgsConstructor
 @Entity
 @Table(name = "theaters", schema = "cinemama")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Theater {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   @Column(nullable = false, length = 40, unique = true)
   private String name;

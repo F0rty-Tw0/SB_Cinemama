@@ -1,11 +1,13 @@
 package mandatory.cinemama.Services.RoleService;
 
 import java.util.List;
+import mandatory.cinemama.DTOs.RoleDTO;
 import mandatory.cinemama.Entities.User.ERoles;
 import mandatory.cinemama.Entities.User.Role;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.RoleRepository;
+import mandatory.cinemama.Utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,12 +39,11 @@ public class RoleServiceImpl implements RoleService {
   }
 
   @Override
-  public Role findRoleByName(String name) {
+  public RoleDTO findRoleByName(String name) {
+    String roleName = "ROLE_" + name.toUpperCase();
     try {
-      Role role = roleRepository
-        .findByName(ERoles.valueOf(name.toUpperCase()))
-        .get();
-      return role;
+      Role role = roleRepository.findByName(ERoles.valueOf(roleName)).get();
+      return DTOConverter.mapDTO(role, RoleDTO.class);
     } catch (IllegalArgumentException e) {
       throw new IllegalArgumentException(
         ErrorMessageCreator.NotFoundErrorMessage(name, type)

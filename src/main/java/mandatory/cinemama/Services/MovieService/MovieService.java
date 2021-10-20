@@ -6,27 +6,23 @@ import mandatory.cinemama.DTOs.MovieDTO;
 import mandatory.cinemama.Entities.Movie;
 
 public interface MovieService {
-  public List<Movie> findAllMovies();
+  public List<Movie> findAllMovies(boolean isExtended);
 
   public Movie findMovieById(Long id);
 
-  public Movie findMovieByTitle(String title);
+  public List<MovieDTO> findMovieByTitle(String title);
 
-  public List<MovieDTO> findDescriptiveMovieInfoByMovieTitleContaining(
-    String title
-  );
+  public List<MovieDTO> findMoviesByInfoContaining(String info);
 
-  public List<Movie> findMoviesByInfoContaining(String info);
+  public List<MovieDTO> findMoviesByMinAgeLessThan(int minAge);
 
-  public List<Movie> findMoviesByMinAgeLessThan(int minAge);
+  public List<MovieDTO> findMoviesByMinAgeGreaterThan(int minAge);
 
-  public List<Movie> findMoviesByMinAgeGreaterThan(int minAge);
+  public List<MovieDTO> findMoviesByRating(int rating);
 
-  public List<Movie> findMoviesByRating(int rating);
+  public List<MovieDTO> findMoviesByScreenTimeLessThan(LocalTime screenTime);
 
-  public List<Movie> findMoviesByScreenTimeLessThan(LocalTime screenTime);
-
-  public List<Movie> findMoviesByScreenTimeGreaterThan(LocalTime screenTime);
+  public List<MovieDTO> findMoviesByScreenTimeGreaterThan(LocalTime screenTime);
 
   public void updateMovieById(Movie movie, Long id);
 

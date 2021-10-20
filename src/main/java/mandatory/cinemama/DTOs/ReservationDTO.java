@@ -15,5 +15,6 @@ public class ReservationDTO {
   @JsonIgnoreProperties("row")
   private List<SeatDTO> seats;
 
+  @JsonIgnoreProperties("role")
   private UserDTO user;
 }

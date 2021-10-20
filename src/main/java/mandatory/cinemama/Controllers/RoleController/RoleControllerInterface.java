@@ -4,6 +4,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import java.util.List;
+
+import mandatory.cinemama.DTOs.RoleDTO;
 import mandatory.cinemama.Entities.User.Role;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,9 +38,9 @@ public interface RoleControllerInterface {
   @ApiOperation(
     value = " - Returns the Role by Name",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>Name</b> of a Role to retrieve a <b>Role</b> Object."
+    notes = "Enter the <b>Name</b> of a Role without the prefix 'ROLE_' to retrieve a <b>Role</b> Object."
   )
   @GetMapping("/name/{name}")
   @PreAuthorize("hasRole('ADMIN')")
-  public Role findRoleByName(String name);
+  public RoleDTO findRoleByName(String name);
 }

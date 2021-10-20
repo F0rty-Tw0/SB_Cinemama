@@ -3,6 +3,8 @@ package mandatory.cinemama.Controllers.HallController;
 import java.util.List;
 import javax.transaction.Transactional;
 
+import mandatory.cinemama.DTOs.HallDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.HallInputDTO;
 import mandatory.cinemama.Entities.Hall.Hall;
 import mandatory.cinemama.Services.HallService.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,17 +32,17 @@ public class HallController implements HallControllerInterface {
   }
 
   @Override
-  public void updateHallById(Hall hall, Long id) {
+  public void updateHallById(HallInputDTO hall, Long id) {
     hallService.updateHallById(hall, id);
   }
 
   @Override
-  public void addHall(Hall hall) {
+  public void addHall(HallInputDTO hall) {
     hallService.addHall(hall);
   }
 
   @Override
-  public List<Hall> findHallsByTheaterId(Long id) {
+  public List<HallDTO> findHallsByTheaterId(Long id) {
     return hallService.findHallsByTheaterId(id);
   }
 

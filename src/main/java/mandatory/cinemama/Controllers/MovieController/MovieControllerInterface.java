@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Api(
@@ -26,13 +27,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequestMapping("/api/movies")
 public interface MovieControllerInterface {
   @ApiOperation(
-    value = " - Returns all the Movies",
+    value = " - Returns all the Movies ('type=extended' - extends the returned data - Requires ADMIN rights)",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Execute to retrieve all <b>Movies</b>."
+    notes = "Execute to retrieve all <b>Movies</b>.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
   )
   @GetMapping
-  @PreAuthorize("hasRole('ADMIN')")
-  public List<Movie> findAllMovies();
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  public List<Movie> findAllMovies(@RequestParam(required = false) String type);
 
   @ApiOperation(
     value = " - Returns the Movie based on the Id",
@@ -44,24 +45,13 @@ public interface MovieControllerInterface {
   public Movie findMovieById(@PathVariable Long id);
 
   @ApiOperation(
-    value = " - Returns the Movie Info based on the Title",
+    value = " - Returns the Movies Info based on the Title",
     authorizations = { @Authorization(value = "jwtToken") },
     notes = "Enter the <b>Title</b> of a Movies to retrieve a <b>Movie</b> Object.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
   )
-  @GetMapping("/info/title/{title}")
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public List<MovieDTO> findDescriptiveMovieInfoByMovieTitleContaining(
-    @PathVariable String title
-  );
-
-  @ApiOperation(
-    value = " - Returns the Movies based on the Title",
-    authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>Title</b> of a Movie to retrieve a <b>Descriptive Movie Info</b> Object."
-  )
   @GetMapping("/title/{title}")
-  @PreAuthorize("hasRole('ADMIN')")
-  public Movie findMovieByTitle(@PathVariable String title);
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  public List<MovieDTO> findMovieByTitle(@PathVariable String title);
 
   @ApiOperation(
     value = " - Returns the Movies based on the Info text",
@@ -70,7 +60,7 @@ public interface MovieControllerInterface {
   )
   @GetMapping("/info/{info}")
   @PreAuthorize("hasRole('ADMIN')")
-  public List<Movie> findMoviesByInfoContaining(@PathVariable String info);
+  public List<MovieDTO> findMoviesByInfoContaining(@PathVariable String info);
 
   @ApiOperation(
     value = " - Returns the Movies based on the Minimum age which is Less than input",
@@ -79,7 +69,7 @@ public interface MovieControllerInterface {
   )
   @GetMapping("/less-min-age/{minAge}")
   @PreAuthorize("hasRole('ADMIN')")
-  public List<Movie> findMoviesByMinAgeLessThan(@PathVariable int minAge);
+  public List<MovieDTO> findMoviesByMinAgeLessThan(@PathVariable int minAge);
 
   @ApiOperation(
     value = " - Returns the Movies based on the Minimum age which is Greater than input",
@@ -88,7 +78,7 @@ public interface MovieControllerInterface {
   )
   @GetMapping("/greater-min-age/{minAge}")
   @PreAuthorize("hasRole('ADMIN')")
-  public List<Movie> findMoviesByMinAgeGreaterThan(@PathVariable int minAge);
+  public List<MovieDTO> findMoviesByMinAgeGreaterThan(@PathVariable int minAge);
 
   @ApiOperation(
     value = " - Returns the Movies based on the Rating",
@@ -97,7 +87,7 @@ public interface MovieControllerInterface {
   )
   @GetMapping("/rating/{rating}")
   @PreAuthorize("hasRole('ADMIN')")
-  public List<Movie> findMoviesByRating(@PathVariable int rating);
+  public List<MovieDTO> findMoviesByRating(@PathVariable int rating);
 
   @ApiOperation(
     value = " - Returns the Movies based on the Screen Time which is Less than input",
@@ -106,7 +96,7 @@ public interface MovieControllerInterface {
   )
   @GetMapping("/less-screen-time/{screenTime}")
   @PreAuthorize("hasRole('ADMIN')")
-  public List<Movie> findMoviesByScreenTimeLessThan(
+  public List<MovieDTO> findMoviesByScreenTimeLessThan(
     @PathVariable @DateTimeFormat(pattern = "HH:mm") LocalTime screenTime
   );
 
@@ -117,7 +107,7 @@ public interface MovieControllerInterface {
   )
   @GetMapping("/greater-screen-time/{screenTime}")
   @PreAuthorize("hasRole('ADMIN')")
-  public List<Movie> findMoviesByScreenTimeGreaterThan(
+  public List<MovieDTO> findMoviesByScreenTimeGreaterThan(
     @PathVariable @DateTimeFormat(pattern = "HH:mm") LocalTime screenTime
   );
 

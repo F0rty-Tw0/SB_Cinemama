@@ -4,6 +4,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import java.util.List;
+
+import mandatory.cinemama.DTOs.HallDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.HallInputDTO;
 import mandatory.cinemama.Entities.Hall.Hall;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,7 +41,7 @@ public interface HallControllerInterface {
   )
   @GetMapping("/theater/{id}")
   @PreAuthorize("hasRole('ADMIN')")
-  public List<Hall> findHallsByTheaterId(@PathVariable Long id);
+  public List<HallDTO> findHallsByTheaterId(@PathVariable Long id);
 
   @ApiOperation(
     value = " - Returns the Hall based on Id",
@@ -65,7 +68,7 @@ public interface HallControllerInterface {
   )
   @PatchMapping("/{id}")
   @PreAuthorize("hasRole('ADMIN')")
-  public void updateHallById(@RequestBody Hall hall, @PathVariable Long id);
+  public void updateHallById(@RequestBody HallInputDTO hall, @PathVariable Long id);
 
   @ApiOperation(
     value = "Adds a Hall to the database",
@@ -75,7 +78,7 @@ public interface HallControllerInterface {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   @PreAuthorize("hasRole('ADMIN')")
-  public void addHall(@RequestBody Hall hall);
+  public void addHall(@RequestBody HallInputDTO hall);
 
   @ApiOperation(
     value = " - Deletes a Hall by Id",

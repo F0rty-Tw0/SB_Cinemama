@@ -8,14 +8,14 @@ import mandatory.cinemama.Entities.User.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Api(
   tags = "Users",
-  description = "- (OPTIONAL) A secured endpoint for <b>Users</b>, requires a role of <b>ADMIN</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only).</em>"
+  description = "- (OPTIONAL) A secured endpoint for <b>Users</b>, requires a role of <b>ADMIN, MANAGER, CUSTOMER</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only).</em>"
 )
 @RequestMapping("/api/users")
 public interface UserControllerInterface {
-  //TODO: MUST HAVE DTO TO HIDE THE PASSWORD!!!
   @ApiOperation(
     value = " - Returns all Users available in the database",
     authorizations = { @Authorization(value = "jwtToken") },
@@ -26,13 +26,16 @@ public interface UserControllerInterface {
   public List<User> findAllUsers();
 
   @ApiOperation(
-    value = " - Returns the User by Email",
+    value = " - Returns the User by Email ('type=extended' - extends the returned data - Requires ADMIN rights)",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>Email</b> of a User to retrieve an <b>User</b> Object."
+    notes = "Enter the <b>Email</b> of a User to retrieve an <b>User</b> Object.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
   )
   @GetMapping("/email/{email}")
-  @PreAuthorize("hasRole('ADMIN')")
-  public User findUserByEmail(String email);
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  public Object findUserByEmail(
+    String email,
+    @RequestParam(required = false) String type
+  );
 
   @ApiOperation(
     value = " - Returns the User by Role",
