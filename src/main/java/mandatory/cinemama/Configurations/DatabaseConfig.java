@@ -179,7 +179,13 @@ public class DatabaseConfig implements CommandLineRunner {
             genreService.findGenreByName("ACTION"),
             genreService.findGenreByName("FANTASY"),
             genreService.findGenreByName("OTHER")
-          )
+          ),
+                "LbfMDwc4azU",
+                // https://www.youtu.be/<TRAILER ID>
+                "5VTN0pR8gcqV3EPUHHfMGnJYN9L.jpg",
+                // https://www.themoviedb.org/t/p/original/<POSTER ID>
+                "121-the-lord-of-the-rings-the-two-towers"
+                // https://www.themoviedb.org/movie/<ID OF THE IMAGES>/images/backdrops
         )
       );
     }

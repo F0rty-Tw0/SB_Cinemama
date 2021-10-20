@@ -3,6 +3,7 @@ package mandatory.cinemama.Controllers.MovieController;
 import java.time.LocalTime;
 import java.util.List;
 import javax.transaction.Transactional;
+import mandatory.cinemama.DTOs.MovieDTO;
 import mandatory.cinemama.Entities.Movie;
 import mandatory.cinemama.Services.MovieService.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ public class MovieController implements MovieControllerInterface {
   @Override
   public Movie findMovieById(Long id) {
     return movieService.findMovieById(id);
+  }
+
+  public MovieDTO findDescriptiveMovieInfoByMovieTitle(String title) {
+    return movieService.findDescriptiveMovieInfoByMovieTitle(title);
   }
 
   @Override

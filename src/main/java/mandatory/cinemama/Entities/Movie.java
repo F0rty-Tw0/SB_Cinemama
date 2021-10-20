@@ -42,6 +42,7 @@ public class Movie {
   @ManyToMany
   private List<Director> directors = new ArrayList<>();
 
+  @Column
   private int minAge;
 
   @Column(nullable = false, length = 30)
@@ -56,6 +57,15 @@ public class Movie {
   @Max(10)
   private Integer rating;
 
+  @Column
+  private String trailer;
+
+  @Column
+  private String image;
+
+  @Column
+  private String poster;
+
   public Movie(
     String title,
     int minAge,
@@ -64,7 +74,10 @@ public class Movie {
     @Min(0) @Max(10) Integer rating,
     List<Actor> actors,
     List<Director> directors,
-    List<Genre> genres
+    List<Genre> genres,
+    String trailer,
+    String image,
+    String poster
   ) {
     this.title = title;
     this.minAge = minAge;
@@ -74,6 +87,9 @@ public class Movie {
     this.actors = actors;
     this.directors = directors;
     this.genres = genres;
+    this.trailer = trailer;
+    this.image = image;
+    this.poster = poster;
   }
 
   public void addDirector(Director director) {

@@ -2,11 +2,13 @@ package mandatory.cinemama.Services.MovieService;
 
 import java.time.LocalTime;
 import java.util.List;
+import mandatory.cinemama.DTOs.MovieDTO;
 import mandatory.cinemama.Entities.Movie;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.MovieRepository;
+import mandatory.cinemama.Utils.Converters.MovieDTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ public class MovieServiceImpl implements MovieService {
   @Autowired
   private MovieRepository movieRepository;
 
+  private MovieDTOConverter movieDTOConverter = new MovieDTOConverter();
   private String type = "Movie";
 
   @Override
@@ -38,8 +41,8 @@ public class MovieServiceImpl implements MovieService {
   }
 
   @Override
-  public Movie findMovieByTitle(String title) {
-    Movie foundMovies = movieRepository
+  public MovieDTO findDescriptiveMovieInfoByMovieTitle(String title) {
+    Movie movie = movieRepository
       .findByTitle(title)
       .orElseThrow(
         () ->
@@ -47,53 +50,64 @@ public class MovieServiceImpl implements MovieService {
             ErrorMessageCreator.NotFoundErrorMessage(title, type)
           )
       );
-    return foundMovies;
+    return movieDTOConverter.convertMovieToMovieDTO(movie);
+  }
+
+  @Override
+  public Movie findMovieByTitle(String title) {
+    Movie movie = movieRepository
+      .findByTitle(title)
+      .orElseThrow(
+        () ->
+          new ResourceNotFoundException(
+            ErrorMessageCreator.NotFoundErrorMessage(title, type)
+          )
+      );
+    return movie;
   }
 
   @Override
   public List<Movie> findMoviesByInfoContaining(String info) {
-    List<Movie> allMovies = movieRepository.findByInfoContaining(info);
-    ErrorMessageCreator.throwErrorIfNotFound(allMovies, info, type);
-    return allMovies;
+    List<Movie> movies = movieRepository.findByInfoContaining(info);
+    ErrorMessageCreator.throwErrorIfNotFound(movies, info, type);
+    return movies;
   }
 
   @Override
   public List<Movie> findMoviesByMinAgeLessThan(int minAge) {
-    List<Movie> allMovies = movieRepository.findByMinAgeLessThan(minAge);
-    ErrorMessageCreator.throwErrorIfNotFound(allMovies, minAge, type);
-    return allMovies;
+    List<Movie> movies = movieRepository.findByMinAgeLessThan(minAge);
+    ErrorMessageCreator.throwErrorIfNotFound(movies, minAge, type);
+    return movies;
   }
 
   @Override
   public List<Movie> findMoviesByMinAgeGreaterThan(int minAge) {
-    List<Movie> allMovies = movieRepository.findByMinAgeGreaterThan(minAge);
-    ErrorMessageCreator.throwErrorIfNotFound(allMovies, minAge, type);
-    return allMovies;
+    List<Movie> movies = movieRepository.findByMinAgeGreaterThan(minAge);
+    ErrorMessageCreator.throwErrorIfNotFound(movies, minAge, type);
+    return movies;
   }
 
   @Override
   public List<Movie> findMoviesByRating(int rating) {
-    List<Movie> allMovies = movieRepository.findByRating(rating);
-    ErrorMessageCreator.throwErrorIfNotFound(allMovies, rating, type);
-    return allMovies;
+    List<Movie> movies = movieRepository.findByRating(rating);
+    ErrorMessageCreator.throwErrorIfNotFound(movies, rating, type);
+    return movies;
   }
 
   @Override
   public List<Movie> findMoviesByScreenTimeLessThan(LocalTime screenTime) {
-    List<Movie> allMovies = movieRepository.findByScreenTimeLessThan(
-      screenTime
-    );
-    ErrorMessageCreator.throwErrorIfNotFound(allMovies, screenTime, type);
-    return allMovies;
+    List<Movie> movies = movieRepository.findByScreenTimeLessThan(screenTime);
+    ErrorMessageCreator.throwErrorIfNotFound(movies, screenTime, type);
+    return movies;
   }
 
   @Override
   public List<Movie> findMoviesByScreenTimeGreaterThan(LocalTime screenTime) {
-    List<Movie> allMovies = movieRepository.findByScreenTimeGreaterThan(
+    List<Movie> movies = movieRepository.findByScreenTimeGreaterThan(
       screenTime
     );
-    ErrorMessageCreator.throwErrorIfNotFound(allMovies, screenTime, type);
-    return allMovies;
+    ErrorMessageCreator.throwErrorIfNotFound(movies, screenTime, type);
+    return movies;
   }
 
   @Override

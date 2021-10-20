@@ -2,6 +2,8 @@ package mandatory.cinemama.Services.MovieService;
 
 import java.time.LocalTime;
 import java.util.List;
+
+import mandatory.cinemama.DTOs.MovieDTO;
 import mandatory.cinemama.Entities.Movie;
 
 public interface MovieService {
@@ -10,6 +12,8 @@ public interface MovieService {
   public Movie findMovieById(Long id);
 
   public Movie findMovieByTitle(String title);
+
+  public MovieDTO findDescriptiveMovieInfoByMovieTitle(String title);
 
   public List<Movie> findMoviesByInfoContaining(String info);
 

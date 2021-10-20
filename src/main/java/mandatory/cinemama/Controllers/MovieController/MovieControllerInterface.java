@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import java.time.LocalTime;
 import java.util.List;
+import mandatory.cinemama.DTOs.MovieDTO;
 import mandatory.cinemama.Entities.Movie;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Api(
   tags = "Movies - (REQUIRED)",
-  description = "- A secured endpoint for <b>Movies</b>, requires a role of <b>ADMIN or MANAGER</b> to operate! - <em>(This endpoint is partly required just for the testing and learning purposes).</em>"
+  description = "- A secured endpoint for <b>Movies</b>, requires a role of <b>ADMIN, MANAGER, CUSTOMER</b> to operate! - <em>(This endpoint is partly required just for the testing and learning purposes).</em>"
 )
 @RequestMapping("/api/movies")
 public interface MovieControllerInterface {
@@ -43,9 +44,20 @@ public interface MovieControllerInterface {
   public Movie findMovieById(@PathVariable Long id);
 
   @ApiOperation(
-    value = " - Returns the Movies based on the Title",
+    value = " - Returns the Movie Info based on the Title",
     authorizations = { @Authorization(value = "jwtToken") },
     notes = "Enter the <b>Title</b> of a Movies to retrieve a <b>Movie</b> Object."
+  )
+  @GetMapping("/info/title/{title}")
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  public MovieDTO findDescriptiveMovieInfoByMovieTitle(
+    @PathVariable String title
+  );
+
+  @ApiOperation(
+    value = " - Returns the Movies based on the Title",
+    authorizations = { @Authorization(value = "jwtToken") },
+    notes = "Enter the <b>Title</b> of a Movie to retrieve a <b>Descriptive Movie Info</b> Object. <br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
   )
   @GetMapping("/title/{title}")
   @PreAuthorize("hasRole('ADMIN')")
