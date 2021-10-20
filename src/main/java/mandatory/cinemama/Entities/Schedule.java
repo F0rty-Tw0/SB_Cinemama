@@ -1,6 +1,7 @@
 package mandatory.cinemama.Entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -52,6 +53,7 @@ public class Schedule {
   @ManyToOne
   private Movie movie;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY)
   private List<Reservation> reservations;
 
