@@ -20,7 +20,6 @@ import mandatory.cinemama.Entities.Schedule;
 import mandatory.cinemama.Entities.Theater;
 import mandatory.cinemama.Entities.User.ERoles;
 import mandatory.cinemama.Entities.User.Role;
-import mandatory.cinemama.Repositories.ReservationRepository;
 import mandatory.cinemama.Security.AuthenticationPayload.Request.SignupRequest;
 import mandatory.cinemama.Services.ActorService.ActorService;
 import mandatory.cinemama.Services.AuthService.AuthService;
@@ -28,6 +27,7 @@ import mandatory.cinemama.Services.DirectorService.DirectorService;
 import mandatory.cinemama.Services.GenreService.GenreService;
 import mandatory.cinemama.Services.HallService.HallService;
 import mandatory.cinemama.Services.MovieService.MovieService;
+import mandatory.cinemama.Services.ReservationService.ReservationService;
 import mandatory.cinemama.Services.RoleService.RoleService;
 import mandatory.cinemama.Services.RowService.RowService;
 import mandatory.cinemama.Services.ScheduleService.ScheduleService;
@@ -80,7 +80,7 @@ public class DatabaseConfig implements CommandLineRunner {
   private SeatService seatService;
 
   @Autowired
-  private ReservationRepository reservationRepository;
+  private ReservationService reservationService;
 
   @Override
   public void run(String... args) throws Exception {
@@ -241,8 +241,8 @@ public class DatabaseConfig implements CommandLineRunner {
         )
       );
     }
-    if (reservationRepository.findAll().isEmpty()) {
-      reservationRepository.save(
+    if (reservationService.findAllReservations().isEmpty()) {
+      reservationService.addReservation(
         new Reservation(
           false,
           scheduleService.findAllSchedules().get(0),

@@ -82,8 +82,8 @@ public class ScheduleController implements ScheduleControllerInterface {
   }
 
   @Override
-  public void updateScheduleById(Long id, Schedule schedule) {
-    scheduleService.updateScheduleById(id, schedule);
+  public void updateScheduleById(Schedule schedule, Long id) {
+    scheduleService.updateScheduleById(schedule, id);
   }
 
   @Override

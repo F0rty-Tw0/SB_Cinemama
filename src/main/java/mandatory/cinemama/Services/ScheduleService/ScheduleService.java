@@ -36,7 +36,7 @@ public interface ScheduleService {
 
   public List<Schedule> findSchedulesByHallTheaterId(Long id);
 
-  public void updateScheduleById(Long id, Schedule schedule);
+  public void updateScheduleById(Schedule schedule, Long id);
 
   public void addSchedule(Schedule schedule);
 

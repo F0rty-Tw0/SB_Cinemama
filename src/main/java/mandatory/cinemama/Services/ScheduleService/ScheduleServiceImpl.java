@@ -127,7 +127,7 @@ public class ScheduleServiceImpl implements ScheduleService {
   }
 
   @Override
-  public void updateScheduleById(Long id, Schedule schedule) {
+  public void updateScheduleById(Schedule schedule, Long id) {
     Schedule newSchedule = scheduleRepository
       .findById(id)
       .orElseThrow(

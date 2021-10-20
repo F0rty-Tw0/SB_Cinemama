@@ -1,7 +1,6 @@
 package mandatory.cinemama.Services.HallService;
 
 import java.util.List;
-
 import mandatory.cinemama.Entities.Hall.Hall;
 
 public interface HallService {
@@ -13,9 +12,9 @@ public interface HallService {
 
   public Hall findHallByName(String name);
 
+  public void updateHallById(Hall hall, Long id);
+
   public void addHall(Hall hall); //Merry christmas
 
   public void deleteHallById(Long id);
-
-  public void updateHallById(Hall hall, Long id);
 }
