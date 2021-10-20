@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Api(
-  tags = "Schedules",
+  tags = "Schedules - (REQUIRED)",
   description = "- A secured endpoint for <b>Schedules</b>, requires a role of <b>ADMIN, MANAGER, CUSTOMER</b> to operate! - <em>(This endpoint is partly required just for the testing and learning purposes.)</em>"
 )
 @RequestMapping("/api/schedules")
