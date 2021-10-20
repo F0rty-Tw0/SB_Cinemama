@@ -50,7 +50,7 @@ public interface MovieControllerInterface {
   )
   @GetMapping("/info/title/{title}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public MovieDTO findDescriptiveMovieInfoByMovieTitle(
+  public List<MovieDTO> findDescriptiveMovieInfoByMovieTitleContaining(
     @PathVariable String title
   );
 
@@ -120,15 +120,6 @@ public interface MovieControllerInterface {
   public List<Movie> findMoviesByScreenTimeGreaterThan(
     @PathVariable @DateTimeFormat(pattern = "HH:mm") LocalTime screenTime
   );
-
-  @ApiOperation(
-    value = " - Returns the Info based on the Title",
-    authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>Title</b> of a Movie to retrieve an <b>Info</b> of a Movie."
-  )
-  @GetMapping("/info-from-title{title}")
-  @PreAuthorize("hasRole('ADMIN')")
-  public String findInfoByTitle(@PathVariable String title);
 
   @ApiOperation(
     value = " - Updates the Movie based on the id and details we enter",

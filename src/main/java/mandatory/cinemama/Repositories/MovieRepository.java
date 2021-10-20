@@ -26,5 +26,5 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
   public Optional<Movie> findById(Long id);
 
-  public Optional<Movie> findInfoByTitle(String title);
+  public List<Movie> findInfoByTitleContaining(String title);
 }

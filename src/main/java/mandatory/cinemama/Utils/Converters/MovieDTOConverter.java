@@ -1,18 +1,21 @@
 package mandatory.cinemama.Utils.Converters;
 
-import mandatory.cinemama.DTOs.MovieDTO;
-import mandatory.cinemama.Entities.Movie;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 
 public class MovieDTOConverter {
 
   private ModelMapper modelMapper = new ModelMapper();
 
-  public MovieDTO convertMovieToMovieDTO(Movie movie) {
-    return modelMapper.map(movie, MovieDTO.class);
+  public <S, T> T mapDTO(S source, Class<T> targetClass) {
+    return modelMapper.map(source, targetClass);
   }
 
-  public Movie convertMovieDTOToEntity(MovieDTO movieDTO) {
-    return modelMapper.map(movieDTO, Movie.class);
+  public <S, T> List<T> mapListDTO(List<S> source, Class<T> targetClass) {
+    return source
+      .stream()
+      .map(element -> modelMapper.map(element, targetClass))
+      .collect(Collectors.toList());
   }
 }
