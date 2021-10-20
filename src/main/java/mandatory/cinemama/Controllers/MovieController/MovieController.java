@@ -1,9 +1,14 @@
 package mandatory.cinemama.Controllers.MovieController;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
+
+import mandatory.cinemama.DTO.MovieDTO;
+import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.Entities.Movie;
+import mandatory.cinemama.Services.ActorService.ActorService;
 import mandatory.cinemama.Services.MovieService.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,15 +18,54 @@ public class MovieController implements MovieControllerInterface {
 
   @Autowired
   private MovieService movieService;
+  private ActorService actorService;
 
   @Override
   public List<Movie> findAllMovies() {
     return movieService.findAllMovies();
   }
 
+    @Override
+    public Movie findMovieById(Long id) { return movieService.findMovieById(id);
+    }
+
   @Override
-  public Movie findMovieById(Long id) {
-    return movieService.findMovieById(id);
+  public MovieDTO getInfoById(Long id) {
+    Movie myMovie = movieService.findMovieById(id);
+    MovieDTO movieDTO = new MovieDTO();
+    movieDTO.setTitle(myMovie.getTitle());
+    List<String> genre = new ArrayList<>();
+    for(int i=0; i<myMovie.getGenres().size(); i++){
+      genre.add(myMovie.getGenres().get(i).getName().toString());
+    }
+    movieDTO.setGenres(genre);
+
+   List<String> actors = new ArrayList<>();
+   for(int i=0; i<myMovie.getActors().size(); i++){
+       String actor= "";
+       actor = myMovie.getActors().get(i).getFirstName().concat(" ");
+      actor = actor.concat(myMovie.getActors().get(i).getLastName());
+    actors.add(actor);
+    }
+
+      movieDTO.setActors(actors);
+
+      List<String> directors = new ArrayList<>();
+    for(int i=0; i<myMovie.getDirectors().size(); i++){
+        String director = "";
+     director = myMovie.getDirectors().get(i).getFirstName().concat(" ");
+     director= director.concat(myMovie.getDirectors().get(i).getLastName());
+     directors.add(director);
+    }
+    movieDTO.setDirectors(directors);
+
+    movieDTO.setMinage(myMovie.getMinAge());
+    movieDTO.setInfo(myMovie.getInfo());
+    movieDTO.setScreenTime(myMovie.getScreenTime());
+    movieDTO.setTrailerLink(myMovie.getTrailerLink());
+    movieDTO.setImageLink(myMovie.getImageLink());
+    movieDTO.setPosterLink(myMovie.getPosterLink());
+    return movieDTO;
   }
 
   @Override

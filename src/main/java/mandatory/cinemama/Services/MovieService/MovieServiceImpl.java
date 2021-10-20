@@ -2,6 +2,7 @@ package mandatory.cinemama.Services.MovieService;
 
 import java.time.LocalTime;
 import java.util.List;
+
 import mandatory.cinemama.Entities.Movie;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
@@ -23,6 +24,7 @@ public class MovieServiceImpl implements MovieService {
     List<Movie> allMovies = movieRepository.findAll();
     return allMovies;
   }
+
 
   @Override
   public Movie findMovieById(Long id) {

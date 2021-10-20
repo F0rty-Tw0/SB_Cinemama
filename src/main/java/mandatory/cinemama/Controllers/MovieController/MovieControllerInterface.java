@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import java.time.LocalTime;
 import java.util.List;
+
+import mandatory.cinemama.DTO.MovieDTO;
 import mandatory.cinemama.Entities.Movie;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -46,6 +48,16 @@ public interface MovieControllerInterface {
     value = " - Returns the Movies based on the Title",
     authorizations = { @Authorization(value = "jwtToken") },
     notes = "Enter the <b>Title</b> of a Movies to retrieve a <b>Movie</b> Object."
+  )
+
+  @GetMapping("/getMovieInfo/{id}")
+  @PreAuthorize("hasRole('ADMIN')")
+  public MovieDTO getInfoById(@PathVariable Long id);
+
+  @ApiOperation(
+          value = " - Returns the Detials about the Movie based on the Id",
+          authorizations = { @Authorization(value = "jwtToken") },
+          notes = "Enter the <b>ID</b> of a Movies to retrieve a <b>Movie</b> details."
   )
   @GetMapping("/title/{title}")
   @PreAuthorize("hasRole('ADMIN')")

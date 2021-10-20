@@ -56,6 +56,15 @@ public class Movie {
   @Max(10)
   private Integer rating;
 
+  @Column(nullable = false)
+  private String trailerLink;
+
+  @Column(nullable = false)
+  private String imageLink;
+
+  @Column(nullable = false)
+  private String posterLink;
+
   public Movie(
     String title,
     int minAge,
@@ -64,7 +73,10 @@ public class Movie {
     @Min(0) @Max(10) Integer rating,
     List<Actor> actors,
     List<Director> directors,
-    List<Genre> genres
+    List<Genre> genres,
+     String trailerLink,
+     String imageLink,
+     String posterLink
   ) {
     this.title = title;
     this.minAge = minAge;
@@ -74,7 +86,12 @@ public class Movie {
     this.actors = actors;
     this.directors = directors;
     this.genres = genres;
+    this.trailerLink = trailerLink;
+    this.imageLink = imageLink;
+    this.posterLink = posterLink;
   }
+
+
 
   public void addDirector(Director director) {
     directors.add(director);
