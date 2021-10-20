@@ -8,7 +8,7 @@ import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.MovieRepository;
-import mandatory.cinemama.Utils.Converters.MovieDTOConverter;
+import mandatory.cinemama.Utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class MovieServiceImpl implements MovieService {
   @Autowired
   private MovieRepository movieRepository;
 
-  private MovieDTOConverter movieDTOConverter = new MovieDTOConverter();
+  private DTOConverter DTOConverter = new DTOConverter();
   private String type = "Movie";
 
   @Override
@@ -41,16 +41,12 @@ public class MovieServiceImpl implements MovieService {
   }
 
   @Override
-  public MovieDTO findDescriptiveMovieInfoByMovieTitle(String title) {
-    Movie movie = movieRepository
-      .findByTitle(title)
-      .orElseThrow(
-        () ->
-          new ResourceNotFoundException(
-            ErrorMessageCreator.NotFoundErrorMessage(title, type)
-          )
-      );
-    return movieDTOConverter.convertMovieToMovieDTO(movie);
+  public List<MovieDTO> findDescriptiveMovieInfoByMovieTitleContaining(
+    String title
+  ) {
+    List<Movie> movies = movieRepository.findInfoByTitleContaining(title);
+    System.out.println("Found " + movies.get(0).getTitle());
+    return DTOConverter.mapListDTO(movies, MovieDTO.class);
   }
 
   @Override
@@ -108,19 +104,6 @@ public class MovieServiceImpl implements MovieService {
     );
     ErrorMessageCreator.throwErrorIfNotFound(movies, screenTime, type);
     return movies;
-  }
-
-  @Override
-  public String findInfoByTitle(String title) {
-    Movie info = movieRepository
-      .findInfoByTitle(title)
-      .orElseThrow(
-        () ->
-          new ResourceNotFoundException(
-            ErrorMessageCreator.NotFoundErrorMessage(title, type)
-          )
-      );
-    return info.getInfo();
   }
 
   @Override

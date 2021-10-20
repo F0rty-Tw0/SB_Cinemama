@@ -14,6 +14,7 @@ public enum EGenres {
   SCI_FI,
   THRILLER,
   WESTERN,
+  ADVENTURE,
   OTHER,
   // WE CAN ADD MORE
 }

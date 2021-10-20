@@ -25,8 +25,10 @@ public class MovieController implements MovieControllerInterface {
     return movieService.findMovieById(id);
   }
 
-  public MovieDTO findDescriptiveMovieInfoByMovieTitle(String title) {
-    return movieService.findDescriptiveMovieInfoByMovieTitle(title);
+  public List<MovieDTO> findDescriptiveMovieInfoByMovieTitleContaining(
+    String title
+  ) {
+    return movieService.findDescriptiveMovieInfoByMovieTitleContaining(title);
   }
 
   @Override
@@ -62,11 +64,6 @@ public class MovieController implements MovieControllerInterface {
   @Override
   public List<Movie> findMoviesByScreenTimeGreaterThan(LocalTime screenTime) {
     return movieService.findMoviesByScreenTimeGreaterThan(screenTime);
-  }
-
-  @Override
-  public String findInfoByTitle(String title) {
-    return movieService.findInfoByTitle(title);
   }
 
   @Override
