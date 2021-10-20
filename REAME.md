@@ -3,7 +3,7 @@ README.md
 To ensure that the entities in the database created in the previous week could be seen, 
 
 F0rty-Tw0 (Artion Tofan)
-During the second sprint, I made the database bigger in size and updated the controllers so that overall, we had AuthContoller, DirectorController, HallContoller, MovieController, RoleController, RowController, ScheduleContoller, SeatController, TheaterController, UserController and the HomeController to handle all the necessary requests. 
+During the second sprint, I made the database bigger in size and updated the controllers so that overall, we had AuthController, DirectorController, HallController, MovieController, RoleController, RowController, ScheduleController, SeatController, TheaterController, UserController and the HomeController to handle all the necessary requests. 
 
 I took on the role of overseeing code that other members of the group were submitting. That way, everybody understood what the code was doing and helped not only with the communication but with the learning process from members of the group who were not so confident in their code.  In a project of this magnitude, it was important to support one another. 
 By utilizing modelMapper, this allowed me to list specific information related to the movie such as the director, actors and genre whenever information on a specific movie is requested. 
@@ -16,7 +16,7 @@ To avoid limitations, we decided to abandon the idea of having 10 rows and settl
 
 
 Pawe0733 (Pawel Stephien)
-Whilst the enpoints for services were being completed by Nikolai, we needed DTOs to transfer all the relevant data. This would end up showing the movie to the user.  I also worked alongside Artiom to create additional DTOs for Actor, Director and Genre 
+Whilst the endpoints for services were being completed by Nikolai, we needed DTOs to transfer all the relevant data. This would end up showing the movie to the user.  I also worked alongside Artiom to create additional DTOs for Actor, Director and Genre 
  
 As the second sprint came to a close, I was successful in completing all the DTOs along with the help of Artiom so that the 
 
