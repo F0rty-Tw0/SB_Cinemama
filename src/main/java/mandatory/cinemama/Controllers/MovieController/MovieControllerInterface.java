@@ -6,7 +6,7 @@ import io.swagger.annotations.Authorization;
 import java.time.LocalTime;
 import java.util.List;
 
-import mandatory.cinemama.DTO.MovieDTO;
+import mandatory.cinemama.DTOs.MovieDTO;
 import mandatory.cinemama.Entities.Movie;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
