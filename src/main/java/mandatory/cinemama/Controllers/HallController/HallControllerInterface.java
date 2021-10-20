@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Api(
-  tags = "Halls (OPTIONAL)",
-  description = "- A secured endpoint for <b>Halls</b>, requires a role of <b>ADMIN</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only).</em>"
+  tags = "Halls",
+  description = "- (OPTIONAL) A secured endpoint for <b>Halls</b>, requires a role of <b>ADMIN</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only).</em>"
 )
 @RequestMapping("/api/halls")
 public interface HallControllerInterface {

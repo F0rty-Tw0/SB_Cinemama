@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Api(
-  tags = "Authentication",
+  tags = "Authentication - (REQUIRED)",
   description = "- An endpoint for <b>Login</b> and <b>SignUp</b>"
 )
 @RequestMapping("/api/auth")
