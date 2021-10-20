@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,6 +38,7 @@ public class Seat {
   @ManyToOne
   private Row row;
 
+  @JsonIgnore
   @ManyToMany(mappedBy = "seats", fetch = FetchType.LAZY)
   private List<Reservation> reservation;
 

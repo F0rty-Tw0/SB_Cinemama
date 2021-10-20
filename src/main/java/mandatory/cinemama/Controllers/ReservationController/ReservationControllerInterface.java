@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Api(
   tags = "Reservations - (REQUIRED)",
-  description = "- A secured endpoint for <b>Reservations</b>, requires a role of <b>ADMIN, MANAGER, CUSTOMER</b> to operate! - <em>(This endpoint is partly required just for the testing and learning purposes).</em>"
+  description = "- A secured endpoint for <b>Reservations</b>, requires a role of <b>ADMIN, MANAGER, CUSTOMER</b> to operate!"
 )
 @RequestMapping("/api/reservations")
 public interface ReservationControllerInterface {
   @ApiOperation(
     value = " - Returns all the Reservations",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Execute to retrieve all <b>Reservations</b>.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
+    notes = "Execute to retrieve all <b>Reservations</b>."
   )
   @GetMapping
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  @PreAuthorize("hasRole('ADMIN')")
   public List<Reservation> findAllReservations();
 
   @ApiOperation(
