@@ -1,6 +1,8 @@
 package mandatory.cinemama.Services.ReservationService;
 
 import java.util.List;
+
+import mandatory.cinemama.DTOs.ReservationDTO;
 import mandatory.cinemama.Entities.Reservation;
 
 public interface ReservationService {
@@ -8,7 +10,7 @@ public interface ReservationService {
 
   public Reservation findReservationById(Long id);
 
-  public List<Reservation> findReservationsByUserId(Long id);
+  public List<ReservationDTO> findReservationsByUserId(Long id);
 
   public void updateReservationById(Reservation reservation, Long id);
 

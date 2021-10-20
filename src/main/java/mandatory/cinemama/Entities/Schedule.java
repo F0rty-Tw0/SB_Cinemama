@@ -47,6 +47,9 @@ public class Schedule {
   @Column(nullable = false)
   private LocalDate date;
 
+  @JsonFormat(pattern = "HH:mm")
+  private LocalTime screenTime;
+
   @ManyToOne
   private Hall hall;
 
@@ -56,9 +59,6 @@ public class Schedule {
   @JsonIgnore
   @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY)
   private List<Reservation> reservations;
-
-  @JsonFormat(pattern = "HH:mm")
-  private LocalTime screenTime;
 
   public Schedule(LocalTime timeSlot, LocalDate date, Movie movie, Hall hall) {
     this.timeSlot = timeSlot;
