@@ -1,10 +1,8 @@
 package mandatory.cinemama.Controllers.MovieController;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
-
 import mandatory.cinemama.DTOs.MovieDTO;
 import mandatory.cinemama.Entities.Movie;
 import mandatory.cinemama.Services.MovieService.MovieService;
@@ -27,43 +25,8 @@ public class MovieController implements MovieControllerInterface {
     return movieService.findMovieById(id);
   }
 
-  @Override
-  public MovieDTO getInfoById(Long id) {
-    Movie myMovie = movieService.findMovieById(id);
-    MovieDTO movieDTO = new MovieDTO();
-    movieDTO.setTitle(myMovie.getTitle());
-    List<String> genre = new ArrayList<>();
-    for (int i = 0; i < myMovie.getGenres().size(); i++) {
-      genre.add(myMovie.getGenres().get(i).getName().toString());
-    }
-    movieDTO.setGenres(genre);
-
-    List<String> actors = new ArrayList<>();
-    for (int i = 0; i < myMovie.getActors().size(); i++) {
-      String actor = "";
-      actor = myMovie.getActors().get(i).getFirstName().concat(" ");
-      actor = actor.concat(myMovie.getActors().get(i).getLastName());
-      actors.add(actor);
-    }
-
-    movieDTO.setActors(actors);
-
-    List<String> directors = new ArrayList<>();
-    for (int i = 0; i < myMovie.getDirectors().size(); i++) {
-      String director = "";
-      director = myMovie.getDirectors().get(i).getFirstName().concat(" ");
-      director = director.concat(myMovie.getDirectors().get(i).getLastName());
-      directors.add(director);
-    }
-    movieDTO.setDirectors(directors);
-
-    movieDTO.setMinAge(myMovie.getMinAge());
-    movieDTO.setInfo(myMovie.getInfo());
-    movieDTO.setScreenTime(myMovie.getScreenTime());
-    movieDTO.setTrailerLink(myMovie.getTrailerLink());
-    movieDTO.setImageLink(myMovie.getImageLink());
-    movieDTO.setPosterLink(myMovie.getPosterLink());
-    return movieDTO;
+  public MovieDTO findDescriptiveMovieInfoByMovieTitle(String title) {
+    return movieService.findDescriptiveMovieInfoByMovieTitle(title);
   }
 
   @Override

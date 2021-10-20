@@ -45,19 +45,18 @@ public interface MovieControllerInterface {
   public Movie findMovieById(@PathVariable Long id);
 
   @ApiOperation(
-    value = " - Returns the Movies based on the Title",
+    value = " - Returns the Movie Info based on the Title",
     authorizations = { @Authorization(value = "jwtToken") },
     notes = "Enter the <b>Title</b> of a Movies to retrieve a <b>Movie</b> Object."
   )
-
-  @GetMapping("/getMovieInfo/{id}")
-  @PreAuthorize("hasRole('ADMIN')")
-  public MovieDTO getInfoById(@PathVariable Long id);
+  @GetMapping("/info/title/{title}")
+  // @PreAuthorize("hasRole('ADMIN')")
+  public MovieDTO findDescriptiveMovieInfoByMovieTitle(@PathVariable String title);
 
   @ApiOperation(
-          value = " - Returns the Detials about the Movie based on the Id",
+          value = " - Returns the Movies based on the Title",
           authorizations = { @Authorization(value = "jwtToken") },
-          notes = "Enter the <b>ID</b> of a Movies to retrieve a <b>Movie</b> details."
+          notes = "Enter the <b>Title</b> of a Movies to retrieve a <b>Movie</b> Object."
   )
   @GetMapping("/title/{title}")
   @PreAuthorize("hasRole('ADMIN')")
