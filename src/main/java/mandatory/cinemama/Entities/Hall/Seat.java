@@ -36,6 +36,8 @@ public class Seat {
   @Column(nullable = false, length = 40, columnDefinition = "boolean default true")
   private Boolean available;
 
+  /*@ManyToMany
+  private List<Schedule> schedules;*/
 
   public Seat(String name, Row row, Boolean available) {
     this.name = name;

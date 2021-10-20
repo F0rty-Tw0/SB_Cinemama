@@ -56,6 +56,8 @@ public class Schedule {
   @JsonFormat(pattern = "HH:mm")
   private LocalTime screenTime;
 
+    /*@ManyToMany(mapped by = "schedules")
+  private List<Schedule> seats;*/
 
   public Schedule(LocalTime timeSlot, LocalDate date, Movie movie, Hall hall) {
     this.timeSlot = timeSlot;
