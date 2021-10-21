@@ -10,8 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -54,7 +54,7 @@ public interface ReservationControllerInterface {
     authorizations = { @Authorization(value = "jwtToken") },
     notes = "Enter the <b>id</b> of a Reservation and the Reservation Object in the body in order to update an existing <b>Reservation</b>.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
   )
-  @PatchMapping("/{id}")
+  @PutMapping("/{id}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public void updateReservationById(@RequestBody Reservation reservation, Long id);
 

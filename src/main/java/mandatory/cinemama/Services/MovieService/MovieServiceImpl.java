@@ -2,7 +2,11 @@ package mandatory.cinemama.Services.MovieService;
 
 import java.time.LocalTime;
 import java.util.List;
+import mandatory.cinemama.DTOs.ImputDTOs.MovieInputDTO;
 import mandatory.cinemama.DTOs.MovieDTO;
+import mandatory.cinemama.Entities.Actor;
+import mandatory.cinemama.Entities.Director;
+import mandatory.cinemama.Entities.Genre.Genre;
 import mandatory.cinemama.Entities.Movie;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
@@ -100,7 +104,7 @@ public class MovieServiceImpl implements MovieService {
   }
 
   @Override
-  public void updateMovieById(Movie movie, Long id) {
+  public void updateMovieById(MovieInputDTO movie, Long id) {
     Movie foundMovie = movieRepository
       .findById(id)
       .orElseThrow(
@@ -109,20 +113,48 @@ public class MovieServiceImpl implements MovieService {
             ErrorMessageCreator.NotFoundErrorMessage(id, type)
           )
       );
-
-    foundMovie.setActors(movie.getActors());
-    foundMovie.setDirectors(movie.getDirectors());
-    foundMovie.setGenres(movie.getGenres());
-    foundMovie.setTitle(movie.getTitle());
-    foundMovie.setInfo(movie.getInfo());
-    foundMovie.setRating(movie.getRating());
-    foundMovie.setMinAge(movie.getMinAge());
+    if (movie.getTitle() != null) {
+      foundMovie.setTitle(movie.getTitle());
+    }
+    if (movie.getMinAge() != null) {
+      foundMovie.setMinAge(movie.getMinAge());
+    }
+    if (movie.getInfo() != null) {
+      foundMovie.setInfo(movie.getInfo());
+    }
+    if (movie.getRating() != null) {
+      foundMovie.setRating(movie.getRating());
+    }
+    if (movie.getTrailer() != null) {
+      foundMovie.setTrailer(movie.getTrailer());
+    }
+    if (movie.getImage() != null) {
+      foundMovie.setImage(movie.getImage());
+    }
+    if (movie.getPoster() != null) {
+      foundMovie.setPoster(movie.getPoster());
+    }
+    if (movie.getActors() != null) {
+      foundMovie.setActors(
+        DTOConverter.mapSetDTO(movie.getActors(), Actor.class)
+      );
+    }
+    if (movie.getDirectors() != null) {
+      foundMovie.setDirectors(
+        DTOConverter.mapSetDTO(movie.getDirectors(), Director.class)
+      );
+    }
+    if (movie.getGenres() != null) {
+      foundMovie.setGenres(
+        DTOConverter.mapSetDTO(movie.getGenres(), Genre.class)
+      );
+    }
     movieRepository.save(foundMovie);
   }
 
   @Override
-  public void addMovie(Movie movie) {
-    movieRepository.save(movie);
+  public void addMovie(MovieInputDTO movie) {
+    movieRepository.save(DTOConverter.mapDTO(movie, Movie.class));
   }
 
   @Override

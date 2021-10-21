@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.List;
 import javax.transaction.Transactional;
 import mandatory.cinemama.DTOs.MovieDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.MovieInputDTO;
 import mandatory.cinemama.Entities.Movie;
 import mandatory.cinemama.Services.MovieService.MovieService;
 import mandatory.cinemama.Utils.CheckExtended;
@@ -57,17 +58,19 @@ public class MovieController implements MovieControllerInterface {
   }
 
   @Override
-  public List<MovieDTO> findMoviesByScreenTimeGreaterThan(LocalTime screenTime) {
+  public List<MovieDTO> findMoviesByScreenTimeGreaterThan(
+    LocalTime screenTime
+  ) {
     return movieService.findMoviesByScreenTimeGreaterThan(screenTime);
   }
 
   @Override
-  public void updateMovieById(Movie movie, Long id) {
+  public void updateMovieById(MovieInputDTO movie, Long id) {
     movieService.updateMovieById(movie, id);
   }
 
   @Override
-  public void addMovie(Movie movie) {
+  public void addMovie(MovieInputDTO movie) {
     movieService.addMovie(movie);
   }
 

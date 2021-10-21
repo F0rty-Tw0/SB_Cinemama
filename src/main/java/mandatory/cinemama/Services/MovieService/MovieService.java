@@ -3,6 +3,7 @@ package mandatory.cinemama.Services.MovieService;
 import java.time.LocalTime;
 import java.util.List;
 import mandatory.cinemama.DTOs.MovieDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.MovieInputDTO;
 import mandatory.cinemama.Entities.Movie;
 
 public interface MovieService {
@@ -24,9 +25,9 @@ public interface MovieService {
 
   public List<MovieDTO> findMoviesByScreenTimeGreaterThan(LocalTime screenTime);
 
-  public void updateMovieById(Movie movie, Long id);
+  public void updateMovieById(MovieInputDTO movie, Long id);
 
-  public void addMovie(Movie movie);
+  public void addMovie(MovieInputDTO movie);
 
   public void deleteMovieById(Long id);
 }
