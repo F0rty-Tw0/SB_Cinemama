@@ -25,7 +25,7 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
 
   @Query(
     "SELECT DISTINCT seat FROM Seat seat WHERE seat.row.hall.id = :hallId AND NOT EXISTS" +
-    "(SELECT reserved_seat FROM Seat reserved_seat JOIN reserved_seat.reservation AS sr WHERE reserved_seat.id = seat.id AND sr.schedule.date = :date AND sr.schedule.timeSlot = :timeSlot)"
+    "(SELECT reserved_seat FROM Seat reserved_seat JOIN reserved_seat.reservation AS sr WHERE reserved_seat.id = seat.id AND sr.schedule.date = :date AND sr.schedule.timeSlot = :timeSlot AND sr.schedule.hall.id = :hallId)"
   )
   public List<Seat> findAvailable(
     Long hallId,
