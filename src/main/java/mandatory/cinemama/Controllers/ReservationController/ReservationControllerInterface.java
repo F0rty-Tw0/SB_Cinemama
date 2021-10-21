@@ -53,10 +53,10 @@ public interface ReservationControllerInterface {
   @ApiOperation(
     value = " - Updates the Reservation based on the id and details we enter",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>id</b> of a Reservation and the Reservation Object in the body in order to update an existing <b>Reservation</b>.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
+    notes = "Enter the <b>id</b> of a Reservation and the Reservation Object in the body in order to update an existing <b>Reservation</b>.<br><em>Requires a role of a minimum <b>MANAGER</b></em>"
   )
   @PutMapping("/{id}")
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
   public void updateReservationById(@RequestBody ReservationInputDTO reservation, Long id);
 
   @ApiOperation(

@@ -37,4 +37,5 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
   );
 
   public List<Schedule> findByHallTheaterId(Long id);
+
 }
