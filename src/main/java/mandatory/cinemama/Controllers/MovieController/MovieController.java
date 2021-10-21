@@ -4,8 +4,10 @@ import java.time.LocalTime;
 import java.util.List;
 import javax.transaction.Transactional;
 import mandatory.cinemama.DTOs.MovieDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.MovieInputDTO;
 import mandatory.cinemama.Entities.Movie;
 import mandatory.cinemama.Services.MovieService.MovieService;
+import mandatory.cinemama.Utils.CheckExtended;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +18,8 @@ public class MovieController implements MovieControllerInterface {
   private MovieService movieService;
 
   @Override
-  public List<Movie> findAllMovies() {
-    return movieService.findAllMovies();
+  public List<Movie> findAllMovies(String type) {
+    return movieService.findAllMovies(CheckExtended.isExtended(type));
   }
 
   @Override
@@ -25,54 +27,50 @@ public class MovieController implements MovieControllerInterface {
     return movieService.findMovieById(id);
   }
 
-  public List<MovieDTO> findDescriptiveMovieInfoByMovieTitleContaining(
-    String title
-  ) {
-    return movieService.findDescriptiveMovieInfoByMovieTitleContaining(title);
-  }
-
   @Override
-  public Movie findMovieByTitle(String title) {
+  public List<MovieDTO> findMovieByTitle(String title) {
     return movieService.findMovieByTitle(title);
   }
 
   @Override
-  public List<Movie> findMoviesByInfoContaining(String info) {
+  public List<MovieDTO> findMoviesByInfoContaining(String info) {
     return movieService.findMoviesByInfoContaining(info);
   }
 
   @Override
-  public List<Movie> findMoviesByMinAgeLessThan(int minAge) {
+  public List<MovieDTO> findMoviesByMinAgeLessThan(int minAge) {
     return movieService.findMoviesByMinAgeLessThan(minAge);
   }
 
   @Override
-  public List<Movie> findMoviesByMinAgeGreaterThan(int minAge) {
+  public List<MovieDTO> findMoviesByMinAgeGreaterThan(int minAge) {
     return movieService.findMoviesByMinAgeGreaterThan(minAge);
   }
 
   @Override
-  public List<Movie> findMoviesByRating(int rating) {
+  public List<MovieDTO> findMoviesByRating(int rating) {
     return movieService.findMoviesByRating(rating);
   }
 
   @Override
-  public List<Movie> findMoviesByScreenTimeLessThan(LocalTime screenTime) {
+  public List<MovieDTO> findMoviesByScreenTimeLessThan(LocalTime screenTime) {
     return movieService.findMoviesByScreenTimeLessThan(screenTime);
   }
 
   @Override
-  public List<Movie> findMoviesByScreenTimeGreaterThan(LocalTime screenTime) {
+  public List<MovieDTO> findMoviesByScreenTimeGreaterThan(
+    LocalTime screenTime
+  ) {
     return movieService.findMoviesByScreenTimeGreaterThan(screenTime);
   }
 
   @Override
-  public void updateMovieById(Movie movie, Long id) {
+  public void updateMovieById(MovieInputDTO movie, Long id) {
     movieService.updateMovieById(movie, id);
   }
 
   @Override
-  public void addMovie(Movie movie) {
+  public void addMovie(MovieInputDTO movie) {
     movieService.addMovie(movie);
   }
 

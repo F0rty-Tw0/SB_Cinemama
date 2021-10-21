@@ -1,9 +1,10 @@
 package mandatory.cinemama.Entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ import mandatory.cinemama.Entities.Genre.Genre;
 @Setter
 @NoArgsConstructor
 @Table(name = "movies", schema = "cinemama")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Movie {
 
   @Id
@@ -30,29 +32,20 @@ public class Movie {
   @Column(nullable = false)
   private Long id;
 
-  @Column(nullable = false, unique = true)
+  @Column(unique = true)
   private String title;
 
-  @ManyToMany
-  private List<Genre> genres = new ArrayList<>();
-
-  @ManyToMany
-  private List<Actor> actors = new ArrayList<>();
-
-  @ManyToMany
-  private List<Director> directors = new ArrayList<>();
-
   @Column
-  private int minAge;
+  private Long minAge;
 
-  @Column(nullable = false, length = 30)
+  @Column(length = 30)
   @JsonFormat(pattern = "HH:mm")
   private LocalTime screenTime;
 
-  @Column(nullable = false)
+  @Column
   private String info;
 
-  @Column(nullable = false, length = 10)
+  @Column(length = 10)
   @Min(0)
   @Max(10)
   private Double rating;
@@ -66,15 +59,24 @@ public class Movie {
   @Column
   private String poster;
 
+  @ManyToMany
+  private Set<Genre> genres = new HashSet<>();
+
+  @ManyToMany
+  private Set<Actor> actors = new HashSet<>();
+
+  @ManyToMany
+  private Set<Director> directors = new HashSet<>();
+
   public Movie(
     String title,
-    int minAge,
+    Long minAge,
     LocalTime screenTime,
     String info,
     @Min(0) @Max(10) Double rating,
-    List<Actor> actors,
-    List<Director> directors,
-    List<Genre> genres,
+    Set<Actor> actors,
+    Set<Director> directors,
+    Set<Genre> genres,
     String trailer,
     String image,
     String poster

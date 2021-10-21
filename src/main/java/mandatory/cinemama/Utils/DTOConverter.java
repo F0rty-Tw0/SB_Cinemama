@@ -1,6 +1,7 @@
 package mandatory.cinemama.Utils;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 
@@ -20,5 +21,12 @@ public class DTOConverter {
       .stream()
       .map(element -> modelMapper.map(element, targetClass))
       .collect(Collectors.toList());
+  }
+
+  public static <S, T> Set<T> mapSetDTO(Set<S> source, Class<T> targetClass) {
+    return source
+      .stream()
+      .map(element -> modelMapper.map(element, targetClass))
+      .collect(Collectors.toSet());
   }
 }

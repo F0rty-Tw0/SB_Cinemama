@@ -1,11 +1,17 @@
 package mandatory.cinemama.Services.ReservationService;
 
 import java.util.List;
+import mandatory.cinemama.DTOs.ImputDTOs.ReservationInputDTO;
+import mandatory.cinemama.DTOs.ReservationDTO;
+import mandatory.cinemama.Entities.Hall.Seat;
 import mandatory.cinemama.Entities.Reservation;
+import mandatory.cinemama.Entities.Schedule;
+import mandatory.cinemama.Entities.User.User;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.ReservationRepository;
+import mandatory.cinemama.Utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,14 +43,14 @@ public class ReservationServiceImpl implements ReservationService {
   }
 
   @Override
-  public List<Reservation> findReservationsByUserId(Long id) {
+  public List<ReservationDTO> findReservationsByUserId(Long id) {
     List<Reservation> reservations = reservationRepository.findByUserId(id);
     ErrorMessageCreator.throwErrorIfNotFound(reservations, id, type);
-    return reservations;
+    return DTOConverter.mapListDTO(reservations, ReservationDTO.class);
   }
 
   @Override
-  public void updateReservationById(Reservation reservation, Long id) {
+  public void updateReservationById(ReservationInputDTO reservation, Long id) {
     Reservation foundReservation = reservationRepository
       .findById(id)
       .orElseThrow(
@@ -54,14 +60,31 @@ public class ReservationServiceImpl implements ReservationService {
           )
       );
 
-    foundReservation.setSeats(reservation.getSeats());
-    foundReservation.setPaid(reservation.isPaid());
+    if (reservation.getSchedule() != null) {
+      foundReservation.setSchedule(
+        DTOConverter.mapDTO(reservation.getSchedule(), Schedule.class)
+      );
+    }
+
+    if (reservation.getSeats() != null) {
+      foundReservation.setSeats(
+        DTOConverter.mapSetDTO(reservation.getSeats(), Seat.class)
+      );
+    }
+    
+    if (reservation.getUser() != null) {
+      foundReservation.setUser(
+        DTOConverter.mapDTO(reservation.getUser(), User.class)
+      );
+    }
     reservationRepository.save(foundReservation);
   }
 
   @Override
-  public void addReservation(Reservation reservation) {
-    reservationRepository.save(reservation);
+  public void addReservation(ReservationInputDTO reservation) {
+    reservationRepository.save(
+      DTOConverter.mapDTO(reservation, Reservation.class)
+    );
   }
 
   @Override

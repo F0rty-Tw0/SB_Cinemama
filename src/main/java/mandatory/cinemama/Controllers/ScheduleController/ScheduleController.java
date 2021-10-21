@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import javax.transaction.Transactional;
+
+import mandatory.cinemama.DTOs.ScheduleDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.ScheduleInputDTO;
 import mandatory.cinemama.Entities.Schedule;
 import mandatory.cinemama.Services.ScheduleService.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +24,7 @@ public class ScheduleController implements ScheduleControllerInterface {
   }
 
   @Override
-  public List<Schedule> findSchedulesByDateAndTimeSlot(
+  public List<ScheduleDTO> findSchedulesByDateAndTimeSlot(
     LocalDate date,
     LocalTime timeSlot
   ) {
@@ -29,47 +32,47 @@ public class ScheduleController implements ScheduleControllerInterface {
   }
 
   @Override
-  public List<Schedule> findSchedulesByDate(LocalDate date) {
+  public List<ScheduleDTO> findSchedulesByDate(LocalDate date) {
     return scheduleService.findSchedulesByDate(date);
   }
 
   @Override
-  public List<Schedule> findSchedulesByHallId(Long hallId) {
+  public List<ScheduleDTO> findSchedulesByHallId(Long hallId) {
     return scheduleService.findSchedulesByHallId(hallId);
   }
 
   @Override
-  public List<Schedule> findSchedulesByMovieId(Long movieId) {
+  public List<ScheduleDTO> findSchedulesByMovieId(Long movieId) {
     return scheduleService.findSchedulesByMovieId(movieId);
   }
 
   @Override
-  public List<Schedule> findSchedulesByHallName(String name) {
+  public List<ScheduleDTO> findSchedulesByHallName(String name) {
     return scheduleService.findSchedulesByHallName(name);
   }
 
   @Override
-  public List<Schedule> findSchedulesByMovieTitle(String title) {
+  public List<ScheduleDTO> findSchedulesByMovieTitle(String title) {
     return scheduleService.findSchedulesByMovieTitle(title);
   }
 
   @Override
-  public List<Schedule> findSchedulesByMovieMinAgeGreaterThan(int minAge) {
+  public List<ScheduleDTO> findSchedulesByMovieMinAgeGreaterThan(int minAge) {
     return scheduleService.findSchedulesByMovieMinAgeGreaterThan(minAge);
   }
 
   @Override
-  public List<Schedule> findSchedulesByMovieRating(int rating) {
+  public List<ScheduleDTO> findSchedulesByMovieRating(int rating) {
     return scheduleService.findSchedulesByMovieRating(rating);
   }
 
   @Override
-  public List<Schedule> findSchedulesByMovieInfoContaining(String info) {
+  public List<ScheduleDTO> findSchedulesByMovieInfoContaining(String info) {
     return scheduleService.findSchedulesByMovieInfoContaining(info);
   }
 
   @Override
-  public List<Schedule> findSchedulesByDateBetween(
+  public List<ScheduleDTO> findSchedulesByDateBetween(
     LocalDate endDate,
     LocalDate startDate
   ) {
@@ -77,17 +80,17 @@ public class ScheduleController implements ScheduleControllerInterface {
   }
 
   @Override
-  public List<Schedule> findSchedulesByHallTheaterId(Long id) {
+  public List<ScheduleDTO> findSchedulesByHallTheaterId(Long id) {
     return scheduleService.findSchedulesByHallTheaterId(id);
   }
 
   @Override
-  public void updateScheduleById(Schedule schedule, Long id) {
+  public void updateScheduleById(ScheduleInputDTO schedule, Long id) {
     scheduleService.updateScheduleById(schedule, id);
   }
 
   @Override
-  public void addSchedule(Schedule schedule) {
+  public void addSchedule(ScheduleInputDTO schedule) {
     scheduleService.addSchedule(schedule);
   }
 

@@ -1,6 +1,8 @@
 package mandatory.cinemama.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -21,6 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "actors", schema = "cinemama")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Actor {
 
   @Id

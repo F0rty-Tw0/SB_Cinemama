@@ -4,14 +4,16 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import java.util.List;
+
+import mandatory.cinemama.DTOs.ActorDTO;
 import mandatory.cinemama.Entities.Actor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -47,16 +49,16 @@ public interface ActorControllerInterface {
   )
   @GetMapping("/name/{name}")
   @PreAuthorize("hasRole('ADMIN')")
-  public List<Actor> findActorsByNameContaining(@PathVariable String name);
+  public List<ActorDTO> findActorsByNameContaining(@PathVariable String name);
 
   @ApiOperation(
     value = " - Updates an Actor by Id and the details we enter",
     authorizations = { @Authorization(value = "jwtToken") },
     notes = "Enter the <b>id</b> of an Actor and the Actor Object in the body in order to update an existing <b>Actor</b>."
   )
-  @PatchMapping("/{id}")
+  @PutMapping("/{id}")
   @PreAuthorize("hasRole('ADMIN')")
-  public void updateActorById(@RequestBody Actor actor, @PathVariable Long id);
+  public void updateActorById(@RequestBody ActorDTO actor, @PathVariable Long id);
 
   @ApiOperation(
     value = " - Adds an Actor to the database",
@@ -66,7 +68,7 @@ public interface ActorControllerInterface {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   @PreAuthorize("hasRole('ADMIN')")
-  public void addActor(@RequestBody Actor actor);
+  public void addActor(@RequestBody ActorDTO actor);
 
   @ApiOperation(
     value = " - Deletes the Actor by Id",

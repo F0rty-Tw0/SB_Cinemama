@@ -1,12 +1,15 @@
 package mandatory.cinemama.Services.HallService;
 
 import java.util.List;
-
+import mandatory.cinemama.DTOs.HallDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.HallInputDTO;
 import mandatory.cinemama.Entities.Hall.Hall;
+import mandatory.cinemama.Entities.Theater;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.HallRepository;
+import mandatory.cinemama.Utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +28,10 @@ public class HallServiceImpl implements HallService {
   }
 
   @Override
-  public List<Hall> findHallsByTheaterId(Long id) {
+  public List<HallDTO> findHallsByTheaterId(Long id) {
     List<Hall> halls = hallRepository.findByTheaterId(id);
     ErrorMessageCreator.throwErrorIfNotFound(halls, id, type);
-    return halls;
+    return DTOConverter.mapListDTO(halls, HallDTO.class);
   }
 
   @Override
@@ -58,7 +61,7 @@ public class HallServiceImpl implements HallService {
   }
 
   @Override
-  public void updateHallById(Hall hall, Long id) {
+  public void updateHallById(HallInputDTO hall, Long id) {
     Hall foundHall = hallRepository
       .findById(id)
       .orElseThrow(
@@ -69,13 +72,13 @@ public class HallServiceImpl implements HallService {
       );
 
     foundHall.setName(hall.getName());
-    foundHall.setTheater(hall.getTheater());
+    foundHall.setTheater(DTOConverter.mapDTO(hall.getTheater(), Theater.class));
     hallRepository.save(foundHall);
   }
 
   @Override
-  public void addHall(Hall hall) {
-    hallRepository.save(hall);
+  public void addHall(HallInputDTO hall) {
+    hallRepository.save(DTOConverter.mapDTO(hall, Hall.class));
   }
 
   @Override

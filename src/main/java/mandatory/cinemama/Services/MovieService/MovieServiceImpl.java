@@ -2,7 +2,11 @@ package mandatory.cinemama.Services.MovieService;
 
 import java.time.LocalTime;
 import java.util.List;
+import mandatory.cinemama.DTOs.ImputDTOs.MovieInputDTO;
 import mandatory.cinemama.DTOs.MovieDTO;
+import mandatory.cinemama.Entities.Actor;
+import mandatory.cinemama.Entities.Director;
+import mandatory.cinemama.Entities.Genre.Genre;
 import mandatory.cinemama.Entities.Movie;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
@@ -21,8 +25,15 @@ public class MovieServiceImpl implements MovieService {
   private String type = "Movie";
 
   @Override
-  public List<Movie> findAllMovies() {
+  public List<Movie> findAllMovies(boolean isExtended) {
     List<Movie> allMovies = movieRepository.findAll();
+    if (!isExtended) {
+      List<MovieDTO> movieDTOs = DTOConverter.mapListDTO(
+        allMovies,
+        MovieDTO.class
+      );
+      allMovies = DTOConverter.mapListDTO(movieDTOs, Movie.class);
+    }
     return allMovies;
   }
 
@@ -40,72 +51,60 @@ public class MovieServiceImpl implements MovieService {
   }
 
   @Override
-  public List<MovieDTO> findDescriptiveMovieInfoByMovieTitleContaining(
-    String title
-  ) {
+  public List<MovieDTO> findMovieByTitle(String title) {
     List<Movie> movies = movieRepository.findInfoByTitleContaining(title);
+    ErrorMessageCreator.throwErrorIfNotFound(movies, title, type);
     return DTOConverter.mapListDTO(movies, MovieDTO.class);
   }
 
   @Override
-  public Movie findMovieByTitle(String title) {
-    Movie movie = movieRepository
-      .findByTitle(title)
-      .orElseThrow(
-        () ->
-          new ResourceNotFoundException(
-            ErrorMessageCreator.NotFoundErrorMessage(title, type)
-          )
-      );
-    return movie;
-  }
-
-  @Override
-  public List<Movie> findMoviesByInfoContaining(String info) {
+  public List<MovieDTO> findMoviesByInfoContaining(String info) {
     List<Movie> movies = movieRepository.findByInfoContaining(info);
     ErrorMessageCreator.throwErrorIfNotFound(movies, info, type);
-    return movies;
+    return DTOConverter.mapListDTO(movies, MovieDTO.class);
   }
 
   @Override
-  public List<Movie> findMoviesByMinAgeLessThan(int minAge) {
+  public List<MovieDTO> findMoviesByMinAgeLessThan(int minAge) {
     List<Movie> movies = movieRepository.findByMinAgeLessThan(minAge);
     ErrorMessageCreator.throwErrorIfNotFound(movies, minAge, type);
-    return movies;
+    return DTOConverter.mapListDTO(movies, MovieDTO.class);
   }
 
   @Override
-  public List<Movie> findMoviesByMinAgeGreaterThan(int minAge) {
+  public List<MovieDTO> findMoviesByMinAgeGreaterThan(int minAge) {
     List<Movie> movies = movieRepository.findByMinAgeGreaterThan(minAge);
     ErrorMessageCreator.throwErrorIfNotFound(movies, minAge, type);
-    return movies;
+    return DTOConverter.mapListDTO(movies, MovieDTO.class);
   }
 
   @Override
-  public List<Movie> findMoviesByRating(int rating) {
+  public List<MovieDTO> findMoviesByRating(int rating) {
     List<Movie> movies = movieRepository.findByRating(rating);
     ErrorMessageCreator.throwErrorIfNotFound(movies, rating, type);
-    return movies;
+    return DTOConverter.mapListDTO(movies, MovieDTO.class);
   }
 
   @Override
-  public List<Movie> findMoviesByScreenTimeLessThan(LocalTime screenTime) {
+  public List<MovieDTO> findMoviesByScreenTimeLessThan(LocalTime screenTime) {
     List<Movie> movies = movieRepository.findByScreenTimeLessThan(screenTime);
     ErrorMessageCreator.throwErrorIfNotFound(movies, screenTime, type);
-    return movies;
+    return DTOConverter.mapListDTO(movies, MovieDTO.class);
   }
 
   @Override
-  public List<Movie> findMoviesByScreenTimeGreaterThan(LocalTime screenTime) {
+  public List<MovieDTO> findMoviesByScreenTimeGreaterThan(
+    LocalTime screenTime
+  ) {
     List<Movie> movies = movieRepository.findByScreenTimeGreaterThan(
       screenTime
     );
     ErrorMessageCreator.throwErrorIfNotFound(movies, screenTime, type);
-    return movies;
+    return DTOConverter.mapListDTO(movies, MovieDTO.class);
   }
 
   @Override
-  public void updateMovieById(Movie movie, Long id) {
+  public void updateMovieById(MovieInputDTO movie, Long id) {
     Movie foundMovie = movieRepository
       .findById(id)
       .orElseThrow(
@@ -114,20 +113,48 @@ public class MovieServiceImpl implements MovieService {
             ErrorMessageCreator.NotFoundErrorMessage(id, type)
           )
       );
-
-    foundMovie.setActors(movie.getActors());
-    foundMovie.setDirectors(movie.getDirectors());
-    foundMovie.setGenres(movie.getGenres());
-    foundMovie.setTitle(movie.getTitle());
-    foundMovie.setInfo(movie.getInfo());
-    foundMovie.setRating(movie.getRating());
-    foundMovie.setMinAge(movie.getMinAge());
+    if (movie.getTitle() != null) {
+      foundMovie.setTitle(movie.getTitle());
+    }
+    if (movie.getMinAge() != null) {
+      foundMovie.setMinAge(movie.getMinAge());
+    }
+    if (movie.getInfo() != null) {
+      foundMovie.setInfo(movie.getInfo());
+    }
+    if (movie.getRating() != null) {
+      foundMovie.setRating(movie.getRating());
+    }
+    if (movie.getTrailer() != null) {
+      foundMovie.setTrailer(movie.getTrailer());
+    }
+    if (movie.getImage() != null) {
+      foundMovie.setImage(movie.getImage());
+    }
+    if (movie.getPoster() != null) {
+      foundMovie.setPoster(movie.getPoster());
+    }
+    if (movie.getActors() != null) {
+      foundMovie.setActors(
+        DTOConverter.mapSetDTO(movie.getActors(), Actor.class)
+      );
+    }
+    if (movie.getDirectors() != null) {
+      foundMovie.setDirectors(
+        DTOConverter.mapSetDTO(movie.getDirectors(), Director.class)
+      );
+    }
+    if (movie.getGenres() != null) {
+      foundMovie.setGenres(
+        DTOConverter.mapSetDTO(movie.getGenres(), Genre.class)
+      );
+    }
     movieRepository.save(foundMovie);
   }
 
   @Override
-  public void addMovie(Movie movie) {
-    movieRepository.save(movie);
+  public void addMovie(MovieInputDTO movie) {
+    movieRepository.save(DTOConverter.mapDTO(movie, Movie.class));
   }
 
   @Override

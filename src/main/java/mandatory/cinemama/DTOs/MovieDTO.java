@@ -13,9 +13,7 @@ import lombok.Setter;
 public class MovieDTO {
 
   private String title;
-  private List<GenreDTO> genres;
-  private List<ActorDTO> actors;
-  private List<DirectorDTO> directors;
+
   private Integer minAge;
 
   @JsonFormat(pattern = "HH:mm")
@@ -27,4 +25,7 @@ public class MovieDTO {
   private String trailer;
   private String image;
   private String poster;
+  private List<GenreDTO> genres;
+  private List<ActorDTO> actors;
+  private List<DirectorDTO> directors;
 }

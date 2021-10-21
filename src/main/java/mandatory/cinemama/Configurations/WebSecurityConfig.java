@@ -19,11 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-  // securedEnabled = true,
-  // jsr250Enabled = true,
-  prePostEnabled = true
-)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
@@ -81,8 +77,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .permitAll()
       .antMatchers("/api/auth/**")
       .permitAll()
-      .antMatchers("/api/actors/**")
-      .access("hasRole('ROLE_ADMIN')")
+      .requestMatchers(
+        req ->
+          req.getParameter("type") != null &&
+          req.getParameter("type").equals("extended")
+      )
+      .access("hasRole('ADMIN')")
       // .antMatchers("/**")
       // .permitAll() //disabling the spring authentication
       .anyRequest()

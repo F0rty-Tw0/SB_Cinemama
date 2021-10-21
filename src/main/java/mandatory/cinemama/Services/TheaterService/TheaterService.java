@@ -1,20 +1,22 @@
 package mandatory.cinemama.Services.TheaterService;
 
 import java.util.List;
+
+import mandatory.cinemama.DTOs.TheaterDTO;
 import mandatory.cinemama.Entities.Theater;
 
 public interface TheaterService {
-  public List<Theater> findAllTheaters();
+  public List<Theater> findAllTheaters(boolean isExtended);
 
   public Theater findTheaterById(Long id);
 
-  public Theater findTheaterByName(String name);
+  public List<TheaterDTO> findTheatersByName(String name);
 
-  public Theater findTheaterByAddress(String address);
+  public List<TheaterDTO> findTheatersByAddress(String address);
 
-  public void updateTheaterById(Theater theater, Long id);
+  public void updateTheaterById(TheaterDTO theater, Long id);
 
-  public void addTheater(Theater theater);
+  public void addTheater(TheaterDTO theater);
 
   public void deleteTheaterById(Long id);
 }
