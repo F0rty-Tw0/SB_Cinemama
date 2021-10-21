@@ -6,6 +6,8 @@ import javax.transaction.Transactional;
 import mandatory.cinemama.DTOs.ActorDTO;
 import mandatory.cinemama.Entities.Actor;
 import mandatory.cinemama.Services.ActorService.ActorService;
+import mandatory.cinemama.Utils.CheckExtended;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,8 +28,8 @@ public class ActorController implements ActorControllerInterface {
   }
 
   @Override
-  public List<ActorDTO> findActorsByNameContaining(String name) {
-    return actorService.findActorsByNameContaining(name);
+  public List<Actor> findActorsByNameContaining(String name, String type) {
+    return actorService.findActorsByNameContaining(name, CheckExtended.isExtended(type));
   }
 
   @Override

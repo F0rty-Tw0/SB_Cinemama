@@ -42,10 +42,20 @@ public class ActorServiceImpl implements ActorService {
   }
 
   @Override
-  public List<ActorDTO> findActorsByNameContaining(String firstName) {
+  public List<Actor> findActorsByNameContaining(
+    String firstName,
+    boolean isExtended
+  ) {
     List<Actor> actors = actorRepository.findByNameContaining(firstName);
     ErrorMessageCreator.throwErrorIfNotFound(actors, firstName, type);
-    return DTOConverter.mapListDTO(actors, ActorDTO.class);
+    if (!isExtended) {
+      List<ActorDTO> actorDTOs = DTOConverter.mapListDTO(
+        actors,
+        ActorDTO.class
+      );
+      actors = DTOConverter.mapListDTO(actorDTOs, Actor.class);
+    }
+    return actors;
   }
 
   @Override

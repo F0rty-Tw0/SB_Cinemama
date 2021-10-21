@@ -10,7 +10,7 @@ public interface DirectorService {
 
   public Director findDirectorById(Long id);
 
-  public List<DirectorDTO> findDirectorsByNameContaining(String name);
+  public List<Director> findDirectorsByNameContaining(String name, boolean isExtended);
 
   public void updateDirectorById(DirectorDTO director, Long id);
 
