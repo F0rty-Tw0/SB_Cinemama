@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ActorDTO {
+public class TheaterDTO {
 
   private String name;
+  private String address;
 }

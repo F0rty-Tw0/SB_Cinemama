@@ -3,21 +3,25 @@ package mandatory.cinemama.Configurations;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import mandatory.cinemama.Entities.Actor;
-import mandatory.cinemama.Entities.Director;
+import java.util.Set;
+import mandatory.cinemama.DTOs.ActorDTO;
+import mandatory.cinemama.DTOs.DirectorDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.ActorInputDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.DirectorInputDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.GenreInputDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.HallInputDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.MovieInputDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.TheaterInputDTO;
+import mandatory.cinemama.DTOs.TheaterDTO;
 import mandatory.cinemama.Entities.Genre.EGenres;
 import mandatory.cinemama.Entities.Genre.Genre;
-import mandatory.cinemama.Entities.Hall.Hall;
 import mandatory.cinemama.Entities.Hall.HallRow.ERows;
 import mandatory.cinemama.Entities.Hall.HallRow.Row;
 import mandatory.cinemama.Entities.Hall.Seat;
 import mandatory.cinemama.Entities.Movie;
 import mandatory.cinemama.Entities.Reservation;
 import mandatory.cinemama.Entities.Schedule;
-import mandatory.cinemama.Entities.Theater;
 import mandatory.cinemama.Entities.User.ERoles;
 import mandatory.cinemama.Entities.User.Role;
 import mandatory.cinemama.Security.AuthenticationPayload.Request.SignupRequest;
@@ -34,6 +38,7 @@ import mandatory.cinemama.Services.ScheduleService.ScheduleService;
 import mandatory.cinemama.Services.SeatService.SeatService;
 import mandatory.cinemama.Services.TheaterService.TheaterService;
 import mandatory.cinemama.Services.UserService.UserService;
+import mandatory.cinemama.Utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -99,10 +104,10 @@ public class DatabaseConfig implements CommandLineRunner {
       );
     }
 
-    if (theaterService.findAllTheaters().isEmpty()) {
-      theaterService.addTheater(new Theater("Odeon", "Saxogade 25"));
+    if (theaterService.findAllTheaters(false).isEmpty()) {
+      theaterService.addTheater(new TheaterDTO("Odeon", "Saxogade 25"));
       theaterService.addTheater(
-        new Theater("Village Cinema", "Gammel Konge Vej 99")
+        new TheaterDTO("Village Cinema", "Gammel Konge Vej 99")
       );
       // theaterService.addTheater(
       //   new Theater("Coco Bongo", "Gammel Konge Vej 6")
@@ -112,14 +117,10 @@ public class DatabaseConfig implements CommandLineRunner {
     }
 
     if (hallService.findAllHalls().isEmpty()) {
-      int numberOfTheaters = theaterService.findAllTheaters().size();
-      for (int i = 0; i < numberOfTheaters; i++) {
-        hallService.addHall(
-          new Hall("Sal 1", theaterService.findAllTheaters().get(i))
-        );
-        hallService.addHall(
-          new Hall("Sal 2", theaterService.findAllTheaters().get(i))
-        );
+      int numberOfTheaters = theaterService.findAllTheaters(false).size();
+      for (long i = 1; i < numberOfTheaters + 1; i++) {
+        hallService.addHall(new HallInputDTO("Sal 1", new TheaterInputDTO(i)));
+        hallService.addHall(new HallInputDTO("Sal 2", new TheaterInputDTO(i)));
         // hallService.addHall(
         //   new Hall("Sal 3", theaterService.findAllTheaters().get(i))
         // );
@@ -158,14 +159,14 @@ public class DatabaseConfig implements CommandLineRunner {
       }
     }
     if (directorService.findAllDirectors().isEmpty()) {
-      directorService.addDirector(new Director("Peter Jackson"));
+      directorService.addDirector(new DirectorDTO("Peter Jackson"));
     }
 
     if (actorService.findAllActors().isEmpty()) {
-      actorService.addActor(new Actor("Elijah Wood"));
-      actorService.addActor(new Actor("Ian McKellen"));
-      actorService.addActor(new Actor("Liv Tyler"));
-      actorService.addActor(new Actor("Viggo Mortensen"));
+      actorService.addActor(new ActorDTO("Elijah Wood"));
+      actorService.addActor(new ActorDTO("Ian McKellen"));
+      actorService.addActor(new ActorDTO("Liv Tyler"));
+      actorService.addActor(new ActorDTO("Viggo Mortensen"));
     }
 
     if (genreService.findAllGenres().isEmpty()) {
@@ -175,34 +176,32 @@ public class DatabaseConfig implements CommandLineRunner {
       }
     }
 
-    if (movieService.findAllMovies().isEmpty()) {
+    if (movieService.findAllMovies(true).isEmpty()) {
       movieService.addMovie(
-        new Movie(
+        new MovieInputDTO(
           "Lord of the Rings: The Two Towers",
-          11,
+          11L,
           LocalTime.of(2, 59),
           "Frodo and Sam are trekking to Mordor to destroy the One Ring of Power while Gimli, Legolas and Aragorn search for the orc-captured Merry and Pippin. All along, nefarious wizard Saruman awaits the Fellowship members at the Orthanc Tower in Isengard.",
           8.7d,
-          new ArrayList<Actor>(
-            Arrays.asList(
-              actorService.findActorsByNameContaining("Elijah Wood").get(0),
-              actorService.findActorsByNameContaining("Ian McKellen").get(0),
-              actorService.findActorsByNameContaining("Liv Tyler").get(0),
-              actorService.findActorsByNameContaining("Viggo Mortensen").get(0)
-            )
-          ),
-          directorService.findDirectorsByNameContaining("Peter Jackson"),
-          List.of(
-            genreService.findGenreByName("ADVENTURE"),
-            genreService.findGenreByName("FANTASY"),
-            genreService.findGenreByName("ACTION")
-          ),
           "LbfMDwc4azU",
           // https://www.youtu.be/<TRAILER ID>
           "5VTN0pR8gcqV3EPUHHfMGnJYN9L.jpg",
           // https://www.themoviedb.org/t/p/original/<POSTER ID>
-          "121-the-lord-of-the-rings-the-two-towers"
+          "121-the-lord-of-the-rings-the-two-towers",
           // https://www.themoviedb.org/movie/<ID OF THE IMAGES>/images/backdrops
+          Set.of(
+            new GenreInputDTO(14l),
+            new GenreInputDTO(7l),
+            new GenreInputDTO(1l)
+          ),
+          Set.of(
+            new ActorInputDTO(1l),
+            new ActorInputDTO(2l),
+            new ActorInputDTO(3l),
+            new ActorInputDTO(4l)
+          ),
+          Set.of(new DirectorInputDTO(1l))
         )
       );
     }
@@ -212,7 +211,10 @@ public class DatabaseConfig implements CommandLineRunner {
         new Schedule(
           LocalTime.of(14, 30),
           LocalDate.of(2021, Month.JANUARY, 24),
-          movieService.findAllMovies().get(0),
+          DTOConverter.mapDTO(
+            movieService.findAllMovies(true).get(0),
+            Movie.class
+          ),
           hallService.findAllHalls().get(0)
         )
       );
@@ -220,7 +222,10 @@ public class DatabaseConfig implements CommandLineRunner {
         new Schedule(
           LocalTime.of(14, 30),
           LocalDate.of(2021, Month.JANUARY, 25),
-          movieService.findAllMovies().get(0),
+          DTOConverter.mapDTO(
+            movieService.findAllMovies(true).get(0),
+            Movie.class
+          ),
           hallService.findAllHalls().get(0)
         )
       );
@@ -228,7 +233,10 @@ public class DatabaseConfig implements CommandLineRunner {
         new Schedule(
           LocalTime.of(14, 31),
           LocalDate.of(2021, Month.JANUARY, 24),
-          movieService.findAllMovies().get(0),
+          DTOConverter.mapDTO(
+            movieService.findAllMovies(true).get(0),
+            Movie.class
+          ),
           hallService.findAllHalls().get(0)
         )
       );
@@ -236,21 +244,23 @@ public class DatabaseConfig implements CommandLineRunner {
         new Schedule(
           LocalTime.of(14, 30),
           LocalDate.of(2021, Month.JANUARY, 24),
-          movieService.findAllMovies().get(0),
-          hallService.findAllHalls().get(3)
+          DTOConverter.mapDTO(
+            movieService.findAllMovies(true).get(0),
+            Movie.class
+          ),
+          hallService.findAllHalls().get(1)
         )
       );
     }
+
     if (reservationService.findAllReservations().isEmpty()) {
       reservationService.addReservation(
         new Reservation(
           false,
           scheduleService.findAllSchedules().get(0),
-          new ArrayList<Seat>(
-            Arrays.asList(
-              seatService.findAllSeats().get(0),
-              seatService.findAllSeats().get(1)
-            )
+          List.of(
+            seatService.findAllSeats().get(0),
+            seatService.findAllSeats().get(1)
           ),
           userService.findAllUsers().get(0)
         )

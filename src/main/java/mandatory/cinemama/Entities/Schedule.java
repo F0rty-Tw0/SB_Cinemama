@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -47,6 +48,9 @@ public class Schedule {
   @Column(nullable = false)
   private LocalDate date;
 
+  @JsonFormat(pattern = "HH:mm")
+  private LocalTime screenTime;
+
   @ManyToOne
   private Hall hall;
 
@@ -55,10 +59,7 @@ public class Schedule {
 
   @JsonIgnore
   @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY)
-  private List<Reservation> reservations;
-
-  @JsonFormat(pattern = "HH:mm")
-  private LocalTime screenTime;
+  private Set<Reservation> reservations;
 
   public Schedule(LocalTime timeSlot, LocalDate date, Movie movie, Hall hall) {
     this.timeSlot = timeSlot;

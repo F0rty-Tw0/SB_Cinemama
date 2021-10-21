@@ -1,11 +1,13 @@
 package mandatory.cinemama.Services.ReservationService;
 
 import java.util.List;
+import mandatory.cinemama.DTOs.ReservationDTO;
 import mandatory.cinemama.Entities.Reservation;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.DataAccessException;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.ReservationRepository;
+import mandatory.cinemama.Utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +39,10 @@ public class ReservationServiceImpl implements ReservationService {
   }
 
   @Override
-  public List<Reservation> findReservationsByUserId(Long id) {
+  public List<ReservationDTO> findReservationsByUserId(Long id) {
     List<Reservation> reservations = reservationRepository.findByUserId(id);
     ErrorMessageCreator.throwErrorIfNotFound(reservations, id, type);
-    return reservations;
+    return DTOConverter.mapListDTO(reservations, ReservationDTO.class);
   }
 
   @Override

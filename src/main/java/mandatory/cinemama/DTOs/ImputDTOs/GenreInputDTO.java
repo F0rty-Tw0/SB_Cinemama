@@ -1,5 +1,4 @@
-package mandatory.cinemama.DTOs;
-
+package mandatory.cinemama.DTOs.ImputDTOs;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ActorDTO {
-
-  private String name;
+public class GenreInputDTO {
+  private Long id;
 }

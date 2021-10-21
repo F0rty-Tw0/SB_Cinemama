@@ -1,6 +1,8 @@
 package mandatory.cinemama.Controllers.DirectorController;
 
 import java.util.List;
+
+import mandatory.cinemama.DTOs.DirectorDTO;
 import mandatory.cinemama.Entities.Director;
 import mandatory.cinemama.Services.DirectorService.DirectorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +25,17 @@ public class DirectorController implements DirectorControllerInterface {
   }
 
   @Override
-  public List<Director> findDirectorsByNameContaining(String name) {
+  public List<DirectorDTO> findDirectorsByNameContaining(String name) {
     return directorService.findDirectorsByNameContaining(name);
   }
 
   @Override
-  public void updateDirectorById(Director director, Long id) {
+  public void updateDirectorById(DirectorDTO director, Long id) {
     directorService.updateDirectorById(director, id);
   }
 
   @Override
-  public void addDirector(Director director) {
+  public void addDirector(DirectorDTO director) {
     directorService.addDirector(director);
   }
 

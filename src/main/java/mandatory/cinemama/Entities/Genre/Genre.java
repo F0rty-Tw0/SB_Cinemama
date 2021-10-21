@@ -1,6 +1,8 @@
 package mandatory.cinemama.Entities.Genre;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -24,6 +26,7 @@ import mandatory.cinemama.Entities.Movie;
 @NoArgsConstructor
 @Entity
 @Table(name = "genres", schema = "cinemama")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Genre {
 
   @Id

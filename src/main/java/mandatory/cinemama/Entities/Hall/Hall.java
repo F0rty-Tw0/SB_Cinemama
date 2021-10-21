@@ -33,7 +33,7 @@ public class Hall {
   @Column(nullable = false, length = 40)
   private String name;
 
-  @ManyToOne
+  @ManyToOne()
   private Theater theater;
   
   @JsonIgnore

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Api(
   tags = "Seats",
-  description = "- (OPTIONAL) A secured endpoint for <b>Seats</b>, requires a role of <b>ADMIN</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only).</em>"
+  description = "- (OPTIONAL) A secured endpoint for <b>Seats</b>, requires a role of <b>ADMIN, MANAGER, CUSTOMER</b> to operate! - <em>(This endpoint was created for the testing and learning purposes only).</em>"
 )
 @RequestMapping("/api/seats")
 public interface SeatControllerInterface {
@@ -36,27 +36,27 @@ public interface SeatControllerInterface {
   @ApiOperation(
     value = " - Returns the Seat by Name",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>Name</b> of a Seat to retrieve an <b>Seat</b> Object."
+    notes = "Enter the <b>Name</b> of a Seat to retrieve an <b>Seat</b> Object.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
   )
   @GetMapping("/name/{name}")
-  @PreAuthorize("hasRole('ADMIN')")
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public Seat findSeatByName(String name);
 
   @ApiOperation(
     value = " - Returns the Seats by Row Id",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>Row Id</b> of a Seat to retrieve a list <b>Seats</b>."
+    notes = "Enter the <b>Row Id</b> of a Seat to retrieve a list <b>Seats</b>.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
   )
   @GetMapping("/row/{id}")
-  @PreAuthorize("hasRole('ADMIN')")
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public List<Seat> findSeatsByRowId(Long id);
 
   @ApiOperation(
     value = " - Returns All the Seats inside a Hall by Hall Id",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>Hall Id</b> of a Hall to retrieve a list of <b>Seats</b>."
+    notes = "Enter the <b>Hall Id</b> of a Hall to retrieve a list of <b>Seats</b>.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
   )
   @GetMapping("/hall/{id}")
-  @PreAuthorize("hasRole('ADMIN')")
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public List<Seat> findSeatsByRowHallId(Long id);
 }

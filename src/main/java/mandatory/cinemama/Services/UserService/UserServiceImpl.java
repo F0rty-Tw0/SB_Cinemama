@@ -1,11 +1,13 @@
 package mandatory.cinemama.Services.UserService;
 
 import java.util.List;
+import mandatory.cinemama.DTOs.UserDTO;
 import mandatory.cinemama.Entities.User.ERoles;
 import mandatory.cinemama.Entities.User.User;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.UserRepository;
+import mandatory.cinemama.Utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +26,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User findUserByEmail(String email) {
+  public User findUserByEmail(String email, boolean isExtended) {
     User user = userRepository
       .findByEmail(email)
       .orElseThrow(
@@ -33,6 +35,10 @@ public class UserServiceImpl implements UserService {
             ErrorMessageCreator.NotFoundErrorMessage(email, type)
           )
       );
+    if (!isExtended) {
+      UserDTO userDTO = DTOConverter.mapDTO(user, UserDTO.class);
+      user = DTOConverter.mapDTO(userDTO, User.class);
+    }
     return user;
   }
 
