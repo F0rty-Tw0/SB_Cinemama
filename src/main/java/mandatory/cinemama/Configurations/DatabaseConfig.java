@@ -3,7 +3,6 @@ package mandatory.cinemama.Configurations;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
-import java.util.List;
 import java.util.Set;
 import mandatory.cinemama.DTOs.ActorDTO;
 import mandatory.cinemama.DTOs.DirectorDTO;
@@ -12,16 +11,20 @@ import mandatory.cinemama.DTOs.ImputDTOs.DirectorInputDTO;
 import mandatory.cinemama.DTOs.ImputDTOs.GenreInputDTO;
 import mandatory.cinemama.DTOs.ImputDTOs.HallInputDTO;
 import mandatory.cinemama.DTOs.ImputDTOs.MovieInputDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.ReservationInputDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.ReservationScheduleInputDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.ScheduleHallInputDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.ScheduleInputDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.ScheduleMovieInputDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.SeatInputDTO;
 import mandatory.cinemama.DTOs.ImputDTOs.TheaterInputDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.UserInputDTO;
 import mandatory.cinemama.DTOs.TheaterDTO;
 import mandatory.cinemama.Entities.Genre.EGenres;
 import mandatory.cinemama.Entities.Genre.Genre;
 import mandatory.cinemama.Entities.Hall.HallRow.ERows;
 import mandatory.cinemama.Entities.Hall.HallRow.Row;
 import mandatory.cinemama.Entities.Hall.Seat;
-import mandatory.cinemama.Entities.Movie;
-import mandatory.cinemama.Entities.Reservation;
-import mandatory.cinemama.Entities.Schedule;
 import mandatory.cinemama.Entities.User.ERoles;
 import mandatory.cinemama.Entities.User.Role;
 import mandatory.cinemama.Security.AuthenticationPayload.Request.SignupRequest;
@@ -38,7 +41,6 @@ import mandatory.cinemama.Services.ScheduleService.ScheduleService;
 import mandatory.cinemama.Services.SeatService.SeatService;
 import mandatory.cinemama.Services.TheaterService.TheaterService;
 import mandatory.cinemama.Services.UserService.UserService;
-import mandatory.cinemama.Utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -208,61 +210,39 @@ public class DatabaseConfig implements CommandLineRunner {
 
     if (scheduleService.findAllSchedules().isEmpty()) {
       scheduleService.addSchedule(
-        new Schedule(
-          LocalTime.of(14, 30),
+        new ScheduleInputDTO(
           LocalDate.of(2021, Month.JANUARY, 24),
-          DTOConverter.mapDTO(
-            movieService.findAllMovies(true).get(0),
-            Movie.class
-          ),
-          hallService.findAllHalls().get(0)
+          LocalTime.of(14, 30),
+          new ScheduleHallInputDTO(1l),
+          new ScheduleMovieInputDTO(1l)
         )
       );
-      scheduleService.addSchedule(
-        new Schedule(
-          LocalTime.of(14, 30),
-          LocalDate.of(2021, Month.JANUARY, 25),
-          DTOConverter.mapDTO(
-            movieService.findAllMovies(true).get(0),
-            Movie.class
-          ),
-          hallService.findAllHalls().get(0)
-        )
+      new ScheduleInputDTO(
+        LocalDate.of(2021, Month.JANUARY, 25),
+        LocalTime.of(14, 30),
+        new ScheduleHallInputDTO(1l),
+        new ScheduleMovieInputDTO(1l)
       );
-      scheduleService.addSchedule(
-        new Schedule(
-          LocalTime.of(14, 31),
-          LocalDate.of(2021, Month.JANUARY, 24),
-          DTOConverter.mapDTO(
-            movieService.findAllMovies(true).get(0),
-            Movie.class
-          ),
-          hallService.findAllHalls().get(0)
-        )
+      new ScheduleInputDTO(
+        LocalDate.of(2021, Month.JANUARY, 24),
+        LocalTime.of(14, 31),
+        new ScheduleHallInputDTO(1l),
+        new ScheduleMovieInputDTO(1l)
       );
-      scheduleService.addSchedule(
-        new Schedule(
-          LocalTime.of(14, 30),
-          LocalDate.of(2021, Month.JANUARY, 24),
-          DTOConverter.mapDTO(
-            movieService.findAllMovies(true).get(0),
-            Movie.class
-          ),
-          hallService.findAllHalls().get(1)
-        )
+      new ScheduleInputDTO(
+        LocalDate.of(2021, Month.JANUARY, 24),
+        LocalTime.of(14, 30),
+        new ScheduleHallInputDTO(2l),
+        new ScheduleMovieInputDTO(1l)
       );
     }
 
     if (reservationService.findAllReservations().isEmpty()) {
       reservationService.addReservation(
-        new Reservation(
-          false,
-          scheduleService.findAllSchedules().get(0),
-          List.of(
-            seatService.findAllSeats().get(0),
-            seatService.findAllSeats().get(1)
-          ),
-          userService.findAllUsers().get(0)
+        new ReservationInputDTO(
+          new ReservationScheduleInputDTO(1l),
+          Set.of(new SeatInputDTO(1l), new SeatInputDTO(2l)),
+          new UserInputDTO(1l)
         )
       );
     }

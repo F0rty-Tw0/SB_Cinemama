@@ -23,7 +23,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
   public List<Schedule> findByHallName(String name);
 
-  public List<Schedule> findByMovieTitle(String title);
+  public List<Schedule> findByMovieTitleContaining(String title);
 
   public List<Schedule> findByMovieMinAgeGreaterThan(int minAge);
 

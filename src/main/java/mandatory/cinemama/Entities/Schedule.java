@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,11 +41,11 @@ public class Schedule {
   @Column(nullable = false)
   private Long id;
 
-  @JsonFormat(pattern = "HH:mm")
-  private LocalTime timeSlot;
-
   @Column(nullable = false)
   private LocalDate date;
+
+  @JsonFormat(pattern = "HH:mm")
+  private LocalTime timeSlot;
 
   @JsonFormat(pattern = "HH:mm")
   private LocalTime screenTime;

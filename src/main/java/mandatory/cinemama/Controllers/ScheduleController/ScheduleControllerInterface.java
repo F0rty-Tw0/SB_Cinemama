@@ -6,6 +6,9 @@ import io.swagger.annotations.Authorization;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+
+import mandatory.cinemama.DTOs.ScheduleDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.ScheduleInputDTO;
 import mandatory.cinemama.Entities.Schedule;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -41,7 +44,7 @@ public interface ScheduleControllerInterface {
   )
   @GetMapping("/hall/{hallId}")
   @PreAuthorize("hasRole('ADMIN')")
-  public List<Schedule> findSchedulesByHallId(@PathVariable Long hallId);
+  public List<ScheduleDTO> findSchedulesByHallId(@PathVariable Long hallId);
 
   @ApiOperation(
     value = " - Returns the Schedules based on the Movie Id",
@@ -50,7 +53,7 @@ public interface ScheduleControllerInterface {
   )
   @GetMapping("/movie/{movieId}")
   @PreAuthorize("hasRole('ADMIN')")
-  public List<Schedule> findSchedulesByMovieId(@PathVariable Long movieId);
+  public List<ScheduleDTO> findSchedulesByMovieId(@PathVariable Long movieId);
 
   @ApiOperation(
     value = " - Returns the Schedules based on the Date and Time Slot",
@@ -59,7 +62,7 @@ public interface ScheduleControllerInterface {
   )
   @GetMapping("/date/{date}/time-slot/{timeSlot}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public List<Schedule> findSchedulesByDateAndTimeSlot(
+  public List<ScheduleDTO> findSchedulesByDateAndTimeSlot(
     @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
     @PathVariable @DateTimeFormat(
       iso = DateTimeFormat.ISO.TIME
@@ -73,7 +76,7 @@ public interface ScheduleControllerInterface {
   )
   @GetMapping("/date/{date}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public List<Schedule> findSchedulesByDate(
+  public List<ScheduleDTO> findSchedulesByDate(
     @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
   );
 
@@ -84,7 +87,7 @@ public interface ScheduleControllerInterface {
   )
   @GetMapping("/hall/name/{name}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public List<Schedule> findSchedulesByHallName(@PathVariable String name);
+  public List<ScheduleDTO> findSchedulesByHallName(@PathVariable String name);
 
   @ApiOperation(
     value = " - Returns the Schedules based on the Movie Title",
@@ -93,7 +96,7 @@ public interface ScheduleControllerInterface {
   )
   @GetMapping("/movie/title/{title}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public List<Schedule> findSchedulesByMovieTitle(@PathVariable String title);
+  public List<ScheduleDTO> findSchedulesByMovieTitle(@PathVariable String title);
 
   @ApiOperation(
     value = " - Returns the Schedules based on the Movie Min Age Greater than input",
@@ -102,7 +105,7 @@ public interface ScheduleControllerInterface {
   )
   @GetMapping("/movie/greater-min-age/{minAge}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public List<Schedule> findSchedulesByMovieMinAgeGreaterThan(
+  public List<ScheduleDTO> findSchedulesByMovieMinAgeGreaterThan(
     @PathVariable int minAge
   );
 
@@ -113,7 +116,7 @@ public interface ScheduleControllerInterface {
   )
   @GetMapping("/movie/rating/{rating}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public List<Schedule> findSchedulesByMovieRating(@PathVariable int rating);
+  public List<ScheduleDTO> findSchedulesByMovieRating(@PathVariable int rating);
 
   @ApiOperation(
     value = " - Returns the Schedules based on the Movie Info text",
@@ -122,7 +125,7 @@ public interface ScheduleControllerInterface {
   )
   @GetMapping("/movie/info/{info}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public List<Schedule> findSchedulesByMovieInfoContaining(
+  public List<ScheduleDTO> findSchedulesByMovieInfoContaining(
     @PathVariable String info
   );
 
@@ -133,7 +136,7 @@ public interface ScheduleControllerInterface {
   )
   @GetMapping("/end-date/{endDate}/start-date/{startDate}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public List<Schedule> findSchedulesByDateBetween(
+  public List<ScheduleDTO> findSchedulesByDateBetween(
     @PathVariable @DateTimeFormat(
       iso = DateTimeFormat.ISO.DATE
     ) LocalDate endDate,
@@ -149,7 +152,7 @@ public interface ScheduleControllerInterface {
   )
   @GetMapping("/theater/{id}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public List<Schedule> findSchedulesByHallTheaterId(Long id);
+  public List<ScheduleDTO> findSchedulesByHallTheaterId(Long id);
 
   @ApiOperation(
     value = " - Updates the Schedule based on the Id",
@@ -159,7 +162,7 @@ public interface ScheduleControllerInterface {
   @PutMapping("/{id}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
   public void updateScheduleById(
-    @RequestBody Schedule schedule,
+    @RequestBody ScheduleInputDTO schedule,
     @PathVariable Long id
   );
 
@@ -171,7 +174,7 @@ public interface ScheduleControllerInterface {
   @PostMapping
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
   @ResponseStatus(HttpStatus.CREATED)
-  public void addSchedule(@RequestBody Schedule schedule);
+  public void addSchedule(@RequestBody ScheduleInputDTO schedule);
 
   @ApiOperation(
     value = " - Deletes the Schedule based on the Id",
