@@ -1,5 +1,7 @@
 package mandatory.cinemama.Services.SeatService;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import mandatory.cinemama.Entities.Hall.Seat;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
@@ -65,5 +67,39 @@ public class SeatServiceImpl implements SeatService {
   @Override
   public void addSeat(Seat seat) {
     seatRepository.save(seat);
+  }
+
+  @Override
+  public List<Seat> findBookedSeats(
+    Long hallId,
+    LocalDate date,
+    LocalTime timeSlot
+  ) {
+    List<Seat> seats = seatRepository.findByReservationScheduleHallIdAndReservationScheduleDateAndReservationScheduleTimeSlot(
+      hallId,
+      date,
+      timeSlot
+    );
+    ErrorMessageCreator.throwErrorIfNotFound(
+      seats,
+      "Hall id: " + hallId + " Date: " + date + " Time Slot:" + timeSlot,
+      type
+    );
+    return seats;
+  }
+
+  @Override
+  public List<Seat> findAvailableSeats(
+    Long hallId,
+    LocalDate date,
+    LocalTime timeSlot
+  ) {
+    List<Seat> seats = seatRepository.findAvailable(hallId, date, timeSlot);
+    ErrorMessageCreator.throwErrorIfNotFound(
+      seats,
+      "Hall id: " + hallId + " Date: " + date + " Time Slot:" + timeSlot,
+      type
+    );
+    return seats;
   }
 }
