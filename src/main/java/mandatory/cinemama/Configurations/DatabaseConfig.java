@@ -91,8 +91,10 @@ public class DatabaseConfig implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    System.out.println("GENERATING DEFAULT VALUES IF NOT EXISTS");
-
+    // NOTE:THIS DATA SHOULD NOT BE HERE, IT IS ONLY FOR TEST PURPOSES
+    System.out.println(
+      "GENERATING DEFAULT VALUES IF NOT EXISTS !! THIS IS FOR TEST PURPOSES"
+    );
     // NOTE: GENERATING ROLES
     if (roleService.findAllRoles().isEmpty()) {
       ERoles[] roles = ERoles.values();
