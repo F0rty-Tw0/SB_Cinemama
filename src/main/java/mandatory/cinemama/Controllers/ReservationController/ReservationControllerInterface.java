@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import java.util.List;
 import mandatory.cinemama.DTOs.ReservationDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.ReservationInputDTO;
 import mandatory.cinemama.Entities.Reservation;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -52,11 +53,11 @@ public interface ReservationControllerInterface {
   @ApiOperation(
     value = " - Updates the Reservation based on the id and details we enter",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>id</b> of a Reservation and the Reservation Object in the body in order to update an existing <b>Reservation</b>.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
+    notes = "Enter the <b>id</b> of a Reservation and the Reservation Object in the body in order to update an existing <b>Reservation</b>.<br><em>Requires a role of a minimum <b>MANAGER</b></em>"
   )
   @PutMapping("/{id}")
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public void updateReservationById(@RequestBody Reservation reservation, Long id);
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
+  public void updateReservationById(@RequestBody ReservationInputDTO reservation, Long id);
 
   @ApiOperation(
     value = " - Adds the Reservation to the database",
@@ -66,7 +67,7 @@ public interface ReservationControllerInterface {
   @PostMapping
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   @ResponseStatus(HttpStatus.CREATED)
-  public void addReservation(@RequestBody Reservation reservation);
+  public void addReservation(@RequestBody ReservationInputDTO reservation);
 
   @ApiOperation(
     value = " - Deletes the Reservation based on the ID",

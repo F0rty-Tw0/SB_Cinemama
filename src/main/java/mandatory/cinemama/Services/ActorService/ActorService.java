@@ -9,7 +9,7 @@ public interface ActorService {
 
   public Actor findActorById(Long id);
 
-  public List<ActorDTO> findActorsByNameContaining(String name);
+  public List<Actor> findActorsByNameContaining(String name, boolean isExtended);
 
   public void updateActorById(ActorDTO actor, Long id);
 

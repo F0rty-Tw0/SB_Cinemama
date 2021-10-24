@@ -6,7 +6,7 @@ This README file has the purpose of explaining where each individual member most
 in the project and which sort of role the individual sought to fulfill. In the last section is
 a link to the documentation of the project's functionalities. 
 
-### F0rty-Tw0 (Artiom Tofan)
+### F0rty-Tw0 (Artion Tofan)
 
 I took on the role of the leader, overseeing code that other members of the group were submitting. That way, everybody 
 understood what the code was doing and helped not only with the communication but with the learning process from 
@@ -35,34 +35,17 @@ extra functionalities.
 
 
 ### Pawe0733 (Pawel Stephien)
-At the beginning of the project I was responsible for creating the Movie entity. That means I was responsible for 
-creating the repository, service and the controller as well. I was only focusing on one entity, as the complexity 
-of this entity was high. It consisted of many different variables and was connected with other entities such as 
-Director, Actor or Genre. It was important to create correct relationships with those entities to ensure proper 
-functionality later on.
+Whilst the endpoints for services were being completed by Nikolai, we needed DTOs to transfer all the relevant data. 
+This would end up showing the movie to the user.  I also worked alongside Artiom to create additional DTOs for Actor,
+Director and Genre 
 
-Later on I started working on creating the first DTO that would serve as a better way to display information in a clean
-and readable way. I created the Movie DTO that would allow users to see the information about the movie without 
-unnecessary data (such as directorID).
-
-On top of this, I also from time to time helped Nikolai with the notes from daily meetings. Overall, I have been 
-jumping around the different parts of the code, adding more functions to the existing parts of the project and 
-helping with brainstorming the functionalities we were supposed to implement.
- 
+As the second sprint came to a close, I was successful in completing all the DTOs along with the help of Artiom so that the 
 
 ### tombill143 (Tom Billington)
-It was my job to create the entities for the Actor and Genre and provide all the code necessary to include entities
-
-I also added the repositories for the Actor and Genre entities alongside their corresponding services and controllers
-
-As there are several Genres to our movie entity, it became necessary to store the genres as an ENUM file. That way, the 
-group had the option of adding more genres if that was required later on when uploading new movies.
-
-As coding was developing during the second sprint, my limited coding skills began to show. This was my fault in part 
+As coding was developing during the second sprint, my limited coding skills began to show. This was on my fault in part
 for not communicating better with my group regarding what needed to be coded. I was very apprehensive to begin 
-attempting to try writing code that I was not entirely sure on how to construct without the entire project becoming 
-inoperable.
-
+attempting to try writing code that I was 40% unsure how to construct without the entire project becoming inoperable. 
+My role was appointed to logging the coding for the purposes for this sprint. 
 
 
 ### Swagger

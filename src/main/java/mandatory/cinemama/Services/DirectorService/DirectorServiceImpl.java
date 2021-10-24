@@ -1,14 +1,12 @@
 package mandatory.cinemama.Services.DirectorService;
 
 import java.util.List;
-
 import mandatory.cinemama.DTOs.DirectorDTO;
 import mandatory.cinemama.Entities.Director;
 import mandatory.cinemama.ErrorHandler.ErrorMessageCreator;
 import mandatory.cinemama.ErrorHandler.Exceptions.ResourceNotFoundException;
 import mandatory.cinemama.Repositories.DirectorRepository;
 import mandatory.cinemama.Utils.DTOConverter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -41,12 +39,22 @@ public class DirectorServiceImpl implements DirectorService {
   }
 
   @Override
-  public List<DirectorDTO> findDirectorsByNameContaining(String firstName) {
+  public List<Director> findDirectorsByNameContaining(
+    String firstName,
+    boolean isExtended
+  ) {
     List<Director> directors = directorRepository.findByNameContaining(
       firstName
     );
     ErrorMessageCreator.throwErrorIfNotFound(directors, firstName, type);
-    return DTOConverter.mapListDTO(directors, DirectorDTO.class);
+    if (!isExtended) {
+      List<DirectorDTO> directorDTOs = DTOConverter.mapListDTO(
+        directors,
+        DirectorDTO.class
+      );
+      directors = DTOConverter.mapListDTO(directorDTOs, Director.class);
+    }
+    return directors;
   }
 
   @Override

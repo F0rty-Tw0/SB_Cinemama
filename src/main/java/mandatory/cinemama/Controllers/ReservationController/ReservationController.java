@@ -3,6 +3,7 @@ package mandatory.cinemama.Controllers.ReservationController;
 import java.util.List;
 
 import mandatory.cinemama.DTOs.ReservationDTO;
+import mandatory.cinemama.DTOs.ImputDTOs.ReservationInputDTO;
 import mandatory.cinemama.Entities.Reservation;
 import mandatory.cinemama.Services.ReservationService.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,12 @@ public class ReservationController implements ReservationControllerInterface {
   }
 
   @Override
-  public void updateReservationById(Reservation reservation, Long id) {
+  public void updateReservationById(ReservationInputDTO reservation, Long id) {
     reservationService.updateReservationById(reservation, id);
   }
 
   @Override
-  public void addReservation(Reservation reservation) {
+  public void addReservation(ReservationInputDTO reservation) {
     reservationService.addReservation(reservation);
   }
 

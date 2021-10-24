@@ -4,7 +4,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import java.util.List;
-
 import mandatory.cinemama.DTOs.DirectorDTO;
 import mandatory.cinemama.Entities.Director;
 import org.springframework.http.HttpStatus;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Api(
@@ -43,14 +43,15 @@ public interface DirectorControllerInterface {
   public Director findDirectorById(@PathVariable Long id);
 
   @ApiOperation(
-    value = " - Returns the Directors found by Name",
+    value = " - Returns the Directors found by Name ('type=extended' - extends the returned data - Requires ADMIN rights)",
     authorizations = { @Authorization(value = "jwtToken") },
     notes = "Enter the <b>Name</b> of a Director to retrieve a list of <b>Directors</b>.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
   )
   @GetMapping("/name/{name}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public List<DirectorDTO> findDirectorsByNameContaining(
-    @PathVariable String name
+  public List<Director> findDirectorsByNameContaining(
+    @PathVariable String name,
+    @RequestParam(required = false) String type
   );
 
   @ApiOperation(

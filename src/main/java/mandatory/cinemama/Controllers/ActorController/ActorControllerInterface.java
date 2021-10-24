@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Api(
@@ -43,13 +44,13 @@ public interface ActorControllerInterface {
   public Actor findActorById(@PathVariable Long id);
 
   @ApiOperation(
-    value = " - Returns the Actors by the Name",
+    value = " - Returns the Actors by the Name ('type=extended' - extends the returned data - Requires ADMIN rights)",
     authorizations = { @Authorization(value = "jwtToken") },
     notes = "Enter the <b>Name</b> of an Actor to retrieve a list of <b>Actors</b>."
   )
   @GetMapping("/name/{name}")
   @PreAuthorize("hasRole('ADMIN')")
-  public List<ActorDTO> findActorsByNameContaining(@PathVariable String name);
+  public List<Actor> findActorsByNameContaining(@PathVariable String name,  @RequestParam(required = false) String type);
 
   @ApiOperation(
     value = " - Updates an Actor by Id and the details we enter",

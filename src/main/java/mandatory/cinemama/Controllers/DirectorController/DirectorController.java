@@ -1,10 +1,10 @@
 package mandatory.cinemama.Controllers.DirectorController;
 
 import java.util.List;
-
 import mandatory.cinemama.DTOs.DirectorDTO;
 import mandatory.cinemama.Entities.Director;
 import mandatory.cinemama.Services.DirectorService.DirectorService;
+import mandatory.cinemama.Utils.CheckExtended;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,8 +25,14 @@ public class DirectorController implements DirectorControllerInterface {
   }
 
   @Override
-  public List<DirectorDTO> findDirectorsByNameContaining(String name) {
-    return directorService.findDirectorsByNameContaining(name);
+  public List<Director> findDirectorsByNameContaining(
+    String name,
+    String type
+  ) {
+    return directorService.findDirectorsByNameContaining(
+      name,
+      CheckExtended.isExtended(type)
+    );
   }
 
   @Override
