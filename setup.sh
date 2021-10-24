@@ -1,4 +1,5 @@
 #!/bin/bash
+#run
 green=`tput setaf 2`
 reset=`tput sgr0`
 echo "${green}Lets create your environment variables first!${reset}"  
