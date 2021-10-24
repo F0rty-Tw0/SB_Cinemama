@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtUtils {
 
-  @Value("${JWT_SECRET}")
+  @Value("potato")
   private String jwtSecret;
 
   @Value("86400000")
