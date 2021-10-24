@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @EqualsAndHashCode
 public class UserDetailsImpl implements UserDetails {
 
-  //
+  ////
   private final Long id;
   private String email;
 
