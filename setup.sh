@@ -35,8 +35,8 @@ sudo apt -y install default-jre
 echo "${green}Installing Java finished!${reset}"
 echo "${green}Installing Jenkins!${reset}"
 sudo wget -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
-echo "deb http://pkg.jenkins.io/debian-stable binary/" > /etc/apt/sources.list.d/jenkins.list
 sudo chmod 777 /etc/apt/sources.list.d
+echo "deb http://pkg.jenkins.io/debian-stable binary/" >> /etc/apt/sources.list.d/jenkins.list
 sudo apt -y update
 sudo apt -y upgrade
 sudo apt -y install jenkins
@@ -44,21 +44,25 @@ echo "${green}Installing Jenkins finished!${reset}"
 echo "${green}Installing Maven!${reset}"
 sudo apt -y install maven
 echo "${green}Installing Maven finished!${reset}"
-echo "${green}Creating a .env file...${reset}"
-echo "
-      MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
-      DATABASE_URL=$DATABASE_URL
-      JWT_SECRET=$JWT_SECRET">>./.env
-echo "${green}.env file is finished!${reset}"
 echo "${green}Creating a MySql Image and Container...${reset}"
-sudo docker run -d -p 3306:3306 --env="MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" --name=cinemama mysql
+sudo docker run -d -p 3306:3306 --env="MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" --name=cinemama_database mysql
 sleep 30s
 echo "${green}MySql is finished!${reset}"
+sudo usermod -a -G docker jenkins
+echo "${green}Printing your Jenkins Initial Password${reset}"
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 echo "${green}Prepare your Jenkins, and the Github connection, after done press y? [y,n]${reset}"
 read input
 if [[ $input == "Y" || $input == "y" ]]; then
+      echo "${green}Adding the Jenkins user to the Docker group${reset}"
+      sudo service jenkins restart
+      sudo chmod 777 /var/lib/jenkins/workspace/cinemama
       cd /var/lib/jenkins/workspace/cinemama
-
+      echo "${green}Creating a .env file...${reset}"
+      echo "
+      DATABASE_URL=$DATABASE_URL
+      JWT_SECRET=$JWT_SECRET">>./env
+      echo "${green}.env file is finished!${reset}"
       echo "${green}Creating a Dockerfile...${reset}"
       echo "FROM openjdk:latest
             COPY target/cinemama-0.0.1-SNAPSHOT.jar /usr/src/cinemama.jar
@@ -68,9 +72,9 @@ if [[ $input == "Y" || $input == "y" ]]; then
       sudo docker image build . --tag cinemama
       echo "${green}Image is finished!${reset}"
       echo "${green}Creating a Docker Application Container...${reset}"
-      sudo docker run -d -p 9090:9090/tcp --name spring-boot_container cinemama
+      sudo docker run -d -p 9090:9090/tcp --name spring-boot_container --env-file=env cinemama 
       echo "${green}Application Container is finished!${reset}"
 else
-      echo "${green}I hope you will configure the Dockerfile by yourself.${reset}"
+      echo "${green}I hope you will configure the Jenkins by yourself.${reset}"
 fi
 echo "${green}No Fear Art is here!!! Congratulations Docker and your Application install is finilized!${reset}"
