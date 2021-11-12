@@ -33,7 +33,7 @@ public class SwaggerConfig {
     return new ApiInfoBuilder()
       .title("Movie Theater REST Api")
       .description(
-        ".This is a Mandatory School project, designed by the team <b>PIE</b>.<br><br><em>Contributed by:</em><br><br><b>Artiom Tofan<br>Nikolai Lenander<br>Paweł Stępień<br>Tom Billington</b><br><br><em>All rights reserved.</em>"
+        "This is a Mandatory School project, designed by the team <b>PIE</b>.<br><br><em>Contributed by:</em><br><br><b>Artiom Tofan<br>Nikolai Lenander<br>Paweł Stępień<br>Tom Billington</b><br><br><em>All rights reserved.</em>"
       )
       .version("1.0")
       .build();
