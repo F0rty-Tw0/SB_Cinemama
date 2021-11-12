@@ -73,7 +73,7 @@ if [[ $input == "Y" || $input == "y" ]]; then
       sudo docker image build . --tag cinemama
       echo "${green}Image is finished!${reset}"
       echo "${green}Creating a Docker Application Container...${reset}"
-      sudo docker run -d -p 80:8080 --name cinemama_container --env-file=env  cinemama  
+      sudo docker run -d -p 80:8080 -p 443:443 --name cinemama_container --env-file=env  cinemama  
       echo "${green}Application Container is finished!${reset}"
 else
       echo "${green}I hope you will configure the Jenkins by yourself.${reset}"
