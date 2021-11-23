@@ -21,7 +21,7 @@ public class ActorController implements ActorControllerInterface{
 
     @Override
     public Actor findActorById(Long id) {
-
+    return null;
     }
 
     @Override
