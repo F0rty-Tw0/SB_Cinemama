@@ -33,7 +33,6 @@ public interface MovieControllerInterface {
     notes = "Execute to retrieve all <b>Movies</b>.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
   )
   @GetMapping
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public List<Movie> findAllMovies(@RequestParam(required = false) String type);
 
   @ApiOperation(
@@ -42,7 +41,6 @@ public interface MovieControllerInterface {
     notes = "Enter the <b>id</b> of a Movie to retrieve a <b>Movie</b> Object."
   )
   @GetMapping("/{id}")
-  @PreAuthorize("hasRole('ADMIN')")
   public Movie findMovieById(@PathVariable Long id);
 
   @ApiOperation(
