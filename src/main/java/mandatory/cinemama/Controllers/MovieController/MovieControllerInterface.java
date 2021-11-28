@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public interface MovieControllerInterface {
   @ApiOperation(
     value = " - Returns all the Movies ('type=extended' - extends the returned data - Requires ADMIN rights)",
-    authorizations = { @Authorization(value = "jwtToken") },
     notes = "Execute to retrieve all <b>Movies</b>.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
   )
   @GetMapping
@@ -37,7 +36,6 @@ public interface MovieControllerInterface {
 
   @ApiOperation(
     value = " - Returns the Movie based on the Id",
-    authorizations = { @Authorization(value = "jwtToken") },
     notes = "Enter the <b>id</b> of a Movie to retrieve a <b>Movie</b> Object."
   )
   @GetMapping("/{id}")
