@@ -77,8 +77,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .permitAll()
       .antMatchers("/api/auth/**")
       .permitAll()
-      .antMatchers("/api/movies/**")
-      .permitAll()
       .requestMatchers(
         req ->
           req.getParameter("type") != null &&
