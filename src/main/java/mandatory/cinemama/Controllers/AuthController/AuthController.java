@@ -6,8 +6,13 @@ import mandatory.cinemama.Security.AuthenticationPayload.Response.JwtResponse;
 import mandatory.cinemama.Services.AuthService.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(
+  origins = { "http://localhost:3000", "https://cinemama.vercel.app" },
+  maxAge = 3600
+)
 @RestController
 public class AuthController implements AuthControllerInterface {
 
@@ -23,8 +28,8 @@ public class AuthController implements AuthControllerInterface {
 
   @Override
   public ResponseEntity<?> registerUser(SignupRequest signUpRequest) {
-    try{
-    return authService.registerUser(signUpRequest);
+    try {
+      return authService.registerUser(signUpRequest);
     } catch (Exception e) {
       System.out.println("error!!");
     }
