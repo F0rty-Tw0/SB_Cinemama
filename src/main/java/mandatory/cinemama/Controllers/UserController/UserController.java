@@ -5,8 +5,10 @@ import mandatory.cinemama.Entities.User.User;
 import mandatory.cinemama.Services.UserService.UserService;
 import mandatory.cinemama.Utils.CheckExtended;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 public class UserController implements UserControllerInterface {
 
@@ -20,10 +22,7 @@ public class UserController implements UserControllerInterface {
 
   @Override
   public Object findUserByEmail(String email, String type) {
-    return userService.findUserByEmail(
-      email,
-      CheckExtended.isExtended(type)
-    );
+    return userService.findUserByEmail(email, CheckExtended.isExtended(type));
   }
 
   @Override

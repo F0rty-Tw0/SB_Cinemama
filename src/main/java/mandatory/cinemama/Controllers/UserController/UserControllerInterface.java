@@ -7,6 +7,7 @@ import java.util.List;
 import mandatory.cinemama.Entities.User.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,7 +34,7 @@ public interface UserControllerInterface {
   @GetMapping("/email/{email}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public Object findUserByEmail(
-    String email,
+    @PathVariable String email,
     @RequestParam(required = false) String type
   );
 
@@ -44,7 +45,7 @@ public interface UserControllerInterface {
   )
   @GetMapping("/role/{role}")
   @PreAuthorize("hasRole('ADMIN')")
-  public List<User> findUsersByRoleName(String role);
+  public List<User> findUsersByRoleName(@PathVariable String role);
 
   @ApiOperation(
     value = " - Checks if the User exists with the Email",
@@ -53,5 +54,5 @@ public interface UserControllerInterface {
   )
   @GetMapping("/exists/{email}")
   @PreAuthorize("hasRole('ADMIN')")
-  public Boolean userExistsByEmail(String email);
+  public Boolean userExistsByEmail(@PathVariable String email);
 }

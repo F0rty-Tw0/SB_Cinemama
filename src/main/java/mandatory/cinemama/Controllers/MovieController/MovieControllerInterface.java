@@ -42,7 +42,7 @@ public interface MovieControllerInterface {
     notes = "Enter the <b>id</b> of a Movie to retrieve a <b>Movie</b> Object."
   )
   @GetMapping("/{id}")
-  @PreAuthorize("hasRole('ADMIN')")
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public Movie findMovieById(@PathVariable Long id);
 
   @ApiOperation(
