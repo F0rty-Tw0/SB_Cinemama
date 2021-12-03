@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import javax.transaction.Transactional;
-
-import mandatory.cinemama.DTOs.ScheduleDTO;
 import mandatory.cinemama.DTOs.ImputDTOs.ScheduleInputDTO;
+import mandatory.cinemama.DTOs.ScheduleDTO;
 import mandatory.cinemama.Entities.Schedule;
 import mandatory.cinemama.Services.ScheduleService.ScheduleService;
+import mandatory.cinemama.Utils.CheckExtended;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -72,11 +72,16 @@ public class ScheduleController implements ScheduleControllerInterface {
   }
 
   @Override
-  public List<ScheduleDTO> findSchedulesByDateBetween(
+  public List<Schedule> findSchedulesByDateBetween(
     LocalDate endDate,
-    LocalDate startDate
+    LocalDate startDate,
+    String type
   ) {
-    return scheduleService.findSchedulesByDateBetween(startDate, endDate);
+    return scheduleService.findSchedulesByDateBetween(
+      startDate,
+      endDate,
+      CheckExtended.isExtended(type)
+    );
   }
 
   @Override

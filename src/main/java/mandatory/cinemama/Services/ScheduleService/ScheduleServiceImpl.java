@@ -114,20 +114,28 @@ public class ScheduleServiceImpl implements ScheduleService {
   }
 
   @Override
-  public List<ScheduleDTO> findSchedulesByDateBetween(
+  public List<Schedule> findSchedulesByDateBetween(
     LocalDate endDate,
-    LocalDate startDate
+    LocalDate startDate,
+    boolean isExtended
   ) {
     List<Schedule> schedules = scheduleRepository.findByDateBetween(
       endDate,
       startDate
     );
+    if (!isExtended) {
+      List<ScheduleDTO> schedulesDTO = DTOConverter.mapListDTO(
+        schedules,
+        ScheduleDTO.class
+      );
+      schedules = DTOConverter.mapListDTO(schedulesDTO, Schedule.class);
+    }
     ErrorMessageCreator.throwErrorIfNotFound(
       schedules,
       "From: " + startDate + " To: " + endDate,
       type
     );
-    return DTOConverter.mapListDTO(schedules, ScheduleDTO.class);
+    return schedules;
   }
 
   @Override

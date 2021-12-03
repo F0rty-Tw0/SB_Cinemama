@@ -6,9 +6,8 @@ import io.swagger.annotations.Authorization;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-
-import mandatory.cinemama.DTOs.ScheduleDTO;
 import mandatory.cinemama.DTOs.ImputDTOs.ScheduleInputDTO;
+import mandatory.cinemama.DTOs.ScheduleDTO;
 import mandatory.cinemama.Entities.Schedule;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Api(
@@ -96,7 +96,9 @@ public interface ScheduleControllerInterface {
   )
   @GetMapping("/movie/title/{title}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public List<ScheduleDTO> findSchedulesByMovieTitle(@PathVariable String title);
+  public List<ScheduleDTO> findSchedulesByMovieTitle(
+    @PathVariable String title
+  );
 
   @ApiOperation(
     value = " - Returns the Schedules based on the Movie Min Age Greater than input",
@@ -136,13 +138,14 @@ public interface ScheduleControllerInterface {
   )
   @GetMapping("/end-date/{endDate}/start-date/{startDate}")
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
-  public List<ScheduleDTO> findSchedulesByDateBetween(
+  public List<Schedule> findSchedulesByDateBetween(
     @PathVariable @DateTimeFormat(
       iso = DateTimeFormat.ISO.DATE
     ) LocalDate endDate,
     @PathVariable @DateTimeFormat(
       iso = DateTimeFormat.ISO.DATE
-    ) LocalDate startDate
+    ) LocalDate startDate,
+    @RequestParam(required = false) String type
   );
 
   @ApiOperation(

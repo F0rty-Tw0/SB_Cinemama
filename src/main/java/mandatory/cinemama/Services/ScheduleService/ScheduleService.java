@@ -32,9 +32,10 @@ public interface ScheduleService {
 
   public List<ScheduleDTO> findSchedulesByMovieInfoContaining(String info);
 
-  public List<ScheduleDTO> findSchedulesByDateBetween(
+  public List<Schedule> findSchedulesByDateBetween(
     LocalDate endDate,
-    LocalDate startDate
+    LocalDate startDate,
+    boolean isExtended
   );
 
   public List<ScheduleDTO> findSchedulesByHallTheaterId(Long id);
