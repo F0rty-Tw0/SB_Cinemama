@@ -10,9 +10,14 @@ import mandatory.cinemama.Entities.Schedule;
 import mandatory.cinemama.Services.ScheduleService.ScheduleService;
 import mandatory.cinemama.Utils.CheckExtended;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(
+  origins = { "http://localhost:3000", "https://cinemama.vercel.app" },
+  maxAge = 3600
+)
 public class ScheduleController implements ScheduleControllerInterface {
 
   @Autowired

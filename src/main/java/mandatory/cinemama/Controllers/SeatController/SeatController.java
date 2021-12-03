@@ -6,9 +6,11 @@ import java.util.List;
 import mandatory.cinemama.Entities.Hall.Seat;
 import mandatory.cinemama.Services.SeatService.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 public class SeatController implements SeatControllerInterface {
 
   @Autowired
