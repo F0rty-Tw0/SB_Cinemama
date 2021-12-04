@@ -1,5 +1,6 @@
 package mandatory.cinemama.Configurations;
 
+import java.util.Arrays;
 import mandatory.cinemama.Security.AuthTokenFilter;
 import mandatory.cinemama.Security.JWT.AuthEntryPointJwt;
 import mandatory.cinemama.Services.UserService.UserDetailsServiceImpl;
@@ -49,11 +50,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration(
-      "/**",
-      new CorsConfiguration().applyPermitDefaultValues()
+    CorsConfiguration configuration = new CorsConfiguration();
+
+    configuration.setAllowedOrigins(
+      Arrays.asList("http://localhost:3000", "https://cinemama.vercel.app")
     );
+    configuration.setAllowedMethods(
+      Arrays.asList("GET", "POST", "PATCH", "DELETE", "PUT")
+    );
+    configuration.setAllowedHeaders(
+      Arrays.asList(
+        "Authorization",
+        "Content-Type",
+        "Access-Control-Allow-Origin"
+      )
+    );
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
     return source;
   }
 
