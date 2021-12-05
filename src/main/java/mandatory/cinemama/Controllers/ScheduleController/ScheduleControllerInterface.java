@@ -134,11 +134,29 @@ public interface ScheduleControllerInterface {
   @ApiOperation(
     value = " - Returns the Schedules based on From Date and To Date",
     authorizations = { @Authorization(value = "jwtToken") },
-    notes = "Enter the <b>From Date and To Date</b> of a Schedule to retrieve a list of <b>Schedules</b>.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
+    notes = "Enter the <b>From Date and To Date</b> of a Schedule to retrieve a list of <b>Schedules</b>.<br><em>Requires a role of a minimum <b>MANAGER</b></em>"
   )
   @GetMapping("/end-date/{endDate}/start-date/{startDate}")
-  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
   public List<Schedule> findSchedulesByDateBetween(
+    @PathVariable @DateTimeFormat(
+      iso = DateTimeFormat.ISO.DATE
+    ) LocalDate endDate,
+    @PathVariable @DateTimeFormat(
+      iso = DateTimeFormat.ISO.DATE
+    ) LocalDate startDate,
+    @RequestParam(required = false) String type
+  );
+
+  @ApiOperation(
+    value = " - Returns the Schedules from a Theater based on From Date and To Date",
+    authorizations = { @Authorization(value = "jwtToken") },
+    notes = "Enter the <b>Theater id, From Date and To Date</b> of a Schedule to retrieve a list of <b>Schedules</b>.<br><em>Requires a role of a minimum <b>MANAGER</b></em>"
+  )
+  @GetMapping("{theaterId}/end-date/{endDate}/start-date/{startDate}")
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  public List<Schedule> findSchedulesByHallTheaterIdAndDateBetween(
+    @PathVariable Long theaterId,
     @PathVariable @DateTimeFormat(
       iso = DateTimeFormat.ISO.DATE
     ) LocalDate endDate,

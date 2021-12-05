@@ -3,9 +3,8 @@ package mandatory.cinemama.Services.ScheduleService;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-
-import mandatory.cinemama.DTOs.ScheduleDTO;
 import mandatory.cinemama.DTOs.ImputDTOs.ScheduleInputDTO;
+import mandatory.cinemama.DTOs.ScheduleDTO;
 import mandatory.cinemama.Entities.Schedule;
 
 public interface ScheduleService {
@@ -39,6 +38,13 @@ public interface ScheduleService {
   );
 
   public List<ScheduleDTO> findSchedulesByHallTheaterId(Long id);
+
+  public List<Schedule> findSchedulesByHallTheaterIdAndDateBetween(
+    Long theaterId,
+    LocalDate startDate,
+    LocalDate endDate,
+    boolean isExtended
+  );
 
   public void updateScheduleById(ScheduleInputDTO schedule, Long id);
 

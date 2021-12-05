@@ -146,6 +146,33 @@ public class ScheduleServiceImpl implements ScheduleService {
   }
 
   @Override
+  public List<Schedule> findSchedulesByHallTheaterIdAndDateBetween(
+    Long theaterId,
+    LocalDate endDate,
+    LocalDate startDate,
+    boolean isExtended
+  ) {
+    List<Schedule> schedules = scheduleRepository.findByHallTheaterIdAndDateBetween(
+      theaterId,
+      endDate,
+      startDate
+    );
+    if (!isExtended) {
+      List<ScheduleDTO> schedulesDTO = DTOConverter.mapListDTO(
+        schedules,
+        ScheduleDTO.class
+      );
+      schedules = DTOConverter.mapListDTO(schedulesDTO, Schedule.class);
+    }
+    ErrorMessageCreator.throwErrorIfNotFound(
+      schedules,
+      "From: " + startDate + " To: " + endDate,
+      type
+    );
+    return schedules;
+  }
+
+  @Override
   public void updateScheduleById(ScheduleInputDTO schedule, Long id) {
     Schedule newSchedule = scheduleRepository
       .findById(id)
