@@ -1,9 +1,8 @@
 package mandatory.cinemama.Controllers.ReservationController;
 
 import java.util.List;
-
-import mandatory.cinemama.DTOs.ReservationDTO;
 import mandatory.cinemama.DTOs.ImputDTOs.ReservationInputDTO;
+import mandatory.cinemama.DTOs.ReservationDTO;
 import mandatory.cinemama.Entities.Reservation;
 import mandatory.cinemama.Services.ReservationService.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;

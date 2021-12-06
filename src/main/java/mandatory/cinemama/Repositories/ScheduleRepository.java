@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
-
   public List<Schedule> findByDateAndTimeSlot(
     LocalDate date,
     LocalTime timeSlot
@@ -36,6 +35,11 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     LocalDate endDate
   );
 
-  public List<Schedule> findByHallTheaterId(Long id);
+  public List<Schedule> findByHallTheaterIdAndDateBetween(
+    Long theaterId,
+    LocalDate startDate,
+    LocalDate endDate
+  );
 
+  public List<Schedule> findByHallTheaterId(Long id);
 }

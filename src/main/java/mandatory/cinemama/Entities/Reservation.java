@@ -1,12 +1,13 @@
 package mandatory.cinemama.Entities;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -34,8 +35,8 @@ public class Reservation {
   @ManyToOne
   private Schedule schedule;
 
-  @OneToMany
-  private Set<Seat> seats;
+  @ManyToMany
+  private List<Seat> seats;
 
   @ManyToOne
   private User user;
@@ -43,7 +44,7 @@ public class Reservation {
   public Reservation(
     boolean isPaid,
     Schedule schedule,
-    Set<Seat> seats,
+    List<Seat> seats,
     User user
   ) {
     this.isPaid = isPaid;

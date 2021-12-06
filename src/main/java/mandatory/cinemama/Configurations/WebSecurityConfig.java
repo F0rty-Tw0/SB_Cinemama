@@ -1,5 +1,6 @@
 package mandatory.cinemama.Configurations;
 
+import java.util.Arrays;
 import mandatory.cinemama.Security.AuthTokenFilter;
 import mandatory.cinemama.Security.JWT.AuthEntryPointJwt;
 import mandatory.cinemama.Services.UserService.UserDetailsServiceImpl;
@@ -16,6 +17,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -42,6 +46,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
+  }
+
+  @Bean
+  CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration();
+
+    configuration.setAllowedOrigins(
+      Arrays.asList("http://localhost:3000", "https://cinemama.vercel.app")
+    );
+    configuration.setAllowedMethods(
+      Arrays.asList("GET", "POST", "PATCH", "DELETE", "PUT")
+    );
+    configuration.setAllowedHeaders(
+      Arrays.asList(
+        "Authorization",
+        "Content-Type",
+        "Access-Control-Allow-Origin"
+      )
+    );
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
   }
 
   @Override
