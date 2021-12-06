@@ -3,6 +3,7 @@ package mandatory.cinemama.Configurations;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
+import java.util.List;
 import java.util.Set;
 import mandatory.cinemama.DTOs.ActorDTO;
 import mandatory.cinemama.DTOs.DirectorDTO;
@@ -361,28 +362,28 @@ public class DatabaseConfig implements CommandLineRunner {
       reservationService.addReservation(
         new ReservationInputDTO(
           new ReservationScheduleInputDTO(1l),
-          Set.of(new SeatInputDTO(1l), new SeatInputDTO(2l)),
+          List.of(new SeatInputDTO(1l), new SeatInputDTO(2l)),
           new UserInputDTO(2l)
         )
       );
       reservationService.addReservation(
         new ReservationInputDTO(
           new ReservationScheduleInputDTO(1l),
-          Set.of(new SeatInputDTO(3l), new SeatInputDTO(4l)),
+          List.of(new SeatInputDTO(3l), new SeatInputDTO(4l)),
           new UserInputDTO(3l)
         )
       );
       reservationService.addReservation(
         new ReservationInputDTO(
           new ReservationScheduleInputDTO(1l),
-          Set.of(new SeatInputDTO(5l), new SeatInputDTO(6l)),
+          List.of(new SeatInputDTO(5l), new SeatInputDTO(6l)),
           new UserInputDTO(5l)
         )
       );
       reservationService.addReservation(
         new ReservationInputDTO(
           new ReservationScheduleInputDTO(1l),
-          Set.of(new SeatInputDTO(7l), new SeatInputDTO(8l)),
+          List.of(new SeatInputDTO(7l), new SeatInputDTO(8l)),
           new UserInputDTO(1l)
         )
       );

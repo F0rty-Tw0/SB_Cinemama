@@ -1,6 +1,6 @@
 package mandatory.cinemama.DTOs.ImputDTOs;
 
-import java.util.Set;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ReservationInputDTO {
   private ReservationScheduleInputDTO schedule;
-  private Set<SeatInputDTO> seats;
+  private List<SeatInputDTO> seats;
   private UserInputDTO user;
 
 }

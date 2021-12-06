@@ -8,6 +8,7 @@ import mandatory.cinemama.Entities.User.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -35,6 +36,18 @@ public interface UserControllerInterface {
   @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
   public Object findUserByEmail(
     @PathVariable String email,
+    @RequestParam(required = false) String type
+  );
+
+  @ApiOperation(
+    value = " - Returns the authenticated user ('type=extended' - extends the returned data - Requires ADMIN rights)",
+    authorizations = { @Authorization(value = "jwtToken") },
+    notes = "Retrieve an <b>User</b> Object.<br><em>Requires a role of a minimum <b>CUSTOMER</b></em>"
+  )
+  @GetMapping("/user")
+  @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('CUSTOMER')")
+  public Object getUserFromToken(
+    @RequestHeader(name="Authorization", required = false) String token,
     @RequestParam(required = false) String type
   );
 

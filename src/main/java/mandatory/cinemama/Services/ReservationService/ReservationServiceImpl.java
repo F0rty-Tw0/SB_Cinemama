@@ -68,7 +68,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     if (reservation.getSeats() != null) {
       foundReservation.setSeats(
-        DTOConverter.mapSetDTO(reservation.getSeats(), Seat.class)
+        DTOConverter.mapListDTO(reservation.getSeats(), Seat.class)
       );
     }
     
