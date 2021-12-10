@@ -75,17 +75,11 @@ public class SeatServiceImpl implements SeatService {
     LocalDate date,
     LocalTime timeSlot
   ) {
-    List<Seat> seats = seatRepository.findByReservationScheduleHallIdAndReservationScheduleDateAndReservationScheduleTimeSlot(
+    return seatRepository.findByReservationScheduleHallIdAndReservationScheduleDateAndReservationScheduleTimeSlot(
       hallId,
       date,
       timeSlot
     );
-    ErrorMessageCreator.throwErrorIfNotFound(
-      seats,
-      "Hall id: " + hallId + " Date: " + date + " Time Slot:" + timeSlot,
-      type
-    );
-    return seats;
   }
 
   @Override
