@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -57,7 +59,7 @@ public class Schedule {
   private Movie movie;
 
   @JsonIgnore
-  @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
   private Set<Reservation> reservations;
 
   public Schedule(LocalTime timeSlot, LocalDate date, Movie movie, Hall hall) {
