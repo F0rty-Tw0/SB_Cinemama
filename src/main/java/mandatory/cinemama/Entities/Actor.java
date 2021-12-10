@@ -2,7 +2,6 @@ package mandatory.cinemama.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -31,7 +30,7 @@ public class Actor {
   @Column(nullable = false)
   private Long id;
 
-  @Column(nullable = false)
+  @Column(unique = true, nullable = false)
   private String name;
 
   @JsonIgnore

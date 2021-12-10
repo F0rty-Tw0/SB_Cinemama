@@ -42,7 +42,7 @@ public class Movie {
   @JsonFormat(pattern = "HH:mm")
   private LocalTime screenTime;
 
-  @Column
+  @Column(length = 900)
   private String info;
 
   @Column(length = 10)
